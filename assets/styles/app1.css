@@ -20,14 +20,15 @@ body, html {
 }
 
 #p {
-  color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.5);
 }
+
 
 
 /* HEADER */
 header {
     position: relative;
-    height: 100vh;
+    height: 10vh;
     overflow: hidden;
 }
 
@@ -55,8 +56,9 @@ header {
 }
 
 .logo-group img:hover {
-  height: 100px;
+    height: 100px;
 }
+
 
 .navbar .menu {
     display: flex;
@@ -72,57 +74,14 @@ header {
 }
 
 .navbar .scroll:hover {
-  font-size: xx-large;
+    font-size: xx-large;
 }
-
 
 .navbar .scroll p {
     margin: 0 10px;
 }
 
 
-.video-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 1;
-}
-
-#bg-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.header-content {
-    position: absolute;
-    right: 50px;
-    bottom: 50px;
-    z-index: 2;
-    color: white;
-    text-align: center;
-    height: 100%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    padding: 20px;
-}
-
-.header-content .bottom-right-logo {
-    width: 200px;
-    height: 80px;
-}
-
-.header-content .bottom-right-logo:hover {
-  width: 300px;
-  height: 108px;
-}
 
 /* MAIN */
 
@@ -131,76 +90,59 @@ main {
     margin-top: 100px; /* Add margin-top to offset the fixed navbar */
 }
 
-h1 {
-    font-size: 3rem;
-}
-
-
 
 .Bckg-Carte {
-    background: white ;
+    background: white;
     width: 400px;
     border: 6px solid navy;
     border-radius: 8px;
     overflow: hidden;
-    margin-right: 20px;
+    margin-right: 20px; 
     transition: background 5s;
-    
 }
 
 .Bckg-Carte:hover {
-  background-color: #003165;
-  border: 10px solid navy;
-
+    background: #003165;
+    border: 10px solid navy;
 }
 
 .Bckg-Carte img {
-  width: 200%;
-  height: 400px; 
-  display:block;
-  margin: 0 auto;
-  transform: translateX(-50%);
-  transition: transform 3s, width 5s, height 5s;
+    width: 200%;
+    height: 400px; 
+    display:block;
+    margin: 0 auto;
+    transform: translateX(-50%);
+    transition: transform 3s, width 5s, height 5s;
 }
 
 .Bckg-Carte img:hover {
-  width: 300%;
-  height: 600px;
-  transform: rotate(50deg);
+    width: 300%;
+    height: 600px;
+    transform: rotate(50deg);
 }
+
+/* .Bckg-Carte img:nth-of-type(1) {
+    margin: 300px;
+    transform: translateX(-50%);
+}  */
 
 .Bckg-button {
     font-size: 1.5rem;
     color: navy;
     border: 4px solid navy;
     border-radius: 0.5rem ;
-    transition: background 2s, font-size 5s color 2s;
 }
-
-.Bckg-button:hover {
-  background: #003165;
-  color: white;
-  font-size: 2rem;
-  border: 8px solid navy;
-
-}
-
 
 h2 {
     font-size: 3rem;
 }
 
 .carte-texte {
-  margin-top: 0px;
-  margin-bottom: 10px;
-  margin-left: 5px;
-  padding: 10px 30px 100px 10px;
-  font-size: x-large;
-
-}
-
-.carte-texte p:nth-child(1):hover {
-  font-size: 40px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    padding: 10px 30px 100px 10px;
+    font-size: xx-large;
 
 }
 
@@ -212,6 +154,46 @@ h2 {
     padding-top: 100px;
     padding-bottom: 100px;
 }
+
+/* NOS SERVICE  */
+
+.img-NosService {
+
+    object-fit: cover;
+    height: 200%;
+    width: 200%; 
+    object-position: 243px 4px;
+    margin: -20px;
+
+}
+
+
+.service-carte {
+    z-index: 10;
+    width: 100%;
+    overflow: hidden;
+    padding: 32px;
+    font-size: xxx-large;
+}
+
+h5, p {
+    font-size: x-large;
+}
+
+.Bckg-button2 {
+    font-size: 1.5rem;
+    color: white;
+    padding: 5px 20px 5px 20px;
+    border: 4px solid navy;
+    background-color: navy;
+    border-radius: 10px;
+}
+
+.Bckg-button2:hover {
+    font-size: 3rem;
+    border: 8px solid navy;
+}
+
 
 /* FOOTER */
 
@@ -231,84 +213,84 @@ footer {
 }
 
 .footer-column {
-  flex: 1;
-  padding: 0 20px;
+    flex: 1;
+    padding: 0 20px;
 }
 
 .footer-column h3 {
-  font-size: 16px;
-  margin-bottom: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
 }
 
 .footer-column h3:hover {
-  font-size: 32px;
-  margin-bottom: 10px;
+    font-size: 32px;
+    margin-bottom: 10px;
 }
 
 .footer-column ul {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
 }
 
 .footer-column ul li {
-  margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 .footer-column ul li a {
-  color: white;
-  text-decoration: none;
+    color: white;
+    text-decoration: none;
 }
 
 .footer-column ul li a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 .footer-column img:hover {
-  height: 100px;
-  width: auto;
+    height: 100px;
+    width: auto;
 }
 
 .social-logos {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 
 .social-logos .logo-footer {
-  font-size: 24px;
-  margin-right: 10px;
-  color: white;
+    font-size: 24px;
+    margin-right: 10px;
+    color: white;
 }
 
 .social-logos .logo-footer:hover {
-  color: #cccccc;
-  font-size: 40px;
+    color: #cccccc;
+    font-size: 40px;
 }
 
 .footer-bottom {
-  text-align: center;
-  padding: 10px 0;
+    text-align: center;
+    padding: 10px 0;
 }
 
 .footer-bottom ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 
 .footer-bottom ul li a {
-  color: white;
-  text-decoration: none;
+    color: white;
+    text-decoration: none;
 }
 
 .footer-bottom ul li a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 .footer-bottom p {
-  margin-top: 10px;
-  color: #cccccc;
+    margin-top: 10px;
+    color: #cccccc;
 }
 
 
