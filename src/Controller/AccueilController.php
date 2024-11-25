@@ -14,4 +14,25 @@ class AccueilController extends AbstractController
         return $this->render('pages/home/index.html.twig');
 
     }
+
+    #[Route('/nosChiffres', name: 'nosChiffres')]
+    public function chiffres()
+    {
+        return $this->render('pages/home/nosChiffres.html.twig');
+
+    }
+
+    #[Route('/nosServices', name: 'nosServices')]
+    public function nosServices()
+    {
+        return $this->render('pages/home/nosServices.html.twig');
+
+    }
+
+    #[Route('/nosOffres', name: 'nosOffres')]
+    public function nosOffres()
+    {
+        return $this->render('pages/home/nosOffres.html.twig');
+
+    }
 }

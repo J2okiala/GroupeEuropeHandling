@@ -4,94 +4,130 @@
     Blog - Page d'accueil
 {% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="styles/home.css">
+{% endblock %}
+
 {% block body %}
-     <div class="container-struct">
-        <h1 class="text-left"> NOS SERVICES </h1>
+    <div class="container-struct">
+        <h2 class="text-left">NOS SERVICES</h2>
+
+        <!-- Section 1 : Nos Services -->
         <section class="flex m-4">
             <div class="Bckg-Carte">
-                <img src="./assets/img/photo4aero.jpg" alt="">
+                <img src="img/photo4aero.jpg" alt="Service Piste">
                 <div class="carte-texte">
                     <h4 class="h-blue">Piste</h4>
-                    <br>
                     <p>
-                        Chargement, déchargement et transport des bagages du fret et de la poste, Placement avion, Tractage, repoussage, départs au casque
-                        Livraison de pièces d’avion Nettoyage avion, Eau potable et vidange, Transport des passagers et équipages.
+                        Chargement, déchargement et transport des bagages du fret et de la poste, Placement avion, Tractage, repoussage, départs au casque, 
+                        Livraison de pièces d’avion, Nettoyage avion, Eau potable et vidange, Transport des passagers et équipages.
                     </p>
                 </div>
             </div>
-            <div class=" Bckg-Carte">
-                <img src="./assets/img/Photo-GEH-Passager.webp" alt="" width="580px" height="400px">
+            <div class="Bckg-Carte">
+                <img src="img/Photo-GEH-Passager.webp" alt="Services Passagers" width="580px" height="400px">
                 <div class="carte-texte">
                     <h4 class="h-blue">Services aux passagers</h4>
-                    <br>
                     <p>
-                        Accueil passagers, Enregistrement, embarquement et débarquement, Billetterie, Traitement des passagers en correspondance
+                        Accueil passagers, Enregistrement, embarquement et débarquement, Billetterie, Traitement des passagers en correspondance.
                     </p>
                 </div>
             </div>
         </section>
+
+        <!-- Section 2 : Cargo et Maintenance -->
         <section class="flex m-1">
-            <div class=" Bckg-Carte">
-                <img src="./assets/img/Photo-GEH-Cargo.webp" alt="" width="580px" height="400px">
+            <div class="Bckg-Carte">
+                <img src="img/Photo-GEH-Cargo.webp" alt="Service Cargo" width="580px" height="400px">
                 <div class="carte-texte">
                     <h4 class="h-blue">Cargo, Fret et Poste</h4>
-                    <br>
                     <p>
                         Transport de fret et de la poste en piste arrivée et départ, Traitement des vols camionnés (Vrac et ULD), 
-                        Acceptation, sécurisation, tri, classement et palettisation du fret
-                    </p>   
+                        Acceptation, sécurisation, tri, classement et palettisation du fret.
+                    </p>
                 </div>
             </div>
-            <div class=" Bckg-Carte">
-                <img src="./assets/img/Photo-GEH-Maintenance.webp" alt="" width="580px" height="400px">
+            <div class="Bckg-Carte">
+                <img src="img/Photo-GEH-Maintenance.webp" alt="Service Maintenance" width="580px" height="400px">
                 <div class="carte-texte">
                     <h4 class="h-blue">Maintenance</h4>
-                    <br>
                     <p>
-                        Atelier de maintenance dédié de 3000 m² pour l’entretien et la réparation des véhicules et engins de piste
+                        Atelier de maintenance dédié de 3000 m² pour l’entretien et la réparation des véhicules et engins de piste.
                     </p>
                 </div>
             </div>
         </section>
+
         <div class="text-left">
-            <h3 class="m-4 w-25 p-1 Bckg-button"><a href="./NosServices.html"> Tout les Services </a></h3>
+            <h3 class="m-4 w-25 p-1 Bckg-button"><a href={{path('nosServices')}}>Tous Nos Services<a/></h3>
         </div>
-        <h2 class="m-4 text-left"> CHIFFRES CLES </h2>
+
+        <!-- Section : nosOffres -->
+        <h2 class="m-4 text-left">NOS OFFRES</h2>
+
+        <section class="flex m-4">
+            <div class="Bckg-Carte">
+                <img src="img/photo4aero.jpg" alt="Service Piste">
+                <div class="carte-texte">
+                    <h4 class="h-blue">Piste</h4>
+                    <p>
+                        Chargement, déchargement et transport des bagages du fret et de la poste, Placement avion, Tractage, repoussage, départs au casque, 
+                        Livraison de pièces d’avion, Nettoyage avion, Eau potable et vidange, Transport des passagers et équipages.
+                    </p>
+                </div>
+            </div>
+            <div class="Bckg-Carte">
+                <img src="img/Photo-GEH-Passager.webp" alt="Services Passagers" width="580px" height="400px">
+                <div class="carte-texte">
+                    <h4 class="h-blue">Services aux passagers</h4>
+                    <p>
+                        Accueil passagers, Enregistrement, embarquement et débarquement, Billetterie, Traitement des passagers en correspondance.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <div class="text-left">
+            <h3 class="m-4 w-25 p-1 Bckg-button"><a href={{path('nosOffres')}}>Tous Nos Offres<a/></h3>
+        </div>
+
+        <!-- Section : Chiffres Clés -->
+        <h2 class="m-4 text-left">CHIFFRES CLÉS</h2>
         <section class="flex m-4">
             <div class="Bckg-Carte">
                 <div class="carte-texte">
                     <p class="h-blue">PASSAGE</p>
-                    <h4> 94 </h4>
-                    <p id="p"> millions de passagers transportés par le Groupe Europe Handling en 2023 </p>
+                    <h4>94</h4>
+                    <p>Millions de passagers transportés par le Groupe Europe Handling en 2023.</p>
                 </div>
             </div>
             <div class="Bckg-Carte">
                 <div class="carte-texte">
                     <p class="h-blue">PASSAGE</p>
-                    <h4> 80 </h4>
-                    <p id="p"> pays desservis par le Groupe Europe Handling dans tous les continent</p>
+                    <h4>80</h4>
+                    <p>Pays desservis par le Groupe Europe Handling sur tous les continents.</p>
                 </div>
             </div>
             <div class="Bckg-Carte"> 
                 <div class="carte-texte">
-                    <p class="h-blue"> DEVELOPPEMENT DURABLE</p>
-                <h4> -30% </h4>
-                <p id="p"> d'emissions de CO2 par passager-kilomètre d'ici 2030 par rapporrt à 2020</p>
+                    <p class="h-blue">DÉVELOPPEMENT DURABLE</p>
+                    <h4>-30%</h4>
+                    <p>Réduction d’émissions de CO2 par passager-kilomètre d’ici 2030 par rapport à 2020.</p>
                 </div>
             </div>
         </section>
-        <div class="text-left">
-            <h3 class="m-4 w-25 p-1 Bckg-button"><a href="./ChiffresCles.html"> Tout les Chiffres </a></h3>
-        </div>
-        <section class="Bckg-div">
-            <img src="./assets/img/photo2aero.jpg" alt="" width="1300px" height="500">
-        </section>
-        <section class="m-4">
-            <img src="./assets/img/photo avion aero.jpg" alt="" width="1300px" height="500"> 
-        </section>
-        <section class="Bckg-div">
-            <img src="./assets/img/phot3aerog.png" alt="" width="1300px" height="500">
-        </section>
-    </div> 
 
+        <div class="text-left">
+            <h3 class="m-4 w-25 p-1 Bckg-button"><a href={{path('nosChiffres')}}>Tous Nos Chiffres<a/></h3>
+        </div>
+
+        <!-- Section : Images et Photos -->
+        <section class="m-4">
+            <img src="img/photo avion aero.jpg" alt="Avion Aero" width="1300px" height="500px"> 
+        </section>
+        <section class="Bckg-div">
+            <img src="img/phot3aerog.png" alt="Photo Aero 3" width="1300px" height="500px">
+        </section>
+    </div>
 {% endblock %}
