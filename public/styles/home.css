@@ -5,10 +5,19 @@ body, html {
     padding: 0;
     font-family: Arial, sans-serif;
     overflow-x: hidden;
+<<<<<<< HEAD
+    background: linear-gradient(78.96deg,#f80000 33.47%, #000000 99.14%);
+    color: white; 
+    box-sizing: border-box;
+}
+
+
+=======
     background-color: white;
     color: black; 
 }
 
+>>>>>>> d7271f5f8a5ff4380038e839f7b3f4c243133e51
 /* color */
 .shadow-blue {
     -webkit-box-shadow: inset -1px 3px 8px 5px #1F87FF, 2px 5px 16px 0px #0B325E, 0px 0px 15px 5px #06439C; 
@@ -128,8 +137,13 @@ header {
 
 main {
     padding: 20px;
+<<<<<<< HEAD
+    margin-top: 100px;
+}  
+=======
     margin-top: 100px; /* Add margin-top to offset the fixed navbar */
 }
+>>>>>>> d7271f5f8a5ff4380038e839f7b3f4c243133e51
 
 h1 {
     font-size: 3rem;
@@ -139,7 +153,11 @@ h1 {
 
 .Bckg-Carte {
     background: white ;
+<<<<<<< HEAD
+    /* width: 400px; */
+=======
     width: 400px;
+>>>>>>> d7271f5f8a5ff4380038e839f7b3f4c243133e51
     border: 6px solid navy;
     border-radius: 8px;
     overflow: hidden;
@@ -171,7 +189,11 @@ h1 {
 
 .Bckg-button {
     font-size: 1.5rem;
+<<<<<<< HEAD
+    color: white;
+=======
     color: navy;
+>>>>>>> d7271f5f8a5ff4380038e839f7b3f4c243133e51
     border: 4px solid navy;
     border-radius: 0.5rem ;
     transition: background 2s, font-size 5s color 2s;
@@ -179,7 +201,11 @@ h1 {
 
 .Bckg-button:hover {
   background: #003165;
+<<<<<<< HEAD
+  color: black;
+=======
   color: white;
+>>>>>>> d7271f5f8a5ff4380038e839f7b3f4c243133e51
   font-size: 2rem;
   border: 8px solid navy;
 
@@ -206,6 +232,89 @@ h2 {
 
 
 .Bckg-div {
+<<<<<<< HEAD
+
+    padding: 20px 0;
+}
+
+.container {
+  display: grid;
+  gap: 20px; /* Espacement entre les cartes */
+  margin: 20px;
+}
+
+.card {
+  position: relative;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.card .img {
+  display: flex;
+  align-items: center;
+}
+
+.card.violet {
+  background-color: hsl(263, 55%, 52%);
+}
+
+.card.grayish-blue {
+  background-color: hsl(217, 19%, 35%);
+}
+
+.card.blackish-blue {
+  background-color: hsl(219, 29%, 14%);
+}
+
+.card.white {
+  background-color: grey;
+}
+
+@media (min-width: 640px) {
+  .container.one {
+    grid-template-columns: repeat(1, 1fr); /* 1 colonnes */
+  }
+  .container {
+    grid-template-columns: repeat(2, 1fr); /* 2 colonnes */
+  }
+}
+
+@media (min-width: 1280px) {
+
+  .container.one {
+    grid-template-columns: repeat(2, 1fr); /* 2 colonnes */
+    max-width: 1100px;
+    margin: 50px auto;
+  }
+
+  .container {
+    grid-template-columns: repeat(4, 1fr); /* 4 colonnes */
+    max-width: 1100px;
+    margin: 50px auto;
+  }
+
+  /* Styles spécifiques pour les grandes tailles d'écran */
+  .card.violet {
+    grid-column: 1 / 3; /* Occupe 2 colonnes */
+  }
+
+
+  .card.blackish-blue {
+    grid-column: 2 / 4; /* Occupe 2 colonnes */
+  }
+
+
+  .card.white {
+    grid-column: 4; /* Occupe la dernière colonne */
+    grid-row: 1 / 3; /* Occupe 2 lignes */
+  }
+
+}
+
+
+=======
     background-color: whitesmoke;
     padding-left: 100%;
     padding-right: 100%;
@@ -213,6 +322,7 @@ h2 {
     padding-bottom: 100px;
 }
 
+>>>>>>> d7271f5f8a5ff4380038e839f7b3f4c243133e51
 /* FOOTER */
 
 
