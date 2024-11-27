@@ -9,11 +9,12 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container-struct">
-        <h2 class="text-left">NOS SERVICES</h2>
 
+    <main>   
+    <h2 class="">NOS SERVICES</h2>
+    <div>
         <!-- Section 1 : Nos Services -->
-        <section class="flex m-4">
+        <section class="container one">
             <div class="Bckg-Carte">
                 <img src="img/photo4aero.jpg" alt="Service Piste">
                 <div class="carte-texte">
@@ -33,10 +34,8 @@
                     </p>
                 </div>
             </div>
-        </section>
 
         <!-- Section 2 : Cargo et Maintenance -->
-        <section class="flex m-1">
             <div class="Bckg-Carte">
                 <img src="img/Photo-GEH-Cargo.webp" alt="Service Cargo" width="580px" height="400px">
                 <div class="carte-texte">
@@ -57,6 +56,7 @@
                 </div>
             </div>
         </section>
+    </div>
 
         <div class="text-left">
             <h3 class="m-4 w-25 p-1 Bckg-button"><a href={{path('nosServices')}}>Tous Nos Services<a/></h3>
@@ -65,27 +65,76 @@
         <!-- Section : nosOffres -->
         <h2 class="m-4 text-left">NOS OFFRES</h2>
 
-        <section class="flex m-4">
-            <div class="Bckg-Carte">
-                <img src="img/photo4aero.jpg" alt="Service Piste">
-                <div class="carte-texte">
-                    <h4 class="h-blue">Piste</h4>
-                    <p>
-                        Chargement, déchargement et transport des bagages du fret et de la poste, Placement avion, Tractage, repoussage, départs au casque, 
-                        Livraison de pièces d’avion, Nettoyage avion, Eau potable et vidange, Transport des passagers et équipages.
-                    </p>
-                </div>
+        <section class="container">
+        <div class="card violet">
+            <div class="img">
+            <img src="img/photo4aero.jpg" alt="Service Piste" width="50%">
             </div>
-            <div class="Bckg-Carte">
-                <img src="img/Photo-GEH-Passager.webp" alt="Services Passagers" width="580px" height="400px">
-                <div class="carte-texte">
-                    <h4 class="h-blue">Services aux passagers</h4>
-                    <p>
-                        Accueil passagers, Enregistrement, embarquement et débarquement, Billetterie, Traitement des passagers en correspondance.
-                    </p>
-                </div>
+            <div>
+            <h4 class="h-blue">Offre d'emploi : Agent de Piste (H/F) </h4>
+            <p>
+                Description du poste:
+                Vous êtes passionné(e) par l'univers aéroportuaire et souhaitez contribuer à la bonne gestion des opérations au sol ? 
+                Rejoignez notre équipe en tant qu'Agent de Piste (H/F).
+                En tant qu'Agent de Piste, vous jouerez un rôle essentiel dans le bon déroulement des activités autour des avions, 
+                garantissant sécurité, efficacité et ponctualité.
+            </p>
             </div>
+        </div>
+
+        <div class="card grayish-blue">
+            <div class="img">
+            <img src="img/photo4aero.jpg" alt="Service Piste" width="50%">
+            </div>
+            <div>
+            <h4 class="h-blue">Piste</h4>
+            <p>
+                Chargement, déchargement et transport des bagages du fret et de la poste, Placement avion, Tractage, repoussage, départs au casque, 
+                Livraison de pièces d’avion, Nettoyage avion, Eau potable et vidange, Transport des passagers et équipages.
+            </p>
+            </div>
+        </div>
+
+        <div class="card grayish-blue">
+            <div class="img">
+            <img src="img/photo4aero.jpg" alt="Service Piste" width="50%">
+            </div>
+            <div>
+            <h4 class="h-blue">Piste</h4>
+            <p>
+                Chargement, déchargement et transport des bagages du fret et de la poste, Placement avion, Tractage, repoussage, départs au casque, 
+                Livraison de pièces d’avion, Nettoyage avion, Eau potable et vidange, Transport des passagers et équipages.
+            </p>
+            </div>
+        </div>
+
+        <div class="card blackish-blue">
+            <div class="img">
+            <img src="img/Photo-GEH-Passager.webp" alt="Services Passagers" width="50%">
+            </div>
+            <div>
+            <h4 class="h-blue">Services aux passagers</h4>
+            <p>
+                Accueil passagers, Enregistrement, embarquement et débarquement, Billetterie, Traitement des passagers en correspondance.
+            </p>
+            </div>
+        </div>
+
+
+
+        <div class="card white">
+            <div class="img">
+            <img src="img/Photo-GEH-Passager.webp" alt="Services Passagers" width="50%">
+            </div>
+            <div>
+            <h4 class="h-blue">Services aux passagers</h4>
+            <p>
+                Accueil passagers, Enregistrement, embarquement et débarquement, Billetterie, Traitement des passagers en correspondance.
+            </p>
+            </div>
+        </div>
         </section>
+
 
 
         <div class="text-left">
@@ -94,7 +143,7 @@
 
         <!-- Section : Chiffres Clés -->
         <h2 class="m-4 text-left">CHIFFRES CLÉS</h2>
-        <section class="flex m-4">
+        <section class="container">
             <div class="Bckg-Carte">
                 <div class="carte-texte">
                     <p class="h-blue">PASSAGE</p>
@@ -123,11 +172,12 @@
         </div>
 
         <!-- Section : Images et Photos -->
-        <section class="m-4">
-            <img src="img/photo avion aero.jpg" alt="Avion Aero" width="1300px" height="500px"> 
+        <section class="m-4 Bckg-div">
+            <img src="img/photo avion aero.jpg" alt="Avion Aero" width="2000vh" height="500px"> 
         </section>
-        <section class="Bckg-div">
-            <img src="img/phot3aerog.png" alt="Photo Aero 3" width="1300px" height="500px">
+        <section class="">
+            <img src="img/phot3aerog.png" alt="Photo Aero 3" width="2000px" height="500px">
         </section>
-    </div>
+
+    </main>
 {% endblock %}
