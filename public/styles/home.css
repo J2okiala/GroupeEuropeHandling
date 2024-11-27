@@ -5,12 +5,19 @@ body, html {
     padding: 0;
     font-family: Arial, sans-serif;
     overflow-x: hidden;
+<<<<<<< HEAD
     background: linear-gradient(78.96deg,#f80000 33.47%, #000000 99.14%);
     color: white; 
     box-sizing: border-box;
 }
 
 
+=======
+    background-color: white;
+    color: black; 
+}
+
+>>>>>>> d7271f5f8a5ff4380038e839f7b3f4c243133e51
 /* color */
 .shadow-blue {
     -webkit-box-shadow: inset -1px 3px 8px 5px #1F87FF, 2px 5px 16px 0px #0B325E, 0px 0px 15px 5px #06439C; 
@@ -130,8 +137,13 @@ header {
 
 main {
     padding: 20px;
+<<<<<<< HEAD
     margin-top: 100px;
 }  
+=======
+    margin-top: 100px; /* Add margin-top to offset the fixed navbar */
+}
+>>>>>>> d7271f5f8a5ff4380038e839f7b3f4c243133e51
 
 h1 {
     font-size: 3rem;
@@ -141,7 +153,11 @@ h1 {
 
 .Bckg-Carte {
     background: white ;
+<<<<<<< HEAD
     /* width: 400px; */
+=======
+    width: 400px;
+>>>>>>> d7271f5f8a5ff4380038e839f7b3f4c243133e51
     border: 6px solid navy;
     border-radius: 8px;
     overflow: hidden;
@@ -173,7 +189,11 @@ h1 {
 
 .Bckg-button {
     font-size: 1.5rem;
+<<<<<<< HEAD
     color: white;
+=======
+    color: navy;
+>>>>>>> d7271f5f8a5ff4380038e839f7b3f4c243133e51
     border: 4px solid navy;
     border-radius: 0.5rem ;
     transition: background 2s, font-size 5s color 2s;
@@ -181,7 +201,11 @@ h1 {
 
 .Bckg-button:hover {
   background: #003165;
+<<<<<<< HEAD
   color: black;
+=======
+  color: white;
+>>>>>>> d7271f5f8a5ff4380038e839f7b3f4c243133e51
   font-size: 2rem;
   border: 8px solid navy;
 
@@ -208,6 +232,7 @@ h2 {
 
 
 .Bckg-div {
+<<<<<<< HEAD
 
     padding: 20px 0;
 }
@@ -289,6 +314,15 @@ h2 {
 }
 
 
+=======
+    background-color: whitesmoke;
+    padding-left: 100%;
+    padding-right: 100%;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+>>>>>>> d7271f5f8a5ff4380038e839f7b3f4c243133e51
 /* FOOTER */
 
 
