@@ -10,174 +10,148 @@
 
 {% block body %}
 
-    <main>   
-    <h2 class="">NOS SERVICES</h2>
-    <div>
-        <!-- Section 1 : Nos Services -->
-        <section class="container one">
-            <div class="Bckg-Carte">
-                <img src="img/photo4aero.jpg" alt="Service Piste">
-                <div class="carte-texte">
-                    <h4 class="h-blue">Piste</h4>
+    <main>
+        <h2>NOS SERVICES</h2>
+        <div class="container-fluid">
+            <!-- Section 1 : Nos Services -->
+            <section class="row row-cols-1 row-cols-md-2 row-cols-lg-2 ">
+                <div class="col Bckg-Carte">
+                    <img src="img/photo4aero.jpg" alt="Service Piste" width="100%">
+                    <div class="carte-texte">
+                        <h4>Piste</h4>
+                        <p>
+                            Chargement, déchargement et transport des bagages du fret et de la poste, Placement avion, Tractage, repoussage, départs au casque, 
+                            Livraison de pièces d’avion, Nettoyage avion, Eau potable et vidange, Transport des passagers et équipages.
+                        </p>
+                    </div>
+                </div>
+                <div class="col Bckg-Carte">
+                    <img src="img/Photo-GEH-Passager.webp" alt="Services Passagers" width="100%">
+                    <div class="carte-texte">
+                        <h4>Services aux passagers</h4>
+                        <p>
+                            Accueil passagers, Enregistrement, embarquement et débarquement, Billetterie, Traitement des passagers en correspondance.
+                        </p>
+                    </div>
+                </div>
+                <div class="col Bckg-Carte">
+                    <img src="img/Photo-GEH-Cargo.webp" alt="Service Cargo" width="100%">
+                    <div class="carte-texte">
+                        <h4>Cargo, Fret et Poste</h4>
+                        <p>
+                            Transport de fret et de la poste en piste arrivée et départ, Traitement des vols camionnés (Vrac et ULD), 
+                            Acceptation, sécurisation, tri, classement et palettisation du fret.
+                        </p>
+                    </div>
+                </div>
+                <div class="col Bckg-Carte">
+                    <img src="img/Photo-GEH-Maintenance.webp" alt="Service Maintenance" width="100%">
+                    <div class="carte-texte">
+                        <h4>Maintenance</h4>
+                        <p>
+                            Atelier de maintenance dédié de 3000 m² pour l’entretien et la réparation des véhicules et engins de piste.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div>
+            <h3 class="m-2 w-25 p-1 Bckg-button"><a href={{path('nosServices')}}>Tous Nos Services<a/></h3>
+        </div>
+
+        <!-- Section : nosOffres -->
+        <h2 class="m-5">NOS OFFRES</h2>
+
+        <section class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4 card violet">
+                    <div>
+                    <h4 class="h-black">Offre d'emploi : Agent de Piste (H/F) </h4>
+                    <p>
+                        Description du poste:
+                        Vous êtes passionné(e) par l'univers aéroportuaire et souhaitez contribuer à la bonne gestion des opérations au sol ? 
+                        Rejoignez notre équipe en tant qu'Agent de Piste (H/F).
+                        En tant qu'Agent de Piste, vous jouerez un rôle essentiel dans le bon déroulement des activités autour des avions, 
+                        garantissant sécurité, efficacité et ponctualité.
+                    </p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4 card grayish-blue">   
+                    <div>
+                    <h4 class="h-black">Piste</h4>
                     <p>
                         Chargement, déchargement et transport des bagages du fret et de la poste, Placement avion, Tractage, repoussage, départs au casque, 
                         Livraison de pièces d’avion, Nettoyage avion, Eau potable et vidange, Transport des passagers et équipages.
                     </p>
+                    </div>
                 </div>
-            </div>
-            <div class="Bckg-Carte">
-                <img src="img/Photo-GEH-Passager.webp" alt="Services Passagers" width="580px" height="400px">
-                <div class="carte-texte">
-                    <h4 class="h-blue">Services aux passagers</h4>
+
+                <div class="col-12 col-md-6 col-lg-4 card white ">
+                    <div>
+                    <h4 class="h-black">Piste</h4>
+                    <p>
+                        Chargement, déchargement et transport des bagages du fret et de la poste, Placement avion, Tractage, repoussage, départs au casque, 
+                        Livraison de pièces d’avion, Nettoyage avion, Eau potable et vidange, Transport des passagers et équipages.
+                    </p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-6 card white">
+                    <div>
+                    <h4 class="h-black">Services aux passagers</h4>
                     <p>
                         Accueil passagers, Enregistrement, embarquement et débarquement, Billetterie, Traitement des passagers en correspondance.
                     </p>
+                    </div>
                 </div>
-            </div>
 
-        <!-- Section 2 : Cargo et Maintenance -->
-            <div class="Bckg-Carte">
-                <img src="img/Photo-GEH-Cargo.webp" alt="Service Cargo" width="580px" height="400px">
-                <div class="carte-texte">
-                    <h4 class="h-blue">Cargo, Fret et Poste</h4>
+                <div class="col-12 col-md-12 col-lg-6 card blackish-blue">
+                    <div>
+                    <h4 class="h-black">Services aux passagers</h4>
                     <p>
-                        Transport de fret et de la poste en piste arrivée et départ, Traitement des vols camionnés (Vrac et ULD), 
-                        Acceptation, sécurisation, tri, classement et palettisation du fret.
+                        Accueil passagers, Enregistrement, embarquement et débarquement, Billetterie, Traitement des passagers en correspondance.
                     </p>
-                </div>
-            </div>
-            <div class="Bckg-Carte">
-                <img src="img/Photo-GEH-Maintenance.webp" alt="Service Maintenance" width="580px" height="400px">
-                <div class="carte-texte">
-                    <h4 class="h-blue">Maintenance</h4>
-                    <p>
-                        Atelier de maintenance dédié de 3000 m² pour l’entretien et la réparation des véhicules et engins de piste.
-                    </p>
+                    </div>
                 </div>
             </div>
         </section>
-    </div>
 
-        <div class="text-left">
-            <h3 class="m-4 w-25 p-1 Bckg-button"><a href={{path('nosServices')}}>Tous Nos Services<a/></h3>
-        </div>
-
-        <!-- Section : nosOffres -->
-        <h2 class="m-4 text-left">NOS OFFRES</h2>
-
-        <section class="container">
-        <div class="card violet">
-            <div class="img">
-            <img src="img/photo4aero.jpg" alt="Service Piste" width="50%">
-            </div>
-            <div>
-            <h4 class="h-blue">Offre d'emploi : Agent de Piste (H/F) </h4>
-            <p>
-                Description du poste:
-                Vous êtes passionné(e) par l'univers aéroportuaire et souhaitez contribuer à la bonne gestion des opérations au sol ? 
-                Rejoignez notre équipe en tant qu'Agent de Piste (H/F).
-                En tant qu'Agent de Piste, vous jouerez un rôle essentiel dans le bon déroulement des activités autour des avions, 
-                garantissant sécurité, efficacité et ponctualité.
-            </p>
-            </div>
-        </div>
-
-        <div class="card grayish-blue">
-            <div class="img">
-            <img src="img/photo4aero.jpg" alt="Service Piste" width="50%">
-            </div>
-            <div>
-            <h4 class="h-blue">Piste</h4>
-            <p>
-                Chargement, déchargement et transport des bagages du fret et de la poste, Placement avion, Tractage, repoussage, départs au casque, 
-                Livraison de pièces d’avion, Nettoyage avion, Eau potable et vidange, Transport des passagers et équipages.
-            </p>
-            </div>
-        </div>
-
-        <div class="card grayish-blue">
-            <div class="img">
-            <img src="img/photo4aero.jpg" alt="Service Piste" width="50%">
-            </div>
-            <div>
-            <h4 class="h-blue">Piste</h4>
-            <p>
-                Chargement, déchargement et transport des bagages du fret et de la poste, Placement avion, Tractage, repoussage, départs au casque, 
-                Livraison de pièces d’avion, Nettoyage avion, Eau potable et vidange, Transport des passagers et équipages.
-            </p>
-            </div>
-        </div>
-
-        <div class="card blackish-blue">
-            <div class="img">
-            <img src="img/Photo-GEH-Passager.webp" alt="Services Passagers" width="50%">
-            </div>
-            <div>
-            <h4 class="h-blue">Services aux passagers</h4>
-            <p>
-                Accueil passagers, Enregistrement, embarquement et débarquement, Billetterie, Traitement des passagers en correspondance.
-            </p>
-            </div>
-        </div>
-
-
-
-        <div class="card white">
-            <div class="img">
-            <img src="img/Photo-GEH-Passager.webp" alt="Services Passagers" width="50%">
-            </div>
-            <div>
-            <h4 class="h-blue">Services aux passagers</h4>
-            <p>
-                Accueil passagers, Enregistrement, embarquement et débarquement, Billetterie, Traitement des passagers en correspondance.
-            </p>
-            </div>
-        </div>
-        </section>
-
-
-
-        <div class="text-left">
-            <h3 class="m-4 w-25 p-1 Bckg-button"><a href={{path('nosOffres')}}>Tous Nos Offres<a/></h3>
+        <div>
+            <h3 class="m-2 w-25 p-1 Bckg-button"><a href={{path('nosOffres')}}>Toutes Nos Offres<a/></h3>
         </div>
 
         <!-- Section : Chiffres Clés -->
-        <h2 class="m-4 text-left">CHIFFRES CLÉS</h2>
-        <section class="container">
-            <div class="Bckg-Carte">
-                <div class="carte-texte">
-                    <p class="h-blue">PASSAGE</p>
-                    <h4>94</h4>
-                    <p>Millions de passagers transportés par le Groupe Europe Handling en 2023.</p>
+        <h2 class="m-5">CHIFFRES CLÉS</h2>
+        <section class="container-fluid">
+            <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4"> 
+                <div class="m-2 col Bckg-Carte red">
+                    <div >
+                        <p>PASSAGE</p>
+                        <h4>94</h4>
+                        <p>Millions de passagers transportés par le Groupe Europe Handling en 2023.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="Bckg-Carte">
-                <div class="carte-texte">
-                    <p class="h-blue">PASSAGE</p>
-                    <h4>80</h4>
-                    <p>Pays desservis par le Groupe Europe Handling sur tous les continents.</p>
+                <div class="m-2 col Bckg-Carte red">
+                    <div>
+                        <p>PASSAGE</p>
+                        <h4>80</h4>
+                        <p>Pays desservis par le Groupe Europe Handling sur tous les continents.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="Bckg-Carte"> 
-                <div class="carte-texte">
-                    <p class="h-blue">DÉVELOPPEMENT DURABLE</p>
-                    <h4>-30%</h4>
-                    <p>Réduction d’émissions de CO2 par passager-kilomètre d’ici 2030 par rapport à 2020.</p>
+                <div class="m-2 col Bckg-Carte red"> 
+                    <div>
+                        <p>DÉVELOPPEMENT DURABLE</p>
+                        <h4>-30%</h4>
+                        <p>Réduction d’émissions de CO2 par passager-kilomètre d’ici 2030 par rapport à 2020.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <div class="text-left">
-            <h3 class="m-4 w-25 p-1 Bckg-button"><a href={{path('nosChiffres')}}>Tous Nos Chiffres<a/></h3>
+        <div class="container-fluid">
+            <h3 class="m-2 w-25 p-1 Bckg-button"><a href={{path('nosChiffres')}}>Tous Nos Chiffres<a/></h3>
         </div>
-
-        <!-- Section : Images et Photos -->
-        <section class="m-4 Bckg-div">
-            <img src="img/photo avion aero.jpg" alt="Avion Aero" width="2000vh" height="500px"> 
-        </section>
-        <section class="">
-            <img src="img/phot3aerog.png" alt="Photo Aero 3" width="2000px" height="500px">
-        </section>
-
     </main>
 {% endblock %}
