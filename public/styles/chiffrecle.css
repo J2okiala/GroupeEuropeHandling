@@ -1,13 +1,14 @@
 @import url(./compenent/global.css);
 /* styles.css */
-body,
-html {
+body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    overflow-x: hidden;
-    background-color: white;
-    color: black;
+    overflow-x: hidden; 
+    background: rgb(2,4,25);
+    background: linear-gradient(260deg, rgba(2,4,25,1) 19%, rgba(159,9,9,1) 88%);
+    color: white; 
+    box-sizing: border-box;
 }
 
 /* color */
@@ -18,78 +19,31 @@ html {
     0px 0px 15px 5px #06439c;
 }
 
-.h-blue {
-    color: #06439c;
-}
-
-#p {
-    color: rgba(255, 255, 255, 0.5);
-}
-
-
-#h6 {
-    text-align: left;
-    padding-top: 100px;
-    font-size: large;
-    color: rgba(0, 0, 0, 0.8);
+.h-black {
+    color: black;
 }
 
 
 /* MAIN */
 
-main {
-    padding: 20px;
-    margin-top: 100px; /* Add margin-top to offset the fixed navbar */
-}
 
-#img {
-    padding-top: 100px;
-    min-width: 150px;
-    min-height: 400px;
-}
-
-.Bckg-Carte #img:hover {
-    padding-top: 100px;
-    min-width: 300px;
-    min-height: 800px;
-}
 
 .Bckg-Carte {
-    background: white;
+    background: linear-gradient(260deg, rgba(2,4,25,1) 19%, rgba(159,9,9,1) 88%);
     width: 100%;
-    border: 6px solid navy;
+    border: 2px solid navy;
     border-radius: 8px;
     overflow: hidden;
     margin-right: 20px;
-    /* transition: background 5s; color 1s; */
 }
 
 .Bckg-Carte:hover {
-    background: #003165;
-    border: 10px solid navy;
+    background: grey;
+    border: 3px solid navy;
     color: white;
 }
 
-.Bckg-Carte img {
-    width: 200%;
-    height: 400px;
-    display: block;
-    margin: 0 auto;
-    transform: translateX(-50%);
-    transition: transform 3s, width 5s, height 5s;
-}
 
-.Bckg-Carte img:hover {
-    width: 300%;
-    height: 600px;
-    transform: rotate(50deg);
-}
-
-
-.Bckg-Carte img:nth-of-type(1) {
-    margin: 300px;
-    transform: translateX(-50%);
-}
 
 .Bckg-button {
     font-size: 1.5rem;
@@ -102,9 +56,18 @@ h2 {
     font-size: 3rem;
 }
 
+h5 {
+    font-size: 1.5rem;
+}
+
 #h6 {
+    text-align: left;
+    padding-top: 100px;
+    font-size: 1rem;
     color: white;
 }
+
+
 
 .carte-texte {
     margin-top: 0px;
