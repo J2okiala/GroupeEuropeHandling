@@ -1,22 +1,85 @@
 <header>
-    <div class="container-struct">
-        <nav class="navbar">
-            <div class="logo-group">
-                <a href="{{ path('home') }}">
-                    <img class="shadow-blue" src="/img/LogoEuropeHandling.png" alt="Logo Europe Handling">
-                </a>
+    <div>
+        {% if app.request.attributes.get('_route') == 'nosOffres' %}
+            <!-- Navbar spécifique pour la page nosOffres -->
+            <nav class="secondary-navbar navbar">
+                <ul>
+                    <li>NOS OFFRES</li>
+                    <div class="right-links">
+                        <li><a href="/emplois/it">Inscription</a></li>
+                        <li><a href="/emplois/marketing">Connexion</a></li>
+                        <li><a href="/emplois/finance" class="candidature-link">Candidature Spontanée</a></li>
+                    </div>
+                </ul>
+            </nav>
+
+            <!-- Formulaire spécifique pour la page nosOffres -->
+            <div class="video-container">
+                <video autoplay muted loop id="bg-video">
+                    <source src="video/6472912-hd_1280_720_24fps.mp4" type="video/mp4">
+                </video>
+                <form class="row gy-2 gx-3 align-items-center">
+                    <div class="col-auto">
+                        <label class="visually-hidden" for="autoSizingSelect">Recherche Poste</label>
+                        <select class="form-select" id="autoSizingSelect">
+                            <option selected>Recherche Poste</option>
+                            <option value="1">Agent Piste</option>
+                            <option value="2">Agent Escale</option>
+                            <option value="3">Agent Trafic</option>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <label class="visually-hidden" for="autoSizingSelect">Type de Contrat</label>
+                        <select class="form-select" id="autoSizingSelect">
+                            <option selected>Type de Contrat</option>
+                            <option value="1">CDD</option>
+                            <option value="2">CDI</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <label class="visually-hidden" for="autoSizingSelect">Modalités de Travail</label>
+                        <select class="form-select" id="autoSizingSelect">
+                            <option selected>Modalités de Travail</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <label class="visually-hidden" for="autoSizingSelect">Localisation</label>
+                        <select class="form-select" id="autoSizingSelect">
+                            <option selected>Localisation</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary">Recherchez</button>
+                    </div>
+                </form>
             </div>
-            <div class="menu">
-                <div class="scroll">
-                    <i class="fa-solid fa-bars"></i>
-                    <p>MENU</p>
+        {% else %}
+            <!-- Navbar par défaut (si ce n'est pas la page nosOffres) -->
+            <nav class="navbar">
+                <div class="logo-group">
+                    <a href="{{ path('home') }}">
+                        <img class="shadow-blue" src="/img/LogoEuropeHandling.png" alt="Logo Europe Handling">
+                    </a>
                 </div>
+                <div class="menu">
+                    <div class="scroll">
+                        <i class="fa-solid fa-bars"></i>
+                        <p>MENU</p>
+                    </div>
+                </div>
+            </nav>
+            <div class="video-container">
+                <video autoplay muted loop id="bg-video">
+                    <source src="video/6472912-hd_1280_720_24fps.mp4" type="video/mp4">
+                </video>
             </div>
-        </nav>
-        <div class="video-container">
-            <video autoplay muted loop id="bg-video">
-                <source src="video/6472912-hd_1280_720_24fps.mp4" type="video/mp4">
-            </video>
-        </div>
+        {% endif %}
     </div>
 </header>

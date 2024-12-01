@@ -33,6 +33,5 @@ class AccueilController extends AbstractController
     public function nosOffres()
     {
         return $this->render('pages/home/nosOffres.html.twig');
-
     }
 }

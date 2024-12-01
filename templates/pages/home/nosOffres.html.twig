@@ -1,14 +1,28 @@
 {% extends 'pages/base.html.twig' %}
 
 {% block title %}
-    Blog - Page d'accueil
+    Blog - Page d'offres
 {% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="styles/offres.css">
 {% endblock %}
 
 {% block body %}
-<h1>Page d'Emplois</h1>
+    <!-- Navbar spécifique à cette page -->
+    {# <nav class="secondary-navbar">
+        <ul>
+            <li>NOS OFFRES</li>
+            <div class="right-links">
+                <li><a href="/emplois/it">Inscription</a></li>
+                <li><a href="/emplois/marketing">Connexion</a></li>
+                <li><a href="/emplois/finance" class="candidature-link">Candidature Spontané</a></li>
+            </div>
+        </ul>
+    </nav> #}
+
+    <!-- Contenu principal -->
+    <h1>Page d'Emplois</h1>
+
 
 {% endblock %}
