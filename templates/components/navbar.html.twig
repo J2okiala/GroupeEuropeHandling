@@ -2,24 +2,30 @@
     <div>
         {% if app.request.attributes.get('_route') == 'nosOffres' %}
             <!-- Navbar spécifique pour la page nosOffres -->
-            <nav class="secondary-navbar navbar">
+            <nav class="secondary-navbar navbar" id="top">
                 <ul>
-                    <li>NOS OFFRES</li>
+                    <li class="logo-group">
+                        <a href="{{ path('home') }}">
+                            <img class="shadow-blue" src="/img/LogoEuropeHandling.png" alt="Logo Europe Handling">
+                        </a>
+                    </li>
                     <div class="right-links">
-                        <li><a href="/emplois/it">Inscription</a></li>
+                        <li><a href="{{ path('inscription') }}">Inscription</a></li>
                         <li><a href="/emplois/marketing">Connexion</a></li>
                         <li><a href="/emplois/finance" class="candidature-link">Candidature Spontanée</a></li>
                     </div>
                 </ul>
             </nav>
-
             <!-- Formulaire spécifique pour la page nosOffres -->
             <div class="video-container">
                 <video autoplay muted loop id="bg-video">
                     <source src="video/6472912-hd_1280_720_24fps.mp4" type="video/mp4">
                 </video>
                 <form class="row gy-2 gx-3 align-items-center">
-                    <div class="col-auto">
+                    <div class="col-12">
+                    <h2>Recherche d'une offre d'emplois</h2>
+                    </div>
+                    <div class="col-6">
                         <label class="visually-hidden" for="autoSizingSelect">Recherche Poste</label>
                         <select class="form-select" id="autoSizingSelect">
                             <option selected>Recherche Poste</option>
@@ -28,7 +34,7 @@
                             <option value="3">Agent Trafic</option>
                         </select>
                     </div>
-                    <div class="col-auto">
+                    <div class="col-6">
                         <label class="visually-hidden" for="autoSizingSelect">Type de Contrat</label>
                         <select class="form-select" id="autoSizingSelect">
                             <option selected>Type de Contrat</option>
@@ -37,7 +43,7 @@
                             <option value="3">Three</option>
                         </select>
                     </div>
-                    <div class="col-auto">
+                    <div class="col-4">
                         <label class="visually-hidden" for="autoSizingSelect">Modalités de Travail</label>
                         <select class="form-select" id="autoSizingSelect">
                             <option selected>Modalités de Travail</option>
@@ -46,7 +52,7 @@
                             <option value="3">Three</option>
                         </select>
                     </div>
-                    <div class="col-auto">
+                    <div class="col-4">
                         <label class="visually-hidden" for="autoSizingSelect">Localisation</label>
                         <select class="form-select" id="autoSizingSelect">
                             <option selected>Localisation</option>
@@ -55,14 +61,14 @@
                             <option value="3">Three</option>
                         </select>
                     </div>
-                    <div class="col-auto">
+                    <div class="col-4">
                         <button type="submit" class="btn btn-primary">Recherchez</button>
                     </div>
                 </form>
             </div>
         {% else %}
             <!-- Navbar par défaut (si ce n'est pas la page nosOffres) -->
-            <nav class="navbar">
+            <nav class="navbar" id="top">
                 <div class="logo-group">
                     <a href="{{ path('home') }}">
                         <img class="shadow-blue" src="/img/LogoEuropeHandling.png" alt="Logo Europe Handling">

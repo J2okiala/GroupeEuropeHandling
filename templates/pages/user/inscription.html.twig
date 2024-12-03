@@ -1,0 +1,49 @@
+{% extends 'pages/base.html.twig' %}
+
+{% block title %}
+    Page d'inscription
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="">
+{% endblock %}
+
+{% block body %}
+
+    <!-- Contenu principal --> 
+    <h1 class="text-center display-4 font-weight-bold my-5">Création de votre compte</h1>
+
+    <div class="container p-4 bg-light rounded shadow-sm">
+        <h2 class="text-dark font-weight-semibold mb-4 text-center">Créer un compte</h2>
+
+        {{ form_start(registrationForm) }}
+        
+        <div class="form-group mb-3">
+            {{ form_label(registrationForm.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(registrationForm.email, {'attr': {"class": 'form-control', 'placeholder':'Votre email'}}) }}
+            {{ form_errors(registrationForm.email) }}
+        </div>
+
+        <div class="form-group mb-3">
+            {{ form_label(registrationForm.pseudo, 'Pseudo', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(registrationForm.pseudo, {'attr': {'class': 'form-control', 'placeholder': 'Pseudo'}}) }}
+            {{ form_errors(registrationForm.pseudo) }}
+        </div>
+
+        <div class="form-group mb-3">
+            {{ form_label(registrationForm.password, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(registrationForm.password, {'attr': {'class': 'form-control', 'placeholder': 'Mot de passe'}}) }}
+            {{ form_errors(registrationForm.password) }}
+        </div>
+
+        <div class="form-group mb-4">
+            {{ form_label(registrationForm.confirmPassword, 'Confirmer le mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(registrationForm.confirmPassword, {'attr': {'class': 'form-control', 'placeholder': 'Confirmer le mot de passe'}}) }}
+            {{ form_errors(registrationForm.confirmPassword) }}
+        </div>
+
+        {{ form_end(registrationForm) }}
+    </div>
+
+
+{% endblock %}
