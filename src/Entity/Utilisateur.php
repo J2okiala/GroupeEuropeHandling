@@ -5,10 +5,11 @@ namespace App\Entity;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
-class Utilisateur implements UserInterface
+class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -103,7 +104,6 @@ class Utilisateur implements UserInterface
 
     public function getRoles(): array
     {
-        // Garantir qu'il y ait toujours un rôle par défaut
         $roles = $this->roles;
         if (empty($roles)) {
             $roles[] = 'ROLE_CANDIDAT';
@@ -124,7 +124,6 @@ class Utilisateur implements UserInterface
 
     public function setCandidat(?Candidat $candidat): self
     {
-        // Mettre à jour le côté inverse de la relation
         if ($candidat !== null && $candidat->getUtilisateur() !== $this) {
             $candidat->setUtilisateur($this);
         }
@@ -134,7 +133,7 @@ class Utilisateur implements UserInterface
 
     public function eraseCredentials(): void
     {
-        // Si vous stockez des données sensibles temporaires, nettoyez-les ici
+        // Nettoyer les données sensibles si nécessaire
     }
 
     public function getUserIdentifier(): string

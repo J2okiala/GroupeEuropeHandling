@@ -1,0 +1,70 @@
+{% extends 'pages/base.html.twig' %}
+
+{% block title %}
+    Page d'inscription
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="">
+{% endblock %}
+
+{% block body %}
+
+    {# Affiche les messages flash s'ils existent #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <!-- Contenu principal --> 
+    <h1 class="text-center text-dark display-4 font-weight-bold my-5">Créer votre compte</h1>
+
+    <div class="container p-4 bg-light rounded shadow-sm">
+        <h2 class="text-dark font-weight-semibold mb-4 text-center">Inscription</h2>
+
+        {{ form_start(registrationForm) }}
+
+        <div class="text-dark form-group mb-3">
+            {{ form_label(registrationForm.civilite, 'Civilité', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(registrationForm.civilite, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(registrationForm.civilite) }}
+        </div>
+
+        <div class="text-dark form-group mb-3">
+            {{ form_label(registrationForm.nom, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(registrationForm.nom, {'attr': {'class': 'form-control', 'placeholder': 'Votre nom'}}) }}
+            {{ form_errors(registrationForm.nom) }}
+        </div>
+
+        <div class="text-dark form-group mb-3">
+            {{ form_label(registrationForm.prenom, 'Prénom', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(registrationForm.prenom, {'attr': {'class': 'form-control', 'placeholder': 'Votre prénom'}}) }}
+            {{ form_errors(registrationForm.prenom) }}
+        </div>
+        
+        <div class="text-dark form-group mb-3">
+            {{ form_label(registrationForm.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Votre email'}}) }}
+            {{ form_errors(registrationForm.email) }}
+        </div>
+
+        <div class="text-dark form-group mb-3">
+            {{ form_label(registrationForm.password, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(registrationForm.password, {'attr': {'class': 'form-control', 'placeholder': 'Votre mot de passe'}}) }}
+            {{ form_errors(registrationForm.password) }}
+        </div>
+
+        <div class="text-dark form-group mb-3">
+            {{ form_label(registrationForm.confirmPassword, 'Confirmer le mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(registrationForm.confirmPassword, {'attr': {'class': 'form-control', 'placeholder': 'Confirmez votre mot de passe'}}) }}
+            {{ form_errors(registrationForm.confirmPassword) }}
+        </div>
+
+        {{ form_end(registrationForm) }}
+    </div>
+
+{% endblock %}

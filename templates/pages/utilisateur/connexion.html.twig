@@ -1,0 +1,41 @@
+{% extends 'pages/base.html.twig' %}
+
+{% block title %}
+    Page de connexion
+{% endblock %}
+
+{% block body %}
+
+    <h1 class="text-center display-4 font-weight-bold my-5">Connectez-vous</h1>
+
+    <div class="container p-4 bg-light rounded shadow-sm">
+        <h2 class="text-dark font-weight-semibold mb-4 text-center">Connexion</h2>
+
+        {# Commence le formulaire de connexion #}
+        {{ form_start(connexionForm) }}
+        
+        <div class="form-group mb-3">
+            {{ form_label(connexionForm.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(connexionForm.email, {'full_name':'email', 'value': last_email}) }}
+            {{ form_errors(connexionForm.email) }}
+        </div>
+
+        <div class="form-group mb-3">
+            {{ form_label(connexionForm.password, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(connexionForm.password, {'full_name':'password'}) }}
+            {{ form_errors(connexionForm.password) }}
+        </div>
+
+        <div class="form-group mb-4">
+            {{ form_widget(connexionForm.Envoyer, {'attr': {'class': 'btn btn-primary w-100'}}) }}
+        </div>
+
+        {{ form_end(connexionForm) }}
+    </div>
+
+    {# Affiche un message d'erreur s'il y a un problème de connexion #}
+    {% if error %}
+        <div class="alert alert-danger mt-3">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+{% endblock %}
