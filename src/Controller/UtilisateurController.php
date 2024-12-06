@@ -52,9 +52,10 @@ class UtilisateurController extends AbstractController
         }
 
         return $this->render('pages/utilisateur/inscription.html.twig', [
+            'isSecondaryNavbar' => true,
             'registrationForm' => $form->createView(),
         ]);
-    }
+    }        
 
     #[Route("/connexion", name: "connexion")]
     public function connexion(Request $req, AuthenticationUtils $authenticationUtils): Response
@@ -74,10 +75,24 @@ class UtilisateurController extends AbstractController
 
         // Retourner la vue avec le formulaire
         return $this->render('pages/utilisateur/connexion.html.twig', [
+            'isSecondaryNavbar' => true,
             'last_email' => $lastEmail,
             'error' => $error,
             'connexionForm' => $form->createView(),
         ]);
+    }
+
+    #[Route("/candidatureSpontanée", name: "candidatureSpontanée")]
+    public function candidature(): Response
+    {
+        // Rediriger l'utilisateur vers la page de profil si il est connecté
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('profilCandidat');
+        }
+
+
+        // Retourner la vue avec le formulaire
+        return $this->render('pages/utilisateur/candidatureSpontanée.html.twig', ['isSecondaryNavbar' => true]);
     }
 
 }

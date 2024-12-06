@@ -25,7 +25,9 @@ class AccueilController extends AbstractController
     #[Route('/nosOffres', name: 'nosOffres')]
     public function nosOffres()
     {
-        return $this->render('pages/home/nosOffres.html.twig');
+        return $this->render('pages/home/nosOffres.html.twig', [
+            'isSecondaryNavbar' => true,
+        ]);
     }
 
     #[Route('/nosChiffres', name: 'nosChiffres')]

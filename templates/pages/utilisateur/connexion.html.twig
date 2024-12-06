@@ -14,13 +14,13 @@
         {# Commence le formulaire de connexion #}
         {{ form_start(connexionForm) }}
         
-        <div class="form-group mb-3">
+        <div class="text-dark form-group mb-3">
             {{ form_label(connexionForm.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
             {{ form_widget(connexionForm.email, {'full_name':'email', 'value': last_email}) }}
             {{ form_errors(connexionForm.email) }}
         </div>
 
-        <div class="form-group mb-3">
+        <div class="text-dark form-group mb-3">
             {{ form_label(connexionForm.password, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
             {{ form_widget(connexionForm.password, {'full_name':'password'}) }}
             {{ form_errors(connexionForm.password) }}

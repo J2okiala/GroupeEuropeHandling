@@ -1,7 +1,7 @@
 <header>
     <div>
-        {% if app.request.attributes.get('_route') == 'nosOffres' %}
-            <!-- Navbar spécifique pour la page nosOffres -->
+        {% if isSecondaryNavbar %}
+            <!-- Navbar spécifique -->
             <nav class="secondary-navbar navbar" id="top">
                 <ul>
                     <li class="logo-group">
@@ -11,8 +11,8 @@
                     </li>
                     <div class="right-links">
                         <li><a href="{{ path('inscription') }}">Inscription</a></li>
-                        <li><a href="{{ path('inscription') }}">Connexion</a></li>
-                        <li><a href="/emplois/finance" class="candidature-link">Candidature Spontanée</a></li>
+                        <li><a href="{{ path('connexion') }}">Connexion</a></li>
+                        <li><a href="{{ path('candidatureSpontanée') }}" class="candidature-link">Candidature Spontanée</a></li>
                     </div>
                 </ul>
             </nav>
