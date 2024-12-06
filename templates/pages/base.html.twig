@@ -49,11 +49,10 @@
             defer
         ></script>
 
-        {% block javascripts %}
-            {% block importmap %}
-                {{ importmap('app') }}
-            {% endblock %}
+        {% block importmap %}
+            {{ importmap('app') }}
         {% endblock %}
+
     </head>
     <body>
         <!-- Navbar -->
@@ -76,6 +75,8 @@
         ></script>
 
         <!-- Custom JS -->
-        <script src="./assets/js/app.js" defer></script>
+        {% block javascripts %}
+            <script src="{{ asset('js/app.js') }}" defer></script>
+        {% endblock %}
     </body>
 </html>

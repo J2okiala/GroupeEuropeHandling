@@ -15,13 +15,6 @@ class AccueilController extends AbstractController
 
     }
 
-    #[Route('/nosChiffres', name: 'nosChiffres')]
-    public function chiffres()
-    {
-        return $this->render('pages/home/nosChiffres.html.twig');
-
-    }
-
     #[Route('/nosServices', name: 'nosServices')]
     public function nosServices()
     {
@@ -33,5 +26,12 @@ class AccueilController extends AbstractController
     public function nosOffres()
     {
         return $this->render('pages/home/nosOffres.html.twig');
+    }
+
+    #[Route('/nosChiffres', name: 'nosChiffres')]
+    public function chiffres()
+    {
+        return $this->render('pages/home/nosChiffres.html.twig');
+
     }
 }

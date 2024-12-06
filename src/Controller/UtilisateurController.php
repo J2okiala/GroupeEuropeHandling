@@ -20,7 +20,7 @@ class UtilisateurController extends AbstractController
     {
         // Redirige l'utilisateur vers la page de profil s'il est déjà connecté
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return $this->redirectToRoute('profil');
+            return $this->redirectToRoute('profilCandidat');
         }
 
         $utilisateur = new Utilisateur();
@@ -40,13 +40,14 @@ class UtilisateurController extends AbstractController
                 $utilisateur->setPassword($hashedPassword);
 
                 // Sauvegarde l'utilisateur dans la base de données en utilisant UtilisateurRepository
-                $utilisateurRepository->save($utilisateur);
+                // Flushez immédiatement en passant true
+                $utilisateurRepository->save($utilisateur, true);
 
                 // Ajoute un message de succès
                 $this->addFlash('success', 'Inscription réussie ! Vous pouvez maintenant vous connecter.');
 
                 // Redirige après l'inscription
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('nosOffres');
             }
         }
 
@@ -60,7 +61,7 @@ class UtilisateurController extends AbstractController
     {
         // Rediriger l'utilisateur vers la page de profil si il est connecté
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return $this->redirectToRoute('profil');
+            return $this->redirectToRoute('profilCandidat');
         }
 
         // Récupérer les erreurs et le dernier email
