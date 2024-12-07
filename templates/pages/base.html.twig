@@ -49,15 +49,14 @@
             defer
         ></script>
 
-        {% block javascripts %}
-            {% block importmap %}
-                {{ importmap('app') }}
-            {% endblock %}
+        {% block importmap %}
+            {{ importmap('app') }}
         {% endblock %}
+
     </head>
     <body>
         <!-- Navbar -->
-        {% include "components/navbar.html.twig" %}
+        {% include "components/navbar.html.twig" with {'isSecondaryNavbar': isSecondaryNavbar|default(false)} %}
 
         <!-- Main Content -->
             {% block body %}
@@ -76,6 +75,8 @@
         ></script>
 
         <!-- Custom JS -->
-        <script src="./assets/js/app.js" defer></script>
+        {% block javascripts %}
+            <script src="{{ asset('js/app.js') }}" defer></script>
+        {% endblock %}
     </body>
 </html>

@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -21,6 +23,59 @@ class InscriptionFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+        ->add(
+            'civilite',
+            ChoiceType::class,
+            [
+                'label' => 'civilite',
+                'choices' => [
+                    'Sélectionnez votre civilite' => null,
+                    'homme' => 'homme',
+                    'femme' => 'femme',
+                ],
+                'placeholder' => false, // Ne pas ajouter de placeholder par défaut
+                'required' => true,
+                'constraints' => [
+                    new NotBlank(["message" => "La civilité est obligatoire"]),
+                ],
+                'expanded' => false, // Utiliser un menu déroulant
+                'multiple' => false, // Un choix unique
+            ]
+        )
+            ->add(
+                'nom',
+                TextType::class,
+                [
+                    'label' => 'nom',
+                    'attr' => ['placeholder' => "Entrez votre nom"],
+                    'required' => true,
+                    'constraints' => [
+                        new NotBlank(["message" => "Le nom est obligatoire"]),
+                        new Length([
+                            'min' => 3,
+                            'minMessage' => "Le nom doit contenir au moins {{ limit }} caractères",
+                            'max' => 30,
+                            'maxMessage' => "Le nom doit contenir au maximum {{ limit }} caractères",
+                        ]),
+                    ],
+                ])
+            ->add(
+                'prenom',
+                TextType::class,
+                [
+                    'label' => 'prenom',
+                    'attr' => ['placeholder' => "Entrez votre prenom"],
+                    'required' => true,
+                    'constraints' => [
+                        new NotBlank(["message" => "Le prenom est obligatoire"]),
+                        new Length([
+                            'min' => 3,
+                            'minMessage' => "Le prenom doit contenir au moins {{ limit }} caractères",
+                            'max' => 30,
+                            'maxMessage' => "Le prenom doit contenir au maximum {{ limit }} caractères",
+                        ]),
+                    ],
+                ])
             ->add(
                 'email',
                 EmailType::class,
@@ -34,23 +89,6 @@ class InscriptionFormType extends AbstractType
                     ],
                 ])
             ->add(
-                'pseudo',
-                TextType::class,
-                [
-                    'label' => 'Pseudo',
-                    'attr' => ['placeholder' => "Entrez votre pseudo"],
-                    'required' => true,
-                    'constraints' => [
-                        new NotBlank(["message" => "Le pseudo est obligatoire"]),
-                        new Length([
-                            'min' => 3,
-                            'minMessage' => "Le pseudo doit contenir au moins {{ limit }} caractères",
-                            'max' => 50,
-                            'maxMessage' => "Le pseudo doit contenir au maximum {{ limit }} caractères",
-                        ]),
-                    ],
-                ])
-            ->add(
                 'password',
                 PasswordType::class,
                 [
@@ -60,7 +98,7 @@ class InscriptionFormType extends AbstractType
                     'constraints' => [
                         new NotBlank(["message" => "Le mot de passe est obligatoire"]),
                         new Length([
-                            'min' => 6,
+                            'min' => 8,
                             'minMessage' => "Le mot de passe doit contenir au moins {{ limit }} caractères",
                             'max' => 255,
                         ]),
@@ -84,7 +122,7 @@ class InscriptionFormType extends AbstractType
                     ],
                 ])
             ->add(
-                'Envoyer',
+                'Inscription',
                 SubmitType::class,
                 ["attr" => ["class" => "btn btn-primary"]]
             );
@@ -108,7 +146,7 @@ class InscriptionFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => Utilisateur::class,
         ]);
     }
 }
