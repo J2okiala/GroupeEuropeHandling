@@ -66,8 +66,35 @@
                     </div>
                 </form>
             </div>
+        {% elseif mentionsLegalesNavbar %}
+            <!-- Navbar spécifique pour les mentions légales -->
+            <nav class="navbar" id="top">
+                <div class="logo-group">
+                    <a href="{{ path('home') }}">
+                        <img class="shadow-blue" src="/img/LogoEuropeHandling.png" alt="Logo Europe Handling">
+                    </a>
+                </div>
+                <div id="menu-toggle" class="menu">
+                    <div class="scroll">
+                        <i class="fa-solid fa-bars"></i>
+                        <p>MENU</p>
+                    </div>
+                </div>
+                <!-- Liens de navigation -->
+                <ul id="nav-links" class="nav-links">
+                    <li><a href="{{ path('home') }}">Accueil</a></li>
+                    <li><a href="{{ path('nosServices') }}">Nos Services</a></li>
+                    <li><a href="{{ path('nosOffres') }}">Nos Offres</a></li>
+                    <li><a href="{{ path('nosChiffres') }}">Nos chiffres</a></li>
+                </ul>
+            </nav>
+            <div class="video-container">
+                <div id="bg-video">
+                    <img src="img/photo MentionsLegales.png" alt="Mentions Légales">
+                </div>
+            </div>
         {% else %}
-            <!-- Navbar par défaut (si ce n'est pas la page nosOffres) -->
+            <!-- Navbar par défaut -->
             <nav class="navbar" id="top">
                 <div class="logo-group">
                     <a href="{{ path('home') }}">
