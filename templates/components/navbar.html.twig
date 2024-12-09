@@ -11,6 +11,7 @@
                 </li>
                 <div class="right-links">
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <li><p>ESPACE COMPTE | Bonjour {{ app.user.prenom }} </p></li>
                         <li><a href="{{ path('deconnexion') }}" class="candidature-link">Déconnexion</a></li>
                     {% else %}
                         <li><a href="{{ path('inscription') }}">Inscription</a></li>
