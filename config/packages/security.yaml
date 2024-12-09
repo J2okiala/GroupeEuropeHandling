@@ -47,8 +47,8 @@ security:
         ROLE_ADMIN: [ROLE_CANDIDAT]
 
     access_control:
-        - {path: '^/profilCandidat', roles: [ROLE_CANDIDAT]}
-        - { path: ^/profilEmployeur, roles: ROLE_EMPLOYEUR }
+        - {path: '^/profilCandidat', roles: [IS_AUTHENTICATED_FULLY]}
+        - { path: ^/profilEmployeur, roles: [IS_AUTHENTICATED_FULLY]}
 
 when@test:
     security:

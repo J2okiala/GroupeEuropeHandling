@@ -22,7 +22,7 @@ class ProfilCandidatController extends AbstractController
         // Faire ce que vous vous voulez avec, comme récuperer des donnés ect..
 
         // Retourner la vue associé
-        return $this->render('pages/utilisateur/profil-candidat.html.twig');
+        return $this->render('pages/utilisateur/profil-candidat.html.twig', ['isSecondaryNavbar' => true]);
     }
 
     #[Route("/deconnexion", name:"deconnexion")]
