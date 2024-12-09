@@ -1,0 +1,18 @@
+{% extends 'pages/base.html.twig' %}
+
+{% block title %}
+    Page de profil-candidat
+{% endblock %}
+
+{% block body %}
+
+    <div class="container p-4 bg-light rounded shadow-sm">
+        <h2 class="text-dark font-weight-semibold mb-4 text-center">Bienvenue sur votre espace candidat {{ app.user.prenom }}</h2>
+
+
+    </div>
+
+    {# Affiche un message d'erreur s'il y a un problème de connexion #}
+
+
+{% endblock %}

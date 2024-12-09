@@ -19,9 +19,9 @@ class UtilisateurController extends AbstractController
     public function inscription(Request $request, UtilisateurRepository $utilisateurRepository, UserPasswordHasherInterface $passwordHasher): Response
     {
         // Redirige l'utilisateur vers la page de profil s'il est déjà connecté
-        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return $this->redirectToRoute('profilCandidat');
-        }
+        // if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+        //     return $this->redirectToRoute('profilCandidat');
+        // }
 
         $utilisateur = new Utilisateur();
         $form = $this->createForm(InscriptionFormType::class, $utilisateur);
