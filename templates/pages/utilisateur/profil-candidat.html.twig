@@ -6,11 +6,44 @@
 
 {% block body %}
 
-    <div class="container p-4 bg-light rounded shadow-sm">
-        <h2 class="text-dark font-weight-semibold mb-4 text-center">Bienvenue sur votre espace candidat {{ app.user.prenom }}</h2>
+    <main class="container">
+    <h4 class=" font-weight-semibold mb-4 text-center">Bienvenue sur votre espace candidat ! </h4>
+            <!-- Section 1 : Nos Services -->
+            <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+                <div class="col m-2">
+                    <h3>Ma Fiche Candidat</h3>
+                    <img src="img/Capture d’écran ma fiche.png" alt="Ma fiche" width="70%">
+                </div>
 
+                <div class="col m-2">
+                    <h3>Visualiser Mes candidatures</h3>
+                    <img src="img/Capture d’écran Mes Candidatures.png" alt="Mes Candidatures" width="70%">
+                </div>
 
-    </div>
+                <div class="col m-2">
+                    <h3>Ma Recherche, Mes Alertes</h3>
+                    <img src="img/Capture d’écran alerte.png" alt="Mes Alertes" width="70%">
+                </div>
+
+                <div class="col m-2">
+                    <h3>Modifier Mes Informations</h3>
+                    <img src="img/Capture d’écran modifier mes infos.png" alt="Modifier Mes Informations" width="70%">
+                </div>
+
+                <div class="col m-2">
+                    <h3>Modifier Mes Pièces Jointes</h3>
+                    <img src="img/Capture d’écran Modifier Mes Piece Jointes.png" alt="Modifier Piece Jointes" width="70%">
+                </div>
+
+                <div class="col m-2">
+                    <h3>Desativer Mon Compte</h3>
+                    <img src="img/Capture d’écran desactivez mon compte.png" alt="Desactiver Mon Compte" width="70%">
+                </div>
+
+            </section>
+        </div>
+    </main>
+
 
     {# Affiche un message d'erreur s'il y a un problème de connexion #}
 
