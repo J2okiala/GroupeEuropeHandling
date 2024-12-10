@@ -82,17 +82,5 @@ class UtilisateurController extends AbstractController
         ]);
     }
 
-    #[Route("/candidatureSpontanée", name: "candidatureSpontanée")]
-    public function candidature(): Response
-    {
-        // Rediriger l'utilisateur vers la page de profil si il est connecté
-        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return $this->redirectToRoute('profilCandidat');
-        }
-
-
-        // Retourner la vue avec le formulaire
-        return $this->render('pages/utilisateur/candidatureSpontanée.html.twig', ['isSecondaryNavbar' => true]);
-    }
 
 }

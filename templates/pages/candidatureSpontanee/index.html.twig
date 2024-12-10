@@ -1,0 +1,45 @@
+{% extends 'pages/base.html.twig' %}
+
+{% block title %}Candidature Spontanée{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="styles/offres.css">
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Candidature Spontanée</h1>
+
+    <div class="card shadow">
+        <div class="card-body">
+            {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
+            
+            <div class="mb-3">
+                {{ form_label(form.cv, 'Votre CV (PDF)', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.cv, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.cv) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form_label(form.lm, 'Votre Lettre de Motivation (PDF)', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.lm, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.lm) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form_label(form.poste, 'Poste souhaité', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.poste, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.poste) }}
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">
+                    Envoyer ma candidature
+                </button>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

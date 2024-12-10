@@ -4,11 +4,15 @@
     Page de profil-employeur
 {% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="styles/employeur.css">
+{% endblock %}
+
 {% block body %}
 
     <main class="container">
     <h4 class=" font-weight-semibold mb-4 text-center">Bienvenue sur votre espace employeur ! </h4>
-            <!-- Section 1 : Nos Services -->
+            <!-- Cartes -->
             <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
                 <div class="col m-2">
                     <h3>Ma Fiche Candidat</h3>
@@ -45,7 +49,6 @@
     </main>
 
 
-    {# Affiche un message d'erreur s'il y a un problème de connexion #}
 
 
 {% endblock %}
