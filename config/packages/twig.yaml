@@ -3,5 +3,7 @@ twig:
     globals:
         app_request: '@request_stack'
 
+    form_themes: ['bootstrap_5_layout.html.twig']
+
     # Cette option n'est pas spécifique à l'environnement, donc elle peut rester ici
     strict_variables: true
