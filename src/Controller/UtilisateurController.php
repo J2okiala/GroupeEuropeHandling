@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Utilisateur;
+use App\Entity\Candidat;
 use App\Form\ConnexionFormType;
 use App\Form\InscriptionFormType;
 use App\Repository\UtilisateurRepository;
+use App\Repository\CandidatRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,8 +18,12 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class UtilisateurController extends AbstractController
 {
     #[Route('/inscription', name: 'inscription')]
-    public function inscription(Request $request, UtilisateurRepository $utilisateurRepository, UserPasswordHasherInterface $passwordHasher): Response
-    {
+    public function inscription(
+        Request $request, 
+        UtilisateurRepository $utilisateurRepository, 
+        CandidatRepository $candidatRepository, 
+        UserPasswordHasherInterface $passwordHasher
+    ): Response {
         // Redirige l'utilisateur vers la page de profil s'il est déjà connecté
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
             return $this->redirectToRoute('profilCandidat');
@@ -39,8 +45,15 @@ class UtilisateurController extends AbstractController
                 $hashedPassword = $passwordHasher->hashPassword($utilisateur, $utilisateur->getPassword());
                 $utilisateur->setPassword($hashedPassword);
 
-                // Sauvegarde l'utilisateur dans la base de données en utilisant UtilisateurRepository
-                // Flushez immédiatement en passant true
+                // Ajoute le rôle CANDIDAT par défaut
+                $utilisateur->setRoles(['ROLE_CANDIDAT']);
+
+                // Crée et associe une entité Candidat à l'utilisateur
+                $candidat = new Candidat();
+                $candidat->setUtilisateur($utilisateur);
+                $candidatRepository->save($candidat, true);
+
+                // Sauvegarde l'utilisateur dans la base de données
                 $utilisateurRepository->save($utilisateur, true);
 
                 // Ajoute un message de succès
@@ -55,25 +68,26 @@ class UtilisateurController extends AbstractController
             'isSecondaryNavbar' => true,
             'registrationForm' => $form->createView(),
         ]);
-    }        
+    }
 
     #[Route("/connexion", name: "connexion")]
-    public function connexion(Request $req, AuthenticationUtils $authenticationUtils): Response
-    {
-        // Rediriger l'utilisateur vers la page de profil si il est connecté
+    public function connexion(
+        Request $req, 
+        AuthenticationUtils $authenticationUtils
+    ): Response {
+        // Redirige l'utilisateur vers la page de profil s'il est connecté
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
             return $this->redirectToRoute('profilCandidat');
         }
 
-        // Récupérer les erreurs et le dernier email
+        // Récupère les erreurs et le dernier email
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastEmail = $authenticationUtils->getLastUsername() ?? ''; // Assigne une chaîne vide si NULL
-            
-    
+
         // Création du formulaire de connexion sans entité liée
         $form = $this->createForm(ConnexionFormType::class);
 
-        // Retourner la vue avec le formulaire
+        // Retourne la vue avec le formulaire
         return $this->render('pages/utilisateur/connexion.html.twig', [
             'isSecondaryNavbar' => true,
             'last_email' => $lastEmail,
@@ -81,6 +95,4 @@ class UtilisateurController extends AbstractController
             'connexionForm' => $form->createView(),
         ]);
     }
-
-
 }

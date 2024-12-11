@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
-use App\Form\ProfilFormType;
+use App\Entity\Candidat;
+use App\Form\modifierInformationCandidatTypeForm;
+use App\Repository\CandidatRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -41,14 +43,30 @@ class ProfilCandidatController extends AbstractController
         ]);
     }
 
-
-    #[Route('/modifierMesInformations', name: 'modifierMesInformations')]
-    public function modifierMesInformations()
+    #[Route('/profil-candidat/modifier/{id}', name: 'modifierMesInformations')]
+    public function modifierMesInformations( Request $request, Candidat $candidat, CandidatRepository $candidatRepository): Response
     {
         // Récuperer l'utilisateur depuis la session
         $uilisateur = $this->getUser();
 
+        $form = $this->createForm(modifierInformationCandidatTypeForm::class, $candidat);
+
+        // Si le candidat est null, redirigez l'utilisateur ou affichez une erreur
+        if (!$candidat) {
+            $this->addFlash('error', 'Aucun candidat trouvé pour cet utilisateur.');
+            return $this->redirectToRoute('profilCandidat');}
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Enregistrer les modifications avec la méthode save
+            $candidatRepository->save($candidat, true);
+
+            $this->addFlash('success', 'Informations mises à jour avec succès !');
+            return $this->redirectToRoute('profilCandidat');
+        }
+
         return $this->render('pages/utilisateur/candidat/modifier-mes-informations.html.twig', [
+            'form' => $form->createView(),
             'isSecondaryNavbar' => true,
         ]);
     }

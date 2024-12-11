@@ -14,23 +14,23 @@ class Candidat
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 50)]
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
     #[Assert\Choice(['francais', 'etranger'])]
     private ?string $nationalite = null;
 
-    #[ORM\Column(type: 'date')]
+    #[ORM\Column(type: 'date', nullable: true)]
     #[Assert\NotBlank]
     private ?\DateTimeInterface $dateNaissance = null;
 
-    #[ORM\Column(type: 'string', length: 20)]
+    #[ORM\Column(type: 'string', length: 20, nullable: true)]
     #[Assert\NotBlank]
     private ?string $telephone = null;
 
-    #[ORM\Column(type: 'string', length: 100)]
+    #[ORM\Column(type: 'string', length: 100, nullable: true)]
     #[Assert\NotBlank]
     private ?string $poste = null;
 
-    #[ORM\Column(type: 'date')]
+    #[ORM\Column(type: 'date', nullable: true)]
     #[Assert\NotBlank]
     private ?\DateTimeInterface $dateDisponibilite = null;
 
@@ -40,7 +40,7 @@ class Candidat
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $lettreMotivation = null;
 
-    #[ORM\OneToOne(inversedBy: 'candidat', targetEntity: Utilisateur::class)]
+    #[ORM\OneToOne(inversedBy: 'candidat', targetEntity: Utilisateur::class, cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Utilisateur $utilisateur = null;
 

@@ -19,7 +19,7 @@
                     <img src="img/Capture d’écran ma fiche.png" alt="Ma fiche" width="70%"></a>
                 </div>
 
-                <div class="col m-2"><a href="{{ path('modifierMesInformations') }}">
+                <div class="col m-2"><a href="{{ path('modifierMesInformations', {'id': app.user.candidat.id}) }}">
                     <h3>Modifier Mes Informations</h3>
                     <img src="img/Capture d’écran modifier mes infos.png" alt="Modifier Mes Informations" width="70%"></a>
                 </div>
