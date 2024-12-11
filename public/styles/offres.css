@@ -133,3 +133,12 @@ h1 {
     padding-left: 10px;
     padding-right: 10px;
 }
+
+.bordure {
+    background-color: #f2f2f2; /* Couleur de fond gris clair */
+    border: 1px solid #cccccc; /* Bordure grise */
+    border-radius: 5px; /* Coins arrondis */
+    padding: 20px; /* Espace interne pour aérer le contenu */
+    margin: 10px 0; /* Espacement externe entre les divs */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Légère ombre pour donner de la profondeur */
+}

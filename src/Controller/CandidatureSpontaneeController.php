@@ -61,7 +61,7 @@ class CandidatureSpontaneeController extends AbstractController
 
             // Ajouter un message de succès et rediriger
             $this->addFlash('success', 'Votre candidature a été envoyée avec succès !');
-            return $this->redirectToRoute('candidature');
+            return $this->redirectToRoute('nosOffres');
         }
 
         // Rendu de la vue avec le formulaire

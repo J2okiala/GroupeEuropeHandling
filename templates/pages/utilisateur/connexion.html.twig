@@ -11,9 +11,17 @@
 
 {% block body %}
 
-    <h1 class="text-center display-4 font-weight-bold my-5">Connectez-vous</h1>
+    {# Affiche les messages flash s'ils existent #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
 
-    <div class="container p-4 bg-light rounded shadow-sm">
+    <div class="container p-4 bg-light rounded shadow-sm  mt-5">
         <h2 class="text-dark font-weight-semibold mb-4 text-center">Connexion</h2>
 
         {# Commence le formulaire de connexion #}

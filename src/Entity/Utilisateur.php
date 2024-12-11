@@ -42,6 +42,10 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'utilisateur', targetEntity: Candidat::class, cascade: ['persist', 'remove'])]
     private ?Candidat $candidat = null;
 
+    #[ORM\OneToOne(mappedBy: 'utilisateur', targetEntity: Employeur::class, cascade: ['persist', 'remove'])]
+    private ?Employeur $employeur = null;
+
+    //Getters et Setters
     public function getId(): ?int
     {
         return $this->id;
@@ -140,4 +144,22 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->email;
     }
+
+    public function getEmployeur(): ?Employeur
+    {
+        return $this->employeur;
+    }
+
+    public function setEmployeur(?Employeur $employeur): self
+    {
+        // Définir la relation bidirectionnelle
+        if ($employeur !== null && $employeur->getUtilisateur() !== $this) {
+            $employeur->setUtilisateur($this);
+        }
+
+        $this->employeur = $employeur;
+
+        return $this;
+    }
+
 }
