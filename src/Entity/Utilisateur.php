@@ -116,10 +116,13 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function setRoles(array $roles): self
-    {
+{
+    if ($this->roles !== $roles) {
         $this->roles = $roles;
-        return $this;
     }
+    return $this;
+}
+
 
     public function getCandidat(): ?Candidat
     {

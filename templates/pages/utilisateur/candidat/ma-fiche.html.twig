@@ -1,7 +1,7 @@
 {% extends 'pages/base.html.twig' %}
 
 {% block title %}
-    Page de maFiche-candidat
+    Page de maFiche - candidat
 {% endblock %}
 
 {% block stylesheets %}
@@ -22,22 +22,22 @@
 
             <div class"bordure m-2">
                 <h3>Information personnelles</h3>
-                <p>Nationalité:</p>
-                <p>Date de naissance:</p>
-                <p>Telephone:</p>
+                <p>Nationalité: {{ app.user.getCandidat.nationalite}}</p>
+                <p>Date de naissance: {{ app.user.getCandidat.dateNaissance|date('d/m/Y')}} </p>
+                <p>Telephone: {{ app.user.getCandidat.telephone }}</p>
             </div>
 
             <div class"bordure m-2">
                 <h3>Poste recherché</h3>
-                <p>Poste:</p>
-                <p>Date de disponibilité:</p>
+                <p>Poste: {{ app.user.getCandidat.poste }}</p>
+                <p>Date de disponibilité: {{ app.user.getCandidat.dateDisponibilite|date('d/m/Y')}}</p>
             </div>         
 
             <div class"bordure  m-2">
                 <h3>Mes pièces jointes</h3>
-                <p>Cv:</p>
-                <p>Lettre de motivation:</p>
-                <p><a href="{{ path('modifierMesInformations') }}">Modifier mes informations</a></p>
+                <p>Cv: {{ app.user.getCandidat.cv }}</p>
+                <p>Lettre de motivation: {{ app.user.getCandidat.lettreMotivation}}</p>
+                <p><a href="{{ path('modifierMesInformations', {'id': app.user.candidat.id}) }}">Modifier mes informations</a></p>
             </div>
 
     </main>
