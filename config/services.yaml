@@ -1,25 +1,39 @@
 parameters:
-    env(MONGODB_URL): ''
-    env(MONGODB_DB): ''
-    uploads_directory: '%kernel.project_dir%/public/uploads'
+    env(MONGODB_URL): '' # URL de connexion à MongoDB
+    env(MONGODB_DB): ''  # Nom de la base MongoDB
+    uploads_directory: '%kernel.project_dir%/public/uploads' # Répertoire des uploads
+    upload_directory: '%kernel.project_dir%/public/uploads'  # Alternative pour le binding
 
 services:
-    # Default configuration for services in *this* file
+    # Configuration par défaut pour les services
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        autowire: true      # Injection automatique des dépendances
+        autoconfigure: true # Enregistrement automatique comme commandes, listeners, etc.
         bind:
-            $uploadsDirectory: '%uploads_directory%' # Example of parameter binding.
+            $uploadsDirectory: '%uploads_directory%' # Exemple de liaison de paramètre
 
-    # Makes classes in src/ available to be used as services
-    # This creates a service per class whose id is the fully-qualified class name
+    # Enregistrement des Event Listeners
+    App\EventListener\UtilisateurRoleListener:
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate }
+
+    App\EventListener\UtilisateurLoginListener:
+        tags:
+            - { name: kernel.event_listener, event: security.authentication.success, method: onLogin }
+
+    # Enregistrement automatique des services dans src/
     App\:
         resource: '../src/'
         exclude:
             - '../src/DependencyInjection/'
+            - '../src/Entity/'
             - '../src/Kernel.php'
 
-    # Controllers as services
+    # Contrôleurs comme services
     App\Controller\:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
+
+    # Services spécifiques ou externalisés
+    App\Repository\:
+        resource: '../src/Repository/'

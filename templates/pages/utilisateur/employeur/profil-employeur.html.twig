@@ -1,0 +1,51 @@
+{% extends 'pages/base.html.twig' %}
+
+{% block title %}
+    Page de profil - employeur
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="styles/employeur.css">
+{% endblock %}
+
+{% block body %}
+
+    <main class="container">
+    <h4 class=" font-weight-semibold mb-4 text-center">Bienvenue sur votre espace employeur ! </h4>
+            <!-- Cartes -->
+            <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+                <div class="col m-2"><a href="{{ path('maFicheE') }}">
+                    <h3>Ma Fiche Candidat</h3>
+                    <img src="img/Capture d’écran ma fiche.png" alt="Ma fiche" width="70%"></a>
+                </div>
+
+                <div class="col m-2"><a href="{{ path('mesOffreE') }}">
+                    <h3>Visualiser Mes offres</h3>
+                    <img src="img/Capture d’écran Mes Candidatures.png" alt="Mes Candidatures" width="70%"></a>
+                </div>
+
+                <div class="col m-2"><a href="{{ path('mesCandidatures Spontanés') }}">
+                    <h3>Candidatures Spontanés</h3>
+                    <img src="img/Capture d’écran alerte.png" alt="Mes Alertes" width="70%"></a>
+                </div>
+
+                <div class="col m-2"><a href="{{ path('modifierMesInformationsE') }}">
+                    <h3>Modifier Mes Informations</h3>
+                    <img src="img/Capture d’écran modifier mes infos.png" alt="Modifier Mes Informations" width="70%"></a>
+                </div>
+
+                <div class="col m-2"><a href="{{ path('mesIdentifiantsDeConnexionE') }}">
+                    <h3>Modifier Identifiants</h3>
+                    <img src="img/Capture d’écran Modifier Mes Piece Jointes.png" alt="Modifier mes identifiants" width="70%"></a>
+                </div>
+
+                <div class="col m-2"><a href="{{ path('supprimer_compteE') }}">
+                    <h3>Supprimer Mon Compte</h3>
+                    <img src="img/Capture d’écran desactivez mon compte.png" alt="Supprimer Mon Compte" width="70%"></a>
+                </div>
+
+            </section>
+        </div>
+    </main>
+
+{% endblock %}

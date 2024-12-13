@@ -17,58 +17,61 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UtilisateurController extends AbstractController
 {
-    #[Route('/inscription', name: 'inscription')]
-    public function inscription(
-        Request $request, 
-        UtilisateurRepository $utilisateurRepository, 
-        CandidatRepository $candidatRepository, 
-        UserPasswordHasherInterface $passwordHasher
-    ): Response {
-        // Redirige l'utilisateur vers la page de profil s'il est déjà connecté
-        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return $this->redirectToRoute('profilCandidat');
-        }
-
-        $utilisateur = new Utilisateur();
-        $form = $this->createForm(InscriptionFormType::class, $utilisateur);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Vérifie si l'utilisateur existe déjà avec cet email
-            $existingUser = $utilisateurRepository->findOneBy(['email' => $utilisateur->getEmail()]);
-            if ($existingUser) {
-                // Ajoute un message d'erreur si l'email est déjà utilisé
-                $this->addFlash('error', 'Un compte existe déjà avec cet email.');
-            } else {
-                // Hash le mot de passe
-                $hashedPassword = $passwordHasher->hashPassword($utilisateur, $utilisateur->getPassword());
-                $utilisateur->setPassword($hashedPassword);
-
-                // Ajoute le rôle CANDIDAT par défaut
-                $utilisateur->setRoles(['ROLE_CANDIDAT']);
-
-                // Crée et associe une entité Candidat à l'utilisateur
-                $candidat = new Candidat();
-                $candidat->setUtilisateur($utilisateur);
-                $candidatRepository->save($candidat, true);
-
-                // Sauvegarde l'utilisateur dans la base de données
-                $utilisateurRepository->save($utilisateur, true);
-
-                // Ajoute un message de succès
-                $this->addFlash('success', 'Inscription réussie ! Vous pouvez maintenant vous connecter.');
-
-                // Redirige après l'inscription
-                return $this->redirectToRoute('nosOffres');
-            }
-        }
-
-        return $this->render('pages/utilisateur/inscription.html.twig', [
-            'isSecondaryNavbar' => true,
-            'registrationForm' => $form->createView(),
-        ]);
+#[Route('/inscription', name: 'inscription')]
+public function inscription(
+    Request $request, 
+    UtilisateurRepository $utilisateurRepository, 
+    CandidatRepository $candidatRepository, 
+    UserPasswordHasherInterface $passwordHasher
+): Response {
+    // Redirige l'utilisateur vers la page de profil s'il est déjà connecté
+    if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+        return $this->redirectToRoute('profilCandidat');
     }
+
+    $utilisateur = new Utilisateur();
+    $form = $this->createForm(InscriptionFormType::class, $utilisateur);
+
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        // Vérifie si l'utilisateur existe déjà avec cet email
+        $existingUser = $utilisateurRepository->findOneBy(['email' => $utilisateur->getEmail()]);
+        if ($existingUser) {
+            // Ajoute un message d'erreur si l'email est déjà utilisé
+            $this->addFlash('error', 'Un compte existe déjà avec cet email.');
+        } else {
+            // Hash le mot de passe
+            $hashedPassword = $passwordHasher->hashPassword($utilisateur, $utilisateur->getPassword());
+            $utilisateur->setPassword($hashedPassword);
+
+            // Ajoute le rôle CANDIDAT par défaut
+            $utilisateur->setRoles(['ROLE_CANDIDAT']);
+
+            // Crée et associe une entité Candidat à l'utilisateur
+            $candidat = new Candidat();
+            $candidat->setUtilisateur($utilisateur);
+            $candidat->setNom($utilisateur->getNom());  // Récupère le nom de l'utilisateur
+            $candidat->setPrenom($utilisateur->getPrenom());  // Récupère le prénom de l'utilisateur
+            $candidatRepository->save($candidat, true);
+
+            // Sauvegarde l'utilisateur dans la base de données
+            $utilisateurRepository->save($utilisateur, true);
+
+            // Ajoute un message de succès
+            $this->addFlash('success', 'Inscription réussie ! Vous pouvez maintenant vous connecter.');
+
+            // Redirige après l'inscription
+            return $this->redirectToRoute('nosOffres');
+        }
+    }
+
+    return $this->render('pages/utilisateur/inscription.html.twig', [
+        'isSecondaryNavbar' => true,
+        'registrationForm' => $form->createView(),
+    ]);
+}
+
 
     #[Route("/connexion", name: "connexion")]
     public function connexion(

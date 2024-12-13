@@ -1,7 +1,7 @@
 {% extends 'pages/base.html.twig' %}
 
 {% block title %}
-    Page de modification-candidat
+    Page de modification - candidat
 {% endblock %}
 
 {% block stylesheets %}
@@ -15,6 +15,17 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                <div class="text-dark form-group mb-3">
+                    {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.nom) }}
+                </div>
+
+                <div class="text-dark form-group mb-3">
+                    {{ form_label(form.prenom, 'Prénom', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.prenom) }}
+                </div>
                 <div class="form-group mb-3">
                     {{ form_label(form.nationalite, 'Nationalité', {'label_attr': {'class': 'form-label'}}) }}
                     {{ form_widget(form.nationalite, {'attr': {'class': 'form-control'}}) }}

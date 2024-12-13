@@ -1,0 +1,34 @@
+{% extends 'pages/base.html.twig' %}
+
+{% block title %}
+    Page de maFiche - employeur
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="styles/offres.css">
+{% endblock %}
+
+{% block body %}
+
+    <main class="container">
+    <h4 class=" font-weight-semibold mb-4 text-center">Ma fiche employeur </h4>
+            <!-- Cartes -->
+            <div class"bordure m-2">
+                <h3>Identité</h3>
+                <p>Civilité: {{ app.user.civilite }}</p>
+                <p>Nom: {{ app.user.nom }}</p>
+                <p>Prenom: {{ app.user.prenom }}</p>
+            </div>
+
+            <div class"bordure m-2">
+                <h3>Information profesionnelles</h3>
+                <p>Entreprise: {{ app.user.getEmployeur.nomEntreprise}}</p>
+                <p><a href="{{ path('modifierMesInformationsE', {'id': app.user.employeur.id}) }}">Modifier mes informations</a></p>
+            </div>
+
+    </main>
+
+
+
+
+{% endblock %}

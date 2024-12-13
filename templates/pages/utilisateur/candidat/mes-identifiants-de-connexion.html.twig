@@ -1,0 +1,31 @@
+{% extends 'pages/base.html.twig' %}
+
+{% block title %}
+    Page de modification-identifiants - candidat
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="styles/offres.css">
+{% endblock %}
+
+{% block body %}
+
+<main class="container mt-5">
+    <h2 class="text-center mb-4">Modifier mes identifiants</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+        {{ form_start(form) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.confirmEmail) }}
+            {{ form_row(form.password) }}
+            {{ form_row(form.confirmPassword) }}
+            <button type="submit">Valider</button>
+        {{ form_end(form) }}
+
+        </div>
+    </div>
+</main>
+
+{% endblock %}
+
+

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CandidatRepository::class)]
-class Candidat
+class Candidat 
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -43,6 +43,14 @@ class Candidat
     #[ORM\OneToOne(inversedBy: 'candidat', targetEntity: Utilisateur::class, cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Utilisateur $utilisateur = null;
+
+    #[ORM\Column(type: "string", length: 255)]
+    private ?string $nom = null;
+
+    #[ORM\Column(type: "string", length: 255)]
+    private ?string $prenom = null;
+
+    //Getter et Setter
 
     public function getId(): ?int
     {
@@ -136,4 +144,27 @@ class Candidat
         $this->utilisateur = $utilisateur;
         return $this;
     }
+
+    public function getNom(): string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+        return $this;
+    }
+
+    public function getPrenom(): string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
+        return $this;
+    }
+
 }
