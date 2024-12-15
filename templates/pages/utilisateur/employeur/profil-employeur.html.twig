@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="styles/employeur.css">
+    <link rel="stylesheet" href="styles/offres.css">
 {% endblock %}
 
 {% block body %}
@@ -19,17 +19,17 @@
                     <img src="img/Capture d’écran ma fiche.png" alt="Ma fiche" width="70%"></a>
                 </div>
 
-                <div class="col m-2"><a href="{{ path('mesOffreE') }}">
+                <div class="col m-2"><a href="{{ path('mesOffresE') }}">
                     <h3>Visualiser Mes offres</h3>
-                    <img src="img/Capture d’écran Mes Candidatures.png" alt="Mes Candidatures" width="70%"></a>
+                    <img src="img/Capture d’écran Mes Candidatures.png" alt="Mes Offres" width="70%"></a>
                 </div>
 
-                <div class="col m-2"><a href="{{ path('mesCandidatures Spontanés') }}">
+                <div class="col m-2"><a href="{{ path('candidature-spontanee') }}">
                     <h3>Candidatures Spontanés</h3>
                     <img src="img/Capture d’écran alerte.png" alt="Mes Alertes" width="70%"></a>
                 </div>
 
-                <div class="col m-2"><a href="{{ path('modifierMesInformationsE') }}">
+                <div class="col m-2"><a href="{{ path('modifierMesInformationsE', {'id': app.user.employeur.id}) }}">
                     <h3>Modifier Mes Informations</h3>
                     <img src="img/Capture d’écran modifier mes infos.png" alt="Modifier Mes Informations" width="70%"></a>
                 </div>

@@ -12,14 +12,6 @@ services:
         bind:
             $uploadsDirectory: '%uploads_directory%' # Exemple de liaison de paramètre
 
-    # Enregistrement des Event Listeners
-    App\EventListener\UtilisateurRoleListener:
-        tags:
-            - { name: doctrine.event_listener, event: preUpdate }
-
-    App\EventListener\UtilisateurLoginListener:
-        tags:
-            - { name: kernel.event_listener, event: security.authentication.success, method: onLogin }
 
     # Enregistrement automatique des services dans src/
     App\:
@@ -37,3 +29,10 @@ services:
     # Services spécifiques ou externalisés
     App\Repository\:
         resource: '../src/Repository/'
+        
+    # l'implémentation du CustomAuthenticationSuccessHandler
+    App\Security\CustomAuthenticationSuccessHandler:
+        arguments:
+            $router: '@router.default'
+        tags:
+            - { name: 'security.authentication.success_handler', priority: 100 }

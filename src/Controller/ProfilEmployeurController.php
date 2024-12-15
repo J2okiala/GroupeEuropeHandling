@@ -50,7 +50,7 @@ class ProfilEmployeurController extends AbstractController
         ]);
     }
 
-    #[Route('/profil-cemployeur/modifier/{id}', name: 'modifierMesInformationsE')]
+    #[Route('/profil-employeur/modifier/{id}', name: 'modifierMesInformationsE')]
     public function modifierMesInformations(
         Request $request,
         Employeur $employeur,
@@ -59,9 +59,8 @@ class ProfilEmployeurController extends AbstractController
     ): Response {
         // Récupérer l'utilisateur connecté
         $utilisateur = $this->getUser();
-
     
-        // Vérification : l'utilisateur est bien lié a l'employeur
+        // Vérification : l'utilisateur est bien lié à l'employeur
         if (!$employeur || $employeur->getUtilisateur() !== $utilisateur) {
             $this->addFlash('error', 'Accès refusé ou employeur introuvable.');
             return $this->redirectToRoute('profilEmployeur');
@@ -71,8 +70,9 @@ class ProfilEmployeurController extends AbstractController
         $form = $this->createForm(ModifierInformationEmployeurTypeForm::class, $employeur);
         $form->handleRequest($request);
     
-            // Synchroniser les changements sur l'utilisateur
-            $utilisateur = $employeur->getUtilisateur(); // Récupérer l'utilisateur lié
+        // Vérification de la soumission et de la validité du formulaire
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Synchroniser les informations avec l'utilisateur
             $utilisateur->setNom($employeur->getNom());
             $utilisateur->setPrenom($employeur->getPrenom());
     
@@ -81,18 +81,20 @@ class ProfilEmployeurController extends AbstractController
     
             $this->addFlash('success', 'Informations mises à jour avec succès !');
             return $this->redirectToRoute('profilEmployeur');
-
+        }
+    
         return $this->render('pages/utilisateur/employeur/modifier-mes-informations.html.twig', [
             'form' => $form->createView(),
             'isSecondaryNavbar' => true,
         ]);
     }
+    
 
     #[Route('/mesOffresE', name: 'mesOffresE')]
     public function mesOffres()
     {
         // Récuperer l'utilisateur depuis la session
-        $uilisateur = $this->getUser();
+        // $utilisateur = $this->getUser();
 
         return $this->render('pages/utilisateur/employeur/mes-offres.html.twig', [
             'isSecondaryNavbar' => true,
@@ -102,7 +104,7 @@ class ProfilEmployeurController extends AbstractController
     #[Route('/mesIdentifiantsDeConnexionE', name: 'mesIdentifiantsDeConnexionE', methods: ['GET', 'POST'])]
     public function mesIdentifiantsDeConnexionE(
         Request $request,
-        EmployeurRepository $candidatRepository,
+        EmployeurRepository $employeurRepository,
         EntityManagerInterface $entityManager,
         UserPasswordHasherInterface $passwordHasher
     ): Response {
@@ -147,12 +149,12 @@ class ProfilEmployeurController extends AbstractController
         ]);
     }
 
-    #[Route('/supprimer-compteE', name: 'supprimer_compteE', methods: ['GET'])]
+    #[Route('/supprimer-compteE', name: 'supprimer_compteE')]
     public function Suppression(): Response {
         return $this->render('pages/utilisateur/employeur/supprimer-mon-compte.html.twig');
     }
     
-    #[Route('/confirmer-compteE', name: 'confirmer_compteE', methods: ['POST'])]
+    #[Route('/confirmer_suppression-compteE', name: 'confirmer_suppression-compteE', methods: ['POST'])]
     public function supprimerCompteE(
         Request $request,
         SessionInterface $session, // Injection de la session
@@ -183,6 +185,11 @@ class ProfilEmployeurController extends AbstractController
     
         $this->addFlash('success', 'Votre compte a été supprimé avec succès.');
         return $this->redirectToRoute('home');
+    }
+
+    #[Route('/candidature-spontanee', name: 'candidature-spontanee', methods: ['GET'])]
+    public function CandidatureSpontanee(): Response {
+        return $this->render('pages/utilisateur/employeur/les-candidatures-spontanee.html.twig');
     }
 
 

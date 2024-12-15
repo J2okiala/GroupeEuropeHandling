@@ -6,14 +6,6 @@ use App\Entity\Employeur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<Employeur>
- *
- * @method Employeur|null find($id, $lockMode = null, $lockVersion = null)
- * @method Employeur|null findOneBy(array $criteria, array $orderBy = null)
- * @method Employeur[]    findAll()
- * @method Employeur[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
 class EmployeurRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -26,10 +18,11 @@ class EmployeurRepository extends ServiceEntityRepository
      *
      * @param Employeur $employeur
      */
-    public function add(Employeur $employeur): void
+    public function save(Employeur $employeur): void
     {
-        $this->_em->persist($employeur);
-        $this->_em->flush();
+        $entityManager = $this->getEntityManager(); // Utilisez cette méthode pour obtenir l'EntityManager
+        $entityManager->persist($employeur);
+        $entityManager->flush();
     }
 
     /**
@@ -39,8 +32,9 @@ class EmployeurRepository extends ServiceEntityRepository
      */
     public function remove(Employeur $employeur): void
     {
-        $this->_em->remove($employeur);
-        $this->_em->flush();
+        $entityManager = $this->getEntityManager(); // Utilisez cette méthode pour obtenir l'EntityManager
+        $entityManager->remove($employeur);
+        $entityManager->flush();
     }
 
     /**
