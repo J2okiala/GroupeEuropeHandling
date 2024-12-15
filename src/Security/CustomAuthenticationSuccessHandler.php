@@ -20,7 +20,8 @@ class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler
     {
         // Récupérer les rôles de l'utilisateur connecté
         $roles = $token->getRoleNames();
-
+        dump($roles); // Ajouter un dump pour vérifier les rôles de l'utilisateur
+    
         // Déterminer la redirection en fonction du rôle
         if (in_array('ROLE_EMPLOYEUR', $roles, true)) {
             $redirectUrl = $this->router->generate('profilEmployeur');
@@ -29,7 +30,7 @@ class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler
         } else {
             $redirectUrl = $this->router->generate('home'); // Page par défaut
         }
-
+    
         return new RedirectResponse($redirectUrl);
-    }
+    }    
 }

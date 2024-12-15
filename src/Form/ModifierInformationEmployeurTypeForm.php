@@ -43,12 +43,12 @@ class ModifierInformationEmployeurTypeForm extends AbstractType
                     ]),
                 ],
             ])
-            ->add('nomEntreprise', TextType::class, [
-                'label' => 'nomEntreprise',
+            ->add('entreprise', TextType::class, [
+                'label' => 'entreprise',
                 'attr' => ['placeholder' => "Entrez votre nomEntreprise"],
                 'required' => true,
-                'constraintes' => [
-                    new NotBlank(["message" => "Le nomEntreprise est obligatoire"]),
+                'constraints' => [
+                    new NotBlank(["message" => "entreprise est obligatoire"]),
                     new Length([
                         'min' => 3,
                         'minMessage' => "Le nomEntreprise doit contenir au moins {{ limit }} caractères",
