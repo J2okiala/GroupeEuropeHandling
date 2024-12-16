@@ -1,0 +1,123 @@
+{% extends 'pages/base.html.twig' %}
+
+{% block title %}Poster une offre{% endblock %}
+
+{% block body %}
+
+{% if form is not null %}
+
+    {{ form_start(form) }}
+    <div class="mb-3">
+        {{ form_row(form.poste, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.typeContrat, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.descriptionPoste, {'attr': {'class': 'form-control', 'rows': 5}}) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.modaliteTravail, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.localisation, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <button type="submit" class="btn btn-success w-100">
+        {{ form.Postez.vars.label }}
+    </button>
+    {{ form_end(form) }}
+{% else %}
+    <p>Le formulaire n'est pas disponible.</p>
+{% endif %}
+
+
+{# <main class="container my-5">
+    <h1 class="text-center mb-4">Publier une nouvelle offre d'emploi</h1>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <!-- Formulaire principal -->
+            <div class="card shadow-sm p-4">
+                {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                
+                <!-- Affichage des erreurs générales du formulaire -->
+                {% if form.vars.errors|length > 0 %}
+                    <div class="alert alert-danger">
+                        <ul>
+                            {% for error in form.vars.errors %}
+                                <li>{{ error.message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                <!-- Champs du formulaire -->
+                <div class="mb-3">
+                    {{ form_row(form.poste, {'attr': {'class': 'form-control'}}) }}
+                    {% if form.poste.vars.errors|length > 0 %}
+                        <div class="invalid-feedback">
+                            {% for error in form.poste.vars.errors %}
+                                <p>{{ error.message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_row(form.typeContrat, {'attr': {'class': 'form-control'}}) }}
+                    {% if form.typeContrat.vars.errors|length > 0 %}
+                        <div class="invalid-feedback">
+                            {% for error in form.typeContrat.vars.errors %}
+                                <p>{{ error.message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_row(form.descriptionPoste, {'attr': {'class': 'form-control', 'rows': 5}}) }}
+                    {% if form.descriptionPoste.vars.errors|length > 0 %}
+                        <div class="invalid-feedback">
+                            {% for error in form.descriptionPoste.vars.errors %}
+                                <p>{{ error.message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_row(form.modaliteTravail, {'attr': {'class': 'form-control'}}) }}
+                    {% if form.modaliteTravail.vars.errors|length > 0 %}
+                        <div class="invalid-feedback">
+                            {% for error in form.modaliteTravail.vars.errors %}
+                                <p>{{ error.message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_row(form.localisation, {'attr': {'class': 'form-control'}}) }}
+                    {% if form.localisation.vars.errors|length > 0 %}
+                        <div class="invalid-feedback">
+                            {% for error in form.localisation.vars.errors %}
+                                <p>{{ error.message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Bouton de soumission -->
+                <button type="submit" class="btn btn-success w-100">
+                    {{ form.Postez.vars.label|default('Publier l\'offre') }}
+                </button>
+
+                {{ form_rest(form) }}
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</main> #}
+
+{% endblock %}

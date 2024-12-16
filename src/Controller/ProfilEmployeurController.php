@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Employeur;
+use App\Entity\OffreEmploi;
 use App\Form\MesIdentifiantsDeConnexionEFormType;
 use App\Form\ModifierInformationEmployeurTypeForm;
+use App\Form\OffreEmploiFormType;
+use App\Form\PostezOffreEmploiFormType;
 use App\Form\ProfilFormType;
 use App\Repository\EmployeurRepository;
 use App\Repository\UtilisateurRepository;
@@ -31,13 +34,99 @@ class ProfilEmployeurController extends AbstractController
         // Faire ce que vous vous voulez avec, comme récuperer des donnés ect..
 
         // Retourner la vue associé
-        return $this->render('pages/utilisateur/employeur/profil-employeur.html.twig', ['isSecondaryNavbar' => true]);
+        return $this->render('pages/utilisateur/employeur/profil-employeur.html.twig', ['employeurNavbar' => true,]);
     }
 
     #[Route("/deconnexion", name:"deconnexion")]
     public function logout() {
         // peut etre vide
     }
+
+    #[Route('/afficher-formulaire-offre-emploi', name: 'afficher-formulaire-offre-emploi')]
+    public function afficherFormulaire(
+        Request $request,
+        EmployeurRepository $employeurRepository // Injectez le repository
+    ): Response {
+        // Récupérer l'utilisateur connecté
+        $utilisateur = $this->getUser();
+    
+        // Vérifier si l'utilisateur est connecté
+        if (!$utilisateur) {
+            $this->addFlash('error', 'Vous devez être connecté pour accéder à cette page.');
+            return $this->redirectToRoute('connexion');
+        }
+    
+        // Récupérer l'employeur lié à cet utilisateur
+        $employeur = $employeurRepository->findOneBy(['utilisateur' => $utilisateur]);
+    
+        // Vérification : si aucun employeur n'est trouvé
+        if (!$employeur) {
+            $this->addFlash('error', 'Aucun employeur associé à cet utilisateur.');
+            return $this->redirectToRoute('profilEmployeur');
+        }
+    
+        // Créer une nouvelle offre d'emploi
+        $offre = new OffreEmploi();
+        $offre->setEmployeur($employeur);
+    
+        // Créer et gérer le formulaire
+        $form = $this->createForm(PostezOffreEmploiFormType::class, $offre);
+    
+        // Rendre le template avec le formulaire
+        return $this->render('components/navbar.html.twig', [
+            'form' => $form->createView(),
+            'employeurNavbar' => true, // Assurez-vous que cette variable est utilisée dans votre template pour conditionner la navbar
+        ]);
+    }
+
+    #[Route('/poster-offre-emploi', name: 'poster-offre-emploi', methods: ['POST'])]
+    public function traiterFormulaire(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        EmployeurRepository $employeurRepository // Injectez le repository
+    ): Response {
+        // Récupérer l'utilisateur connecté
+        $utilisateur = $this->getUser();
+
+        // Vérifier si l'utilisateur est connecté
+        if (!$utilisateur) {
+            $this->addFlash('error', 'Vous devez être connecté pour accéder à cette page.');
+            return $this->redirectToRoute('connexion');
+        }
+
+        // Récupérer l'employeur lié à cet utilisateur
+        $employeur = $employeurRepository->findOneBy(['utilisateur' => $utilisateur]);
+
+        // Vérification : si aucun employeur n'est trouvé
+        if (!$employeur) {
+            $this->addFlash('error', 'Aucun employeur associé à cet utilisateur.');
+            return $this->redirectToRoute('profilEmployeur');
+        }
+
+        // Créer une nouvelle offre d'emploi
+        $offre = new OffreEmploi();
+        $offre->setEmployeur($employeur);
+
+        // Créer et gérer le formulaire
+        $form = $this->createForm(PostezOffreEmploiFormType::class, $offre);
+        $form->handleRequest($request);
+
+        // Vérifier si le formulaire a été soumis et est valide
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Sauvegarder l'offre d'emploi dans la base de données
+            $entityManager->persist($offre);
+            $entityManager->flush();
+
+            // Afficher un message de succès et rediriger vers la page de profil employeur
+            $this->addFlash('success', 'Offre d\'emploi publiée avec succès !');
+            return $this->redirectToRoute('profilEmployeur');
+        }
+
+        // Si le formulaire n'est pas valide, on redirige vers la page d'affichage du formulaire
+        return $this->redirectToRoute('profilEmployeur');
+    }
+
+
 
     #[Route('/maFicheE', name: 'maFicheE')]
     public function maFiche()
@@ -46,7 +135,7 @@ class ProfilEmployeurController extends AbstractController
         $uilisateur = $this->getUser();
 
         return $this->render('pages/utilisateur/employeur/ma-fiche.html.twig', [
-            'isSecondaryNavbar' => true,
+            'employeurNavbar' => true,
         ]);
     }
 
@@ -85,7 +174,7 @@ class ProfilEmployeurController extends AbstractController
     
         return $this->render('pages/utilisateur/employeur/modifier-mes-informations.html.twig', [
             'form' => $form->createView(),
-            'isSecondaryNavbar' => true,
+            'employeurNavbar' => true,
         ]);
     }
     
@@ -97,7 +186,7 @@ class ProfilEmployeurController extends AbstractController
         // $utilisateur = $this->getUser();
 
         return $this->render('pages/utilisateur/employeur/mes-offres.html.twig', [
-            'isSecondaryNavbar' => true,
+            'employeurNavbar' => true,
         ]);
     }
 
@@ -145,7 +234,7 @@ class ProfilEmployeurController extends AbstractController
     
         return $this->render('pages/utilisateur/employeur/mes-identifiants-de-connexion.html.twig', [
             'form' => $form->createView(),
-            'isSecondaryNavbar' => true,
+            'employeurNavbar' => true,
         ]);
     }
 
@@ -189,7 +278,9 @@ class ProfilEmployeurController extends AbstractController
 
     #[Route('/candidature-spontanee', name: 'candidature-spontanee', methods: ['GET'])]
     public function CandidatureSpontanee(): Response {
-        return $this->render('pages/utilisateur/employeur/les-candidatures-spontanee.html.twig');
+            return $this->render('pages/utilisateur/employeur/les-candidatures-spontanee.html.twig', 
+            ['employeurNavbar' => true,
+        ]);
     }
 
 

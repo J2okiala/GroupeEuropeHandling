@@ -1,130 +1,144 @@
 <header>
     <div>
         {% if isSecondaryNavbar|default(false) %}
-        <!-- Navbar spécifique -->
-        <nav class="secondary-navbar navbar" id="top">
-            <ul>
-                <li class="logo-group">
+            <!-- Navbar spécifique -->
+            <nav class="secondary-navbar navbar" id="top">
+                <ul>
+                    <li class="logo-group">
+                        <a href="{{ path('home') }}">
+                            <img class="shadow-blue pe-none" src="/img/LogoEuropeHandling.png" alt="Logo Europe Handling">
+                        </a>
+                    </li>
+                    <div class="right-links">
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <li>
+                                <p>ESPACE COMPTE | Bonjour {{ app.user.prenom }} </p>
+                            </li>
+                            <li>
+                                <a href="{{ path('deconnexion') }}" class="candidature-link">Déconnexion</a>
+                            </li>
+                        {% else %}
+                            <li><a href="{{ path('inscription') }}">Inscription</a></li>
+                            <li><a href="{{ path('connexion') }}">Connexion</a></li>
+                            <li><a href="{{ path('candidatureSpontanee') }}" class="candidature-link">Candidature Spontanée</a></li>
+                        {% endif %}
+                    </div>
+                </ul>
+            </nav>
+            <!-- Conteneur vidéo + formulaire -->
+            <div class="video-container position-relative">
+                <!-- Vidéo de fond -->
+                <video autoplay muted loop id="bg-video">
+                    <source src="/video/6472912-hd_1280_720_24fps.mp4" type="video/mp4">
+                </video>
+            </div>
+
+        {% elseif employeurNavbar|default(false) %}
+            <!-- Navbar spécifique pour les employeurs -->
+            <nav class="secondary-navbar navbar" id="top">
+                <ul>
+                    <li class="logo-group">
+                        <a href="{{ path('home') }}">
+                            <img class="shadow-blue pe-none" src="/img/LogoEuropeHandling.png" alt="Logo Europe Handling">
+                        </a>
+                    </li>
+                    <div class="right-links">
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <li>
+                                <p>ESPACE COMPTE | Bonjour {{ app.user.prenom }} </p>
+                            </li>
+                            <li>
+                                <a href="{{ path('deconnexion') }}" class="candidature-link">Déconnexion</a>
+                            </li>
+                        {% endif %}
+                    </div>
+                </ul>
+            </nav>
+            <!-- Conteneur vidéo + formulaire -->
+            <div class="video-container position-relative">
+                <!-- Vidéo de fond -->
+                <video autoplay muted loop id="bg-video">
+                    <source src="/video/6472912-hd_1280_720_24fps.mp4" type="video/mp4">
+                </video>
+                <div class="form-container">
+                    {{ form_start(form, {'action': path('poster-offre-emploi'), 'method': 'POST'}) }}
+                    <div class="mb-3">
+                        {{ form_row(form.poste, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_row(form.typeContrat, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_row(form.descriptionPoste, {'attr': {'class': 'form-control', 'rows': 5}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_row(form.modaliteTravail, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_row(form.localisation, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">
+                        Publier l'offre
+                    </button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+
+        {% elseif mentionsLegalesNavbar|default(false) %}
+            <!-- Navbar spécifique pour les mentions légales -->
+            <nav class="navbar" id="top">
+                <div class="logo-group">
                     <a href="{{ path('home') }}">
                         <img class="shadow-blue pe-none" src="/img/LogoEuropeHandling.png" alt="Logo Europe Handling">
                     </a>
-                </li>
-                <div class="right-links">
-                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                        <li><p>ESPACE COMPTE | Bonjour {{ app.user.prenom }} </p></li>
-                        <li><a href="{{ path('deconnexion') }}" class="candidature-link">Déconnexion</a></li>
-                    {% else %}
-                        <li><a href="{{ path('inscription') }}">Inscription</a></li>
-                        <li><a href="{{ path('connexion') }}">Connexion</a></li>
-                        <li><a href="{{ path('candidatureSpontanee') }}" class="candidature-link">Candidature Spontanée</a></li>
-                    {% endif %}
                 </div>
-            </ul>
-        </nav>
+                <div id="menu-toggle" class="menu">
+                    <div class="scroll">
+                        <i class="fa-solid fa-bars"></i>
+                        <p>MENU</p>
+                    </div>
+                </div>
+                <!-- Liens de navigation -->
+                <ul id="nav-links" class="nav-links">
+                    <li><a href="{{ path('home') }}">Accueil</a></li>
+                    <li><a href="{{ path('nosServices') }}">Nos Services</a></li>
+                    <li><a href="{{ path('nosOffres') }}">Nos Offres</a></li>
+                    <li><a href="{{ path('nosChiffres') }}">Nos chiffres</a></li>
+                </ul>
+            </nav>
+            <div class="video-container">
+                <div id="bg-video">
+                    <img src="img/photo MentionsLegales.png" alt="Mentions Légales" width="100%">
+                </div>
+            </div>
 
-        <!-- Formulaire spécifique pour la page nosOffres -->
-        <div class="video-container">
-            <video autoplay muted loop id="bg-video">
-                <source src="video/6472912-hd_1280_720_24fps.mp4" type="video/mp4">
-            </video>
-            <form class="row gy-2 gx-3 align-items-center">
-                <div class="col-12">
-                    <h2>Recherche d'une offre d'emplois</h2>
-                </div>
-                <div class="col-6">
-                    <label class="visually-hidden" for="autoSizingSelect">Recherche Poste</label>
-                    <select class="form-select" id="autoSizingSelect">
-                        <option selected>Recherche Poste</option>
-                        <option value="1">Agent Piste</option>
-                        <option value="2">Agent Escale</option>
-                        <option value="3">Agent Trafic</option>
-                    </select>
-                </div>
-                <div class="col-6">
-                    <label class="visually-hidden" for="autoSizingSelect">Type de Contrat</label>
-                    <select class="form-select" id="autoSizingSelect">
-                        <option selected>Type de Contrat</option>
-                        <option value="1">CDD</option>
-                        <option value="2">CDI</option>
-                        <option value="3">Stage</option>
-                    </select>
-                </div>
-                <div class="col-4">
-                    <label class="visually-hidden" for="autoSizingSelect">Modalités de Travail</label>
-                    <select class="form-select" id="autoSizingSelect">
-                        <option selected>Modalités de Travail</option>
-                        <option value="1">Temps plein</option>
-                        <option value="2">Temps partiel</option>
-                    </select>
-                </div>
-                <div class="col-4">
-                    <label class="visually-hidden" for="autoSizingSelect">Localisation</label>
-                    <select class="form-select" id="autoSizingSelect">
-                        <option selected>Localisation</option>
-                        <option value="1">Paris</option>
-                        <option value="2">Lyon</option>
-                        <option value="3">Marseille</option>
-                    </select>
-                </div>
-                <div class="col-4">
-                    <button type="submit" class="btn btn-primary">Recherchez</button>
-                </div>
-            </form>
-        </div>
-        {% elseif mentionsLegalesNavbar|default(false) %}
-        <!-- Navbar spécifique pour les mentions légales -->
-        <nav class="navbar" id="top">
-            <div class="logo-group">
-                <a href="{{ path('home') }}">
-                    <img class="shadow-blue pe-none" src="/img/LogoEuropeHandling.png" alt="Logo Europe Handling">
-                </a>
-            </div>
-            <div id="menu-toggle" class="menu">
-                <div class="scroll">
-                    <i class="fa-solid fa-bars"></i>
-                    <p>MENU</p>
-                </div>
-            </div>
-            <!-- Liens de navigation -->
-            <ul id="nav-links" class="nav-links">
-                <li><a href="{{ path('home') }}">Accueil</a></li>
-                <li><a href="{{ path('nosServices') }}">Nos Services</a></li>
-                <li><a href="{{ path('nosOffres') }}">Nos Offres</a></li>
-                <li><a href="{{ path('nosChiffres') }}">Nos chiffres</a></li>
-            </ul>
-        </nav>
-        <div class="video-container">
-            <div id="bg-video">
-                <img src="img/photo MentionsLegales.png" alt="Mentions Légales" width="100%">
-            </div>
-        </div>
         {% else %}
-        <!-- Navbar par défaut -->
-        <nav class="navbar" id="top">
-            <div class="logo-group">
-                <a href="{{ path('home') }}">
-                    <img class="shadow-blue pe-none" src="/img/LogoEuropeHandling.png" alt="Logo Europe Handling">
-                </a>
-            </div>
-            <div id="menu-toggle" class="menu">
-                <div class="scroll">
-                    <i class="fa-solid fa-bars"></i>
-                    <p>MENU</p>
+            <!-- Navbar par défaut -->
+            <nav class="navbar" id="top">
+                <div class="logo-group">
+                    <a href="{{ path('home') }}">
+                        <img class="shadow-blue pe-none" src="/img/LogoEuropeHandling.png" alt="Logo Europe Handling">
+                    </a>
                 </div>
+                <div id="menu-toggle" class="menu">
+                    <div class="scroll">
+                        <i class="fa-solid fa-bars"></i>
+                        <p>MENU</p>
+                    </div>
+                </div>
+                <!-- Liens de navigation cachés -->
+                <ul id="nav-links" class="nav-links">
+                    <li><a href="{{ path('home') }}">Accueil</a></li>
+                    <li><a href="{{ path('nosServices') }}">Nos Services</a></li>
+                    <li><a href="{{ path('nosOffres') }}">Nos Offres</a></li>
+                    <li><a href="{{ path('nosChiffres') }}">Nos chiffres</a></li>
+                </ul>
+            </nav>
+            <div class="video-container">
+                <video autoplay muted loop id="bg-video">
+                    <source src="video/6472912-hd_1280_720_24fps.mp4" type="video/mp4">
+                </video>
             </div>
-            <!-- Liens de navigation cachés -->
-            <ul id="nav-links" class="nav-links">
-                <li><a href="{{ path('home') }}">Accueil</a></li>
-                <li><a href="{{ path('nosServices') }}">Nos Services</a></li>
-                <li><a href="{{ path('nosOffres') }}">Nos Offres</a></li>
-                <li><a href="{{ path('nosChiffres') }}">Nos chiffres</a></li>
-            </ul>
-        </nav>
-        <div class="video-container">
-            <video autoplay muted loop id="bg-video">
-                <source src="video/6472912-hd_1280_720_24fps.mp4" type="video/mp4">
-            </video>
-        </div>
         {% endif %}
     </div>
 </header>
