@@ -1,6 +1,6 @@
 <header>
     <div>
-        {% if isSecondaryNavbar|default(false) %}
+        {% if  isSecondaryNavbar|default(false)  %}
             <!-- Navbar spécifique -->
             <nav class="secondary-navbar navbar" id="top">
                 <ul>
@@ -25,43 +25,16 @@
                     </div>
                 </ul>
             </nav>
-            <!-- Conteneur vidéo + formulaire -->
-            <div class="video-container position-relative">
-                <!-- Vidéo de fond -->
-                <video autoplay muted loop id="bg-video">
-                    <source src="/video/6472912-hd_1280_720_24fps.mp4" type="video/mp4">
-                </video>
-            </div>
 
-        {% elseif employeurNavbar|default(false) %}
-            <!-- Navbar spécifique pour les employeurs -->
-            <nav class="secondary-navbar navbar" id="top">
-                <ul>
-                    <li class="logo-group">
-                        <a href="{{ path('home') }}">
-                            <img class="shadow-blue pe-none" src="/img/LogoEuropeHandling.png" alt="Logo Europe Handling">
-                        </a>
-                    </li>
-                    <div class="right-links">
-                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <li>
-                                <p>ESPACE COMPTE | Bonjour {{ app.user.prenom }} </p>
-                            </li>
-                            <li>
-                                <a href="{{ path('deconnexion') }}" class="candidature-link">Déconnexion</a>
-                            </li>
-                        {% endif %}
-                    </div>
-                </ul>
-            </nav>
+            {% include "components/poster-offre.html.twig" %}
+        
+            
+
+
+
             <!-- Conteneur vidéo + formulaire -->
-            <div class="video-container position-relative">
-                <!-- Vidéo de fond -->
-                <video autoplay muted loop id="bg-video">
-                    <source src="/video/6472912-hd_1280_720_24fps.mp4" type="video/mp4">
-                </video>
-                <div class="form-container">
-                    {{ form_start(form, {'action': path('poster-offre-emploi'), 'method': 'POST'}) }}
+                {# <div class="form-container">
+                    {{ form_start(form) }}
                     <div class="mb-3">
                         {{ form_row(form.poste, {'attr': {'class': 'form-control'}}) }}
                     </div>
@@ -82,37 +55,9 @@
                     </button>
                     {{ form_end(form) }}
                 </div>
-            </div>
+            </div> #}
 
-        {% elseif mentionsLegalesNavbar|default(false) %}
-            <!-- Navbar spécifique pour les mentions légales -->
-            <nav class="navbar" id="top">
-                <div class="logo-group">
-                    <a href="{{ path('home') }}">
-                        <img class="shadow-blue pe-none" src="/img/LogoEuropeHandling.png" alt="Logo Europe Handling">
-                    </a>
-                </div>
-                <div id="menu-toggle" class="menu">
-                    <div class="scroll">
-                        <i class="fa-solid fa-bars"></i>
-                        <p>MENU</p>
-                    </div>
-                </div>
-                <!-- Liens de navigation -->
-                <ul id="nav-links" class="nav-links">
-                    <li><a href="{{ path('home') }}">Accueil</a></li>
-                    <li><a href="{{ path('nosServices') }}">Nos Services</a></li>
-                    <li><a href="{{ path('nosOffres') }}">Nos Offres</a></li>
-                    <li><a href="{{ path('nosChiffres') }}">Nos chiffres</a></li>
-                </ul>
-            </nav>
-            <div class="video-container">
-                <div id="bg-video">
-                    <img src="img/photo MentionsLegales.png" alt="Mentions Légales" width="100%">
-                </div>
-            </div>
-
-        {% else %}
+        {% else %} 
             <!-- Navbar par défaut -->
             <nav class="navbar" id="top">
                 <div class="logo-group">

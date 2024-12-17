@@ -56,7 +56,7 @@
     </head>
     <body>
         <!-- Navbar -->
-        {% include "components/navbar.html.twig" with {'isSecondaryNavbar': isSecondaryNavbar|default(false), 'form': form|default(null)} %}
+        {% include "components/navbar.html.twig" with {'isSecondaryNavbar': isSecondaryNavbar|default(false) } %}
 
         <!-- Main Content -->
             {% block body %}

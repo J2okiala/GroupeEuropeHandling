@@ -40,9 +40,7 @@ class AccueilController extends AbstractController
     #[Route('/mentionsLegales', name: 'mentionsLegales')]
     public function mentions()
     {
-        return $this->render('pages/home/mentionsLegales.html.twig', [
-            'mentionsLegalesNavbar' => true,
-        ]);
+        return $this->render('pages/home/mentionsLegales.html.twig');
 
     }
 }

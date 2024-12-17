@@ -27,23 +27,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class ProfilEmployeurController extends AbstractController
 {
     #[Route("/profilEmployeur", name:"profilEmployeur")]
-    public function profil() {
-        // Récuperer l'utilisateur depuis la session
-        $uilisateur = $this->getUser();
-
-        // Faire ce que vous vous voulez avec, comme récuperer des donnés ect..
-
-        // Retourner la vue associé
-        return $this->render('pages/utilisateur/employeur/profil-employeur.html.twig', ['employeurNavbar' => true,]);
-    }
-
-    #[Route("/deconnexion", name:"deconnexion")]
-    public function logout() {
-        // peut etre vide
-    }
-
-    #[Route('/afficher-formulaire-offre-emploi', name: 'afficher-formulaire-offre-emploi')]
-    public function afficherFormulaire(
+    public function profile(
         Request $request,
         EmployeurRepository $employeurRepository // Injectez le repository
     ): Response {
@@ -62,7 +46,7 @@ class ProfilEmployeurController extends AbstractController
         // Vérification : si aucun employeur n'est trouvé
         if (!$employeur) {
             $this->addFlash('error', 'Aucun employeur associé à cet utilisateur.');
-            return $this->redirectToRoute('profilEmployeur');
+            return $this->redirectToRoute('connexion');
         }
     
         // Créer une nouvelle offre d'emploi
@@ -71,13 +55,18 @@ class ProfilEmployeurController extends AbstractController
     
         // Créer et gérer le formulaire
         $form = $this->createForm(PostezOffreEmploiFormType::class, $offre);
-    
-        // Rendre le template avec le formulaire
-        return $this->render('components/navbar.html.twig', [
+        return $this->render('pages/utilisateur/employeur/profil-employeur.html.twig', [
+            'isSecondaryNavbar' => true,
             'form' => $form->createView(),
-            'employeurNavbar' => true, // Assurez-vous que cette variable est utilisée dans votre template pour conditionner la navbar
         ]);
     }
+
+    #[Route("/deconnexion", name:"deconnexion")]
+    public function logout() {
+        // peut etre vide
+    }
+
+
 
     #[Route('/poster-offre-emploi', name: 'poster-offre-emploi', methods: ['POST'])]
     public function traiterFormulaire(
@@ -174,7 +163,7 @@ class ProfilEmployeurController extends AbstractController
     
         return $this->render('pages/utilisateur/employeur/modifier-mes-informations.html.twig', [
             'form' => $form->createView(),
-            'employeurNavbar' => true,
+            'isSecondaryNavbar' => true,
         ]);
     }
     
@@ -186,7 +175,7 @@ class ProfilEmployeurController extends AbstractController
         // $utilisateur = $this->getUser();
 
         return $this->render('pages/utilisateur/employeur/mes-offres.html.twig', [
-            'employeurNavbar' => true,
+            'isSecondaryNavbar' => true,
         ]);
     }
 
@@ -234,7 +223,7 @@ class ProfilEmployeurController extends AbstractController
     
         return $this->render('pages/utilisateur/employeur/mes-identifiants-de-connexion.html.twig', [
             'form' => $form->createView(),
-            'employeurNavbar' => true,
+            'isSecondaryNavbar' => true,
         ]);
     }
 
@@ -279,7 +268,7 @@ class ProfilEmployeurController extends AbstractController
     #[Route('/candidature-spontanee', name: 'candidature-spontanee', methods: ['GET'])]
     public function CandidatureSpontanee(): Response {
             return $this->render('pages/utilisateur/employeur/les-candidatures-spontanee.html.twig', 
-            ['employeurNavbar' => true,
+            ['isSecondaryNavbar' => true,
         ]);
     }
 
