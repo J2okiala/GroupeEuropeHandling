@@ -66,7 +66,10 @@ class CandidatureSpontaneeController extends AbstractController
 
         // Rendu de la vue avec le formulaire
         return $this->render('pages/candidatureSpontanee/index.html.twig', [
-            'form' => $form->createView(), 'isSecondaryNavbar' => true
+            'form' => $form->createView(), 
+            'offreNavbar' => true,
+            'withFiltrer' => false, // Pas de filtrage sur cette page
+            'formRecherche' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
         ]);
     }
 }

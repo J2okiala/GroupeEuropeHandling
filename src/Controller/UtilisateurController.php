@@ -82,8 +82,10 @@ class UtilisateurController extends AbstractController
         }
     
         return $this->render('pages/utilisateur/inscription.html.twig', [
-            'isSecondaryNavbar' => true,
+            'offreNavbar' => true,
             'registrationForm' => $form->createView(),
+            'withFiltrer' => false, // Pas de filtrage sur cette page
+            'formRecherche' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
         ]);
     }
     
@@ -107,10 +109,12 @@ class UtilisateurController extends AbstractController
 
         // Retourne la vue avec le formulaire
         return $this->render('pages/utilisateur/connexion.html.twig', [
-            'isSecondaryNavbar' => true,
+            'offreNavbar' => true,
             'last_email' => $lastEmail,
             'error' => $error,
             'connexionForm' => $form->createView(),
+            'withFiltrer' => false, // Pas de filtrage sur cette page
+            'formRecherche' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
         ]);
     }
 }

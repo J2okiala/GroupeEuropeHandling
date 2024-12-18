@@ -1,7 +1,38 @@
 <header>
     <div>
-        {% if  isSecondaryNavbar|default(false)  %}
-            <!-- Navbar spécifique -->
+        {% if offreNavbar|default(false) %}
+            <!-- Navbar spécifique offre-->
+            <nav class="secondary-navbar navbar" id="top">
+                <ul>
+                    <li class="logo-group">
+                        <a href="{{ path('home') }}">
+                            <img class="shadow-blue pe-none" src="/img/LogoEuropeHandling.png" alt="Logo Europe Handling">
+                        </a>
+                    </li>
+                    <div class="right-links">
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <li>
+                                <p>ESPACE COMPTE | Bonjour {{ app.user.prenom }} </p>
+                            </li>
+                            <li>
+                                <a href="{{ path('deconnexion') }}" class="candidature-link">Déconnexion</a>
+                            </li>
+                        {% else %}
+                            <li><a href="{{ path('inscription') }}">Inscription</a></li>
+                            <li><a href="{{ path('connexion') }}">Connexion</a></li>
+                            <li><a href="{{ path('candidatureSpontanee') }}" class="candidature-link">Candidature Spontanée</a></li>
+                        {% endif %}
+                    </div>
+                </ul>
+            </nav>
+        {% if withFiltrer|default(true) %}
+                        {% if formRecherche is not null %}
+                            {% include "components/filtrer-offre.html.twig" with {'formRecherche': formRecherche} %}
+                        {% endif %}
+                    {% endif %}
+
+        {% elseif employeurNavbar|default(false) %}
+            <!-- Navbar spécifique employeur -->
             <nav class="secondary-navbar navbar" id="top">
                 <ul>
                     <li class="logo-group">
@@ -27,37 +58,38 @@
             </nav>
 
             {% include "components/poster-offre.html.twig" %}
-        
-            
 
+        {% elseif candidatNavbar|default(false) %}
+            <!-- Navbar spécifique candidat -->
+            <nav class="secondary-navbar navbar" id="top">
+                <ul>
+                    <li class="logo-group">
+                        <a href="{{ path('home') }}">
+                            <img class="shadow-blue pe-none" src="/img/LogoEuropeHandling.png" alt="Logo Europe Handling">
+                        </a>
+                    </li>
+                    <div class="right-links">
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <li>
+                                <p>ESPACE COMPTE | Bonjour {{ app.user.prenom }} </p>
+                            </li>
+                            <li>
+                                <a href="{{ path('deconnexion') }}" class="candidature-link">Déconnexion</a>
+                            </li>
+                        {% else %}
+                            <li><a href="{{ path('inscription') }}">Inscription</a></li>
+                            <li><a href="{{ path('connexion') }}">Connexion</a></li>
+                            <li><a href="{{ path('candidatureSpontanee') }}" class="candidature-link">Candidature Spontanée</a></li>
+                        {% endif %}
+                    </div>
+                </ul>
+            </nav>
 
+            {% if withFiltrer|default(true) %}
+                {% include "components/filtrer-offre.html.twig" %}
+            {% endif %}
 
-            <!-- Conteneur vidéo + formulaire -->
-                {# <div class="form-container">
-                    {{ form_start(form) }}
-                    <div class="mb-3">
-                        {{ form_row(form.poste, {'attr': {'class': 'form-control'}}) }}
-                    </div>
-                    <div class="mb-3">
-                        {{ form_row(form.typeContrat, {'attr': {'class': 'form-control'}}) }}
-                    </div>
-                    <div class="mb-3">
-                        {{ form_row(form.descriptionPoste, {'attr': {'class': 'form-control', 'rows': 5}}) }}
-                    </div>
-                    <div class="mb-3">
-                        {{ form_row(form.modaliteTravail, {'attr': {'class': 'form-control'}}) }}
-                    </div>
-                    <div class="mb-3">
-                        {{ form_row(form.localisation, {'attr': {'class': 'form-control'}}) }}
-                    </div>
-                    <button type="submit" class="btn btn-success w-100">
-                        Publier l'offre
-                    </button>
-                    {{ form_end(form) }}
-                </div>
-            </div> #}
-
-        {% else %} 
+        {% else %}
             <!-- Navbar par défaut -->
             <nav class="navbar" id="top">
                 <div class="logo-group">

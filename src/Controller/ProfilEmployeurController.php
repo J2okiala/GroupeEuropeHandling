@@ -56,7 +56,7 @@ class ProfilEmployeurController extends AbstractController
         // Créer et gérer le formulaire
         $form = $this->createForm(PostezOffreEmploiFormType::class, $offre);
         return $this->render('pages/utilisateur/employeur/profil-employeur.html.twig', [
-            'isSecondaryNavbar' => true,
+            'employeurNavbar' => true,
             'form' => $form->createView(),
         ]);
     }
@@ -124,7 +124,7 @@ class ProfilEmployeurController extends AbstractController
         $uilisateur = $this->getUser();
 
         return $this->render('pages/utilisateur/employeur/ma-fiche.html.twig', [
-            'employeurNavbar' => true,
+        'employeurNavbar' => true,
         ]);
     }
 
@@ -163,7 +163,7 @@ class ProfilEmployeurController extends AbstractController
     
         return $this->render('pages/utilisateur/employeur/modifier-mes-informations.html.twig', [
             'form' => $form->createView(),
-            'isSecondaryNavbar' => true,
+            'employeurNavbar' => true,
         ]);
     }
     
@@ -175,7 +175,7 @@ class ProfilEmployeurController extends AbstractController
         // $utilisateur = $this->getUser();
 
         return $this->render('pages/utilisateur/employeur/mes-offres.html.twig', [
-            'isSecondaryNavbar' => true,
+            'employeurNavbar' => true,
         ]);
     }
 
@@ -223,7 +223,7 @@ class ProfilEmployeurController extends AbstractController
     
         return $this->render('pages/utilisateur/employeur/mes-identifiants-de-connexion.html.twig', [
             'form' => $form->createView(),
-            'isSecondaryNavbar' => true,
+            'employeurNavbar' => true,
         ]);
     }
 
@@ -268,7 +268,7 @@ class ProfilEmployeurController extends AbstractController
     #[Route('/candidature-spontanee', name: 'candidature-spontanee', methods: ['GET'])]
     public function CandidatureSpontanee(): Response {
             return $this->render('pages/utilisateur/employeur/les-candidatures-spontanee.html.twig', 
-            ['isSecondaryNavbar' => true,
+            ['employeurNavbar' => true,
         ]);
     }
 

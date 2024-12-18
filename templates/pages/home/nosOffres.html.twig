@@ -21,224 +21,40 @@
     {% endfor %}
 
     <!-- Contenu principal -->
-    <h1>10 Offres disponible</h1>
+    <h2>{{ nombreOffres }} Offre{% if nombreOffres > 1 %}s{% endif %} disponible{% if nombreOffres > 1 %}s{% endif %}</h2>
     <section class="container-fluid">
-        <div class="row">
+    
+    <div class="row">
+    {% for offre in offres %}
             <div class="m-2 col-12 col-md-6 col-lg-3 card ">
                 <div>
-                    <h4 class="h-black">Offre d'emploi : Agent de Piste (H/F) </h4>
+                    <h4 class="h-black">Offre d'emploi : {{ offre.poste }} (H/F) </h4>
                     <p>
-                        Roissy-en-France
+                        {{ offre.localisation }}
                     </p>
                     <p>
                         Mise en ligne le 31/10/2024
+                        {# <p>{{ offre.datePublication }}</p> #}
                     </p>
                     <div class="type">
                         <div class="contrat">
-                            <p>CDI</p>
+                            <p>{{ offre.typeContrat }}</p>
                         </div>
                         <div class="modalites">
-                            <p>TELETRAVAIL</p>
+                            <p>{{ offre.modaliteTravail }}</p>
                         </div>
                     </div>
                     <p>
                         Description du poste:
-                        Vous êtes passionné(e) par l'univers aéroportuaire et souhaitez contribuer à la bonne gestion des opérations au sol ? 
-                        Rejoignez notre équipe en tant qu'Agent de Piste (H/F).
-                        En tant qu'Agent de Piste, vous jouerez un rôle essentiel dans le bon déroulement des activités autour des avions, 
-                        garantissant sécurité, efficacité et ponctualité.
+                        {{ offre.descriptionPoste }}
                     </p>
                 </div>
             </div>
+    </div>
+    {% else %}
+        <p>Aucune offre trouvée.</p>
+    {% endfor %}
 
-            <div class="m-2 col-12 col-md-6 col-lg-3 card ">
-                <div>
-                    <h4 class="h-black">Offre d'emploi : Agent de Piste (H/F) </h4>
-                    <p>
-                        Roissy-en-France
-                    </p>
-                    <p>
-                        Mise en ligne le 31/10/2024
-                    </p>
-                    <div class="type">
-                        <div class="contrat">
-                            <p>CDI</p>
-                        </div>
-                        <div class="modalites">
-                            <p>TELETRAVAIL</p>
-                        </div>
-                    </div>
-                    <p>
-                        Description du poste:
-                        Vous êtes passionné(e) par l'univers aéroportuaire et souhaitez contribuer à la bonne gestion des opérations au sol ? 
-                        Rejoignez notre équipe en tant qu'Agent de Piste (H/F).
-                        En tant qu'Agent de Piste, vous jouerez un rôle essentiel dans le bon déroulement des activités autour des avions, 
-                        garantissant sécurité, efficacité et ponctualité.
-                    </p>
-                </div>
-            </div>
-
-            <div class="m-2 col-12 col-md-6 col-lg-3 card ">
-                <div>
-                    <h4 class="h-black">Offre d'emploi : Agent de Piste (H/F) </h4>
-                    <p>
-                        Roissy-en-France
-                    </p>
-                    <p>
-                        Mise en ligne le 31/10/2024
-                    </p>
-                    <div class="type">
-                        <div class="contrat">
-                            <p>CDI</p>
-                        </div>
-                        <div class="modalites">
-                            <p>TELETRAVAIL</p>
-                        </div>
-                    </div>
-                    <p>
-                        Description du poste:
-                        Vous êtes passionné(e) par l'univers aéroportuaire et souhaitez contribuer à la bonne gestion des opérations au sol ? 
-                        Rejoignez notre équipe en tant qu'Agent de Piste (H/F).
-                        En tant qu'Agent de Piste, vous jouerez un rôle essentiel dans le bon déroulement des activités autour des avions, 
-                        garantissant sécurité, efficacité et ponctualité.
-                    </p>
-                </div>
-            </div>
-
-            <div class="m-2 col-12 col-md-6 col-lg-3 card ">
-                <div>
-                    <h4 class="h-black">Offre d'emploi : Agent de Piste (H/F) </h4>
-                    <p>
-                        Roissy-en-France
-                    </p>
-                    <p>
-                        Mise en ligne le 31/10/2024
-                    </p>
-                    <div class="type">
-                        <div class="contrat">
-                            <p>CDI</p>
-                        </div>
-                        <div class="modalites">
-                            <p>TELETRAVAIL</p>
-                        </div>
-                    </div>
-                    <p>
-                        Description du poste:
-                        Vous êtes passionné(e) par l'univers aéroportuaire et souhaitez contribuer à la bonne gestion des opérations au sol ? 
-                        Rejoignez notre équipe en tant qu'Agent de Piste (H/F).
-                        En tant qu'Agent de Piste, vous jouerez un rôle essentiel dans le bon déroulement des activités autour des avions, 
-                        garantissant sécurité, efficacité et ponctualité.
-                    </p>
-                </div>
-            </div>
-
-            <div class="m-2 col-12 col-md-6 col-lg-3 card ">
-                <div>
-                    <h4 class="h-black">Offre d'emploi : Agent de Piste (H/F) </h4>
-                    <p>
-                        Roissy-en-France
-                    </p>
-                    <p>
-                        Mise en ligne le 31/10/2024
-                    </p>
-                    <div class="type">
-                        <div class="contrat">
-                            <p>CDI</p>
-                        </div>
-                        <div class="modalites">
-                            <p>TELETRAVAIL</p>
-                        </div>
-                    </div>
-                    <p>
-                        Description du poste:
-                        Vous êtes passionné(e) par l'univers aéroportuaire et souhaitez contribuer à la bonne gestion des opérations au sol ? 
-                        Rejoignez notre équipe en tant qu'Agent de Piste (H/F).
-                        En tant qu'Agent de Piste, vous jouerez un rôle essentiel dans le bon déroulement des activités autour des avions, 
-                        garantissant sécurité, efficacité et ponctualité.
-                    </p>
-                </div>
-            </div>
-
-            <div class="m-2 col-12 col-md-6 col-lg-3 card ">
-                <div>
-                    <h4 class="h-black">Offre d'emploi : Agent de Piste (H/F) </h4>
-                    <p>
-                        Roissy-en-France
-                    </p>
-                    <p>
-                        Mise en ligne le 31/10/2024
-                    </p>
-                    <div class="type">
-                        <div class="contrat">
-                            <p>CDI</p>
-                        </div>
-                        <div class="modalites">
-                            <p>TELETRAVAIL</p>
-                        </div>
-                    </div>
-                    <p>
-                        Description du poste:
-                        Vous êtes passionné(e) par l'univers aéroportuaire et souhaitez contribuer à la bonne gestion des opérations au sol ? 
-                        Rejoignez notre équipe en tant qu'Agent de Piste (H/F).
-                        En tant qu'Agent de Piste, vous jouerez un rôle essentiel dans le bon déroulement des activités autour des avions, 
-                        garantissant sécurité, efficacité et ponctualité.
-                    </p>
-                </div>
-            </div>
-
-            <div class="m-2 col-12 col-md-6 col-lg-3 card ">
-                <div>
-                    <h4 class="h-black">Offre d'emploi : Agent de Piste (H/F) </h4>
-                    <p>
-                        Roissy-en-France
-                    </p>
-                    <p>
-                        Mise en ligne le 31/10/2024
-                    </p>
-                    <div class="type">
-                        <div class="contrat">
-                            <p>CDI</p>
-                        </div>
-                        <div class="modalites">
-                            <p>TELETRAVAIL</p>
-                        </div>
-                    </div>
-                    <p>
-                        Description du poste:
-                        Vous êtes passionné(e) par l'univers aéroportuaire et souhaitez contribuer à la bonne gestion des opérations au sol ? 
-                        Rejoignez notre équipe en tant qu'Agent de Piste (H/F).
-                        En tant qu'Agent de Piste, vous jouerez un rôle essentiel dans le bon déroulement des activités autour des avions, 
-                        garantissant sécurité, efficacité et ponctualité.
-                    </p>
-                </div>
-            </div>
-
-            <div class="m-2 col-12 col-md-6 col-lg-3 card ">
-                <div>
-                    <h4 class="h-black">Offre d'emploi : Agent de Piste (H/F) </h4>
-                    <p>
-                        Roissy-en-France
-                    </p>
-                    <p>
-                        Mise en ligne le 31/10/2024
-                    </p>
-                    <div class="type">
-                        <div class="contrat">
-                            <p>CDI</p>
-                        </div>
-                        <div class="modalites">
-                            <p>TELETRAVAIL</p>
-                        </div>
-                    </div>
-                    <p>
-                        Description du poste:
-                        Vous êtes passionné(e) par l'univers aéroportuaire et souhaitez contribuer à la bonne gestion des opérations au sol ? 
-                        Rejoignez notre équipe en tant qu'Agent de Piste (H/F).
-                        En tant qu'Agent de Piste, vous jouerez un rôle essentiel dans le bon déroulement des activités autour des avions, 
-                        garantissant sécurité, efficacité et ponctualité.
-                    </p>
-                </div>
-            </div>
     </section>
 
 {% endblock %}
