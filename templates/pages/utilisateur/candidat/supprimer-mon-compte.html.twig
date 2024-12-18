@@ -13,13 +13,11 @@
 <h1>Supprimer mon compte</h1>
 <p>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>
 
-<form method="POST" action="{{ path('confirmer_suppression') }}">
+<form method="POST" action="{{ path('confirmer_compte') }}">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('delete_account') }}">
     <button type="submit" class="btn btn-danger">Oui, supprimer mon compte</button>
     <a href="{{ path('profilCandidat') }}" class="btn btn-secondary">Annuler</a>
 </form>
-
-
 
 
 {% endblock %}

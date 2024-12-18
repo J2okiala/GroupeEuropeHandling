@@ -15,7 +15,7 @@
 
     <main class="container">
 
-    <h4 class=" font-weight-semibold mb-4 text-center">Bienvenue sur votre espace employeur ! </h4>
+    <h4 class=" font-weight-semibold mb-4 text-center">Bienvenue sur votre espace employeur {{ app.user.prenom }} ! </h4>
             <!-- Cartes -->
             <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
                 <div class="col m-2"><a href="{{ path('maFicheE') }}">

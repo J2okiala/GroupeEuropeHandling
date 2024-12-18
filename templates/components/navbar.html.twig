@@ -5,14 +5,14 @@
             <nav class="secondary-navbar navbar" id="top">
                 <ul>
                     <li class="logo-group">
-                        <a href="{{ path('home') }}">
+                        <a href="{{ path('nosOffres') }}">
                             <img class="shadow-blue pe-none" src="/img/LogoEuropeHandling.png" alt="Logo Europe Handling">
                         </a>
                     </li>
                     <div class="right-links">
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             <li>
-                                <p>ESPACE COMPTE | Bonjour {{ app.user.prenom }} </p>
+                                <p>ESPACE COMPTE | </p>
                             </li>
                             <li>
                                 <a href="{{ path('deconnexion') }}" class="candidature-link">Déconnexion</a>
@@ -29,21 +29,36 @@
                         {% if formRecherche is not null %}
                             {% include "components/filtrer-offre.html.twig" with {'formRecherche': formRecherche} %}
                         {% endif %}
-                    {% endif %}
+                    {% endif %} 
+            <!-- image container  -->
+            <style>
+            .imagebackground {
+                height: 110vh; /* Hauteur complète de la fenêtre */
+                background-image: url('/img/IMG_5589.jpg'); /* Image de fond */
+                background-size: cover; /* L'image couvre tout l'espace */
+                background-position: center; /* Centre l'image */
+                background-repeat: no-repeat; /* Pas de répétition */
+                display: flex; /* Utilisation de flexbox */
+                align-items: center; /* Centre verticalement */
+                justify-content: center; /* Centre horizontalement */
+            }
+            </style>
+            <div class="imagebackground">
+            </div>
 
         {% elseif employeurNavbar|default(false) %}
             <!-- Navbar spécifique employeur -->
             <nav class="secondary-navbar navbar" id="top">
                 <ul>
                     <li class="logo-group">
-                        <a href="{{ path('home') }}">
+                        <a href="{{ path('profilEmployeur') }}">
                             <img class="shadow-blue pe-none" src="/img/LogoEuropeHandling.png" alt="Logo Europe Handling">
                         </a>
                     </li>
                     <div class="right-links">
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             <li>
-                                <p>ESPACE COMPTE | Bonjour {{ app.user.prenom }} </p>
+                                <p>ESPACE COMPTE | </p>
                             </li>
                             <li>
                                 <a href="{{ path('deconnexion') }}" class="candidature-link">Déconnexion</a>
@@ -56,22 +71,41 @@
                     </div>
                 </ul>
             </nav>
+            {% if withFiltrer|default(true) %}
+                        {% if formPoster is not null %}
+                            {% include "components/poster-offre.html.twig" with {'formPoster': formPoster} %}
+                        {% endif %}
+                    {% endif %}
+            <style>
+            /* image container */
+            .imagebackground {
+                height: 110vh; /* Hauteur complète de la fenêtre */
+                background-image: url('/img/imgresolus.jpg'); /* Image de fond */
+                background-size: cover; /* L'image couvre tout l'espace */
+                background-position: center; /* Centre l'image */
+                background-repeat: no-repeat; /* Pas de répétition */
+                display: flex; /* Utilisation de flexbox */
+                align-items: center; /* Centre verticalement */
+                justify-content: center; /* Centre horizontalement */
+            }
+            </style>
+            <div class="imagebackground">
+            </div>
 
-            {% include "components/poster-offre.html.twig" %}
 
         {% elseif candidatNavbar|default(false) %}
             <!-- Navbar spécifique candidat -->
             <nav class="secondary-navbar navbar" id="top">
                 <ul>
                     <li class="logo-group">
-                        <a href="{{ path('home') }}">
+                        <a href="{{ path('profilCandidat') }}">
                             <img class="shadow-blue pe-none" src="/img/LogoEuropeHandling.png" alt="Logo Europe Handling">
                         </a>
                     </li>
                     <div class="right-links">
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             <li>
-                                <p>ESPACE COMPTE | Bonjour {{ app.user.prenom }} </p>
+                                <p>ESPACE COMPTE | </p>
                             </li>
                             <li>
                                 <a href="{{ path('deconnexion') }}" class="candidature-link">Déconnexion</a>
@@ -85,10 +119,26 @@
                 </ul>
             </nav>
 
-            {% if withFiltrer|default(true) %}
-                {% include "components/filtrer-offre.html.twig" %}
+        {% if withFiltrer|default(true) and formRecherche is not null %}
+                {% include "components/filtrer-offre.html.twig" with {'formRecherche': formRecherche} %}
+            {% else %}
+                <!-- image container -->
+                <style>
+                .imagebackground {
+                    height: 110vh; /* Hauteur complète de la fenêtre */
+                    background-image: url('/img/IMG_5589.jpg'); /* Image de fond */
+                    background-size: cover; /* L'image couvre tout l'espace */
+                    background-position: center; /* Centre l'image */
+                    background-repeat: no-repeat; /* Pas de répétition */
+                    display: flex; /* Utilisation de flexbox */
+                    align-items: center; /* Centre verticalement */
+                    justify-content: center; /* Centre horizontalement */
+                }
+                </style>
+                <div class="imagebackground">
+                </div>
             {% endif %}
-
+            
         {% else %}
             <!-- Navbar par défaut -->
             <nav class="navbar" id="top">

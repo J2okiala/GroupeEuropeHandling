@@ -54,10 +54,10 @@ class ProfilEmployeurController extends AbstractController
         $offre->setEmployeur($employeur);
     
         // Créer et gérer le formulaire
-        $form = $this->createForm(PostezOffreEmploiFormType::class, $offre);
+        $formPoster = $this->createForm(PostezOffreEmploiFormType::class, $offre);
         return $this->render('pages/utilisateur/employeur/profil-employeur.html.twig', [
             'employeurNavbar' => true,
-            'form' => $form->createView(),
+            'formPoster' => $formPoster->createView(),
         ]);
     }
 
@@ -125,6 +125,8 @@ class ProfilEmployeurController extends AbstractController
 
         return $this->render('pages/utilisateur/employeur/ma-fiche.html.twig', [
         'employeurNavbar' => true,
+        'withFiltrer' => false, // Pas de filtrage sur cette page
+        'formPoster' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
         ]);
     }
 
@@ -164,6 +166,8 @@ class ProfilEmployeurController extends AbstractController
         return $this->render('pages/utilisateur/employeur/modifier-mes-informations.html.twig', [
             'form' => $form->createView(),
             'employeurNavbar' => true,
+            'withFiltrer' => false, // Pas de filtrage sur cette page
+            'formPoster' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
         ]);
     }
     
@@ -176,6 +180,8 @@ class ProfilEmployeurController extends AbstractController
 
         return $this->render('pages/utilisateur/employeur/mes-offres.html.twig', [
             'employeurNavbar' => true,
+            'withFiltrer' => false, // Pas de filtrage sur cette page
+            'formPoster' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
         ]);
     }
 
@@ -224,12 +230,18 @@ class ProfilEmployeurController extends AbstractController
         return $this->render('pages/utilisateur/employeur/mes-identifiants-de-connexion.html.twig', [
             'form' => $form->createView(),
             'employeurNavbar' => true,
+            'withFiltrer' => false, // Pas de filtrage sur cette page
+            'formPoster' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
         ]);
     }
 
     #[Route('/supprimer-compteE', name: 'supprimer_compteE')]
     public function Suppression(): Response {
-        return $this->render('pages/utilisateur/employeur/supprimer-mon-compte.html.twig');
+        return $this->render('pages/utilisateur/employeur/supprimer-mon-compte.html.twig', [
+            'employeurNavbar' => true,
+            'withFiltrer' => false, // Pas de filtrage sur cette page
+            'formPoster' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
+        ]);
     }
     
     #[Route('/confirmer_suppression-compteE', name: 'confirmer_suppression-compteE', methods: ['POST'])]
@@ -269,6 +281,8 @@ class ProfilEmployeurController extends AbstractController
     public function CandidatureSpontanee(): Response {
             return $this->render('pages/utilisateur/employeur/les-candidatures-spontanee.html.twig', 
             ['employeurNavbar' => true,
+            'withFiltrer' => false, // Pas de filtrage sur cette page
+            'formPoster' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
         ]);
     }
 

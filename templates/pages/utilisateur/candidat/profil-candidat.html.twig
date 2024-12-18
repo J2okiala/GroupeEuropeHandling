@@ -12,37 +12,69 @@
 
     <main class="container">
     <h4 class=" font-weight-semibold mb-4 text-center">Bienvenue sur votre espace candidat ! </h4>
+        <!-- Cartes -->
+        <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+            <div class="col m-2"><a href="{{ path('maFiche') }}">
+                <h3>Ma Fiche Candidat</h3>
+                <img src="img/Capture d’écran ma fiche.png" alt="Ma fiche" width="70%"></a>
+            </div>
+
+            <div class="col m-2"><a href="{{ path('modifierMesInformations', {'id': app.user.candidat.id}) }}">
+                <h3>Modifier Mes Informations</h3>
+                <img src="img/Capture d’écran modifier mes infos.png" alt="Modifier Mes Informations" width="70%"></a>
+            </div>
+
+            <div class="col m-2"><a href="{{ path('mesCandidatures') }}">
+                <h3>Visualiser Mes candidatures</h3>
+                <img src="img/Capture d’écran Mes Candidatures.png" alt="Mes Candidatures" width="70%"></a>
+            </div>
+
+            <div class="col m-2"><a href="{{ path('mesIdentifiantsDeConnexion') }}">
+                <h3>Modifier Mes Identifiants</h3>
+                <img src="img/Capture d’écran modifier mes infos.png" alt="Modifier Mes Identifiants" width="70%"></a>
+            </div>
+
+            <div class="col m-2"><a href="{{ path('supprimer_compte') }}">
+                <h3>Supprimer Mon Compte</h3>
+                <img src="img/Capture d’écran desactivez mon compte.png" alt="Desactiver Mon Compte" width="70%"></a>
+            </div>
+        </section>
+
         <!-- resultat offre -->
-        {% include "components/resultat-offre.html.twig" %}
-            <!-- Cartes -->
-            <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-                <div class="col m-2"><a href="{{ path('maFiche') }}">
-                    <h3>Ma Fiche Candidat</h3>
-                    <img src="img/Capture d’écran ma fiche.png" alt="Ma fiche" width="70%"></a>
-                </div>
-
-                <div class="col m-2"><a href="{{ path('modifierMesInformations', {'id': app.user.candidat.id}) }}">
-                    <h3>Modifier Mes Informations</h3>
-                    <img src="img/Capture d’écran modifier mes infos.png" alt="Modifier Mes Informations" width="70%"></a>
-                </div>
-
-                <div class="col m-2"><a href="{{ path('mesCandidatures') }}">
-                    <h3>Visualiser Mes candidatures</h3>
-                    <img src="img/Capture d’écran Mes Candidatures.png" alt="Mes Candidatures" width="70%"></a>
-                </div>
-
-                <div class="col m-2"><a href="{{ path('mesIdentifiantsDeConnexion') }}">
-                    <h3>Modifier Mes Identifiants</h3>
-                    <img src="img/Capture d’écran modifier mes infos.png" alt="Modifier Mes Identifiants" width="70%"></a>
-                </div>
-
-                <div class="col m-2"><a href="{{ path('supprimer_compte') }}">
-                    <h3>Supprimer Mon Compte</h3>
-                    <img src="img/Capture d’écran desactivez mon compte.png" alt="Desactiver Mon Compte" width="70%"></a>
-                </div>
-
-            </section>
-        </div>
+        <h2>{{ nombreOffres }} Offre{% if nombreOffres > 1 %}s{% endif %} disponible{% if nombreOffres > 1 %}s{% endif %}</h2>
+        <section class="container-fluid">
+            <div class="row">
+            {% for offre in offres %}
+                    <div class="m-2 col-12 col-md-6 col-lg-3 card ">
+                        <div>
+                            <h4 class="h-black">Offre d'emploi : {{ offre.poste }} (H/F) </h4>
+                            <p>
+                                {{ offre.localisation }}
+                            </p>
+                            <p>
+                                Mise en ligne le 31/10/2024
+                                {# <p>{{ offre.datePublication }}</p> #}
+                            </p>
+                            <div class="type">
+                                <div class="contrat">
+                                    <p>{{ offre.typeContrat }}</p>
+                                </div>
+                                <div class="modalites">
+                                    <p>{{ offre.modaliteTravail }}</p>
+                                </div>
+                            </div>
+                            <p>
+                                Description du poste:
+                                {{ offre.descriptionPoste }}
+                            </p>
+                        </div>
+                    </div>
+            </div>
+            {% else %}
+                <p>Aucune offre trouvée.</p>
+            {% endfor %}
+        </section>
+        
     </main>
 
 {% endblock %}
