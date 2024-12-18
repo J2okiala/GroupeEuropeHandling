@@ -37,40 +37,36 @@
             {{ form_errors(registrationForm.nom) }}
         </div>
 
-        <div class="text-dark form-group mb-3">
+        <div class="text-dark form-group mb-5">
             {{ form_label(registrationForm.prenom, 'Prénom', {'label_attr': {'class': 'form-label'}}) }}
             {{ form_widget(registrationForm.prenom, {'attr': {'class': 'form-control', 'placeholder': 'Votre prénom'}}) }}
             {{ form_errors(registrationForm.prenom) }}
         </div>
         
-        <div class="text-dark form-group mb-3">
+        <div class="text-dark form-group mb-5">
             {{ form_label(registrationForm.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
             {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Votre email'}}) }}
             {{ form_errors(registrationForm.email) }}
         </div>
 
-        <div class="text-dark form-group mb-3">
+        <div class="text-dark form-group mb-5">
             {{ form_label(registrationForm.password, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
             {{ form_widget(registrationForm.password, {'attr': {'class': 'form-control', 'placeholder': 'Votre mot de passe'}}) }}
             {{ form_errors(registrationForm.password) }}
         </div>
 
-        <div class="text-dark form-group mb-3">
+        <div class="text-dark form-group mb-5">
             {{ form_label(registrationForm.confirmPassword, 'Confirmer le mot de passe', {'label_attr': {'class': 'form-label'}}) }}
             {{ form_widget(registrationForm.confirmPassword, {'attr': {'class': 'form-control', 'placeholder': 'Confirmez votre mot de passe'}}) }}
             {{ form_errors(registrationForm.confirmPassword) }}
         </div>
 
-        <div class="text-dark form-group mb-3">
+        <div class="text-dark form-group mb-5">
             {{ form_label(registrationForm.roles, 'Rôles', {'label_attr': {'class': 'form-label'}}) }}
             {{ form_widget(registrationForm.roles, {'attr': {'class': 'form-check-input'}}) }}
             {{ form_errors(registrationForm.roles) }}
         </div>
 
-
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary mt-4">S</button>
-        </div>
 
         {{ form_end(registrationForm) }}
     </div>

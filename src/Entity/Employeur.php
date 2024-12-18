@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EmployeurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -26,6 +28,11 @@ class Employeur
 
     #[ORM\Column(type: "string", length: 255)]
     private ?string $prenom = null;
+
+    #[ORM\OneToMany(mappedBy: 'employeur', targetEntity: OffreEmploi::class, cascade: ['persist', 'remove'])]
+    private Collection $offres;
+
+
 
     // Getter et Setter
 
@@ -79,5 +86,37 @@ class Employeur
         $this->prenom = $prenom;
         return $this;
     }
+
+    public function __construct()
+    {
+        $this->offres = new ArrayCollection();
+    }
+
+    public function getOffres(): Collection
+    {
+        return $this->offres;
+    }
+
+    public function addOffre(OffreEmploi $offre): self
+    {
+        if (!$this->offres->contains($offre)) {
+            $this->offres[] = $offre;
+            $offre->setEmployeur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffre(OffreEmploi $offre): self
+    {
+        if ($this->offres->removeElement($offre)) {
+            if ($offre->getEmployeur() === $this) {
+                $offre->setEmployeur(null);
+            }
+        }
+
+        return $this;
+}
+
 
 }

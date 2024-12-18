@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Candidat;
+use App\Form\FiltreOffreEmploiFormType;
 use App\Form\MesIdentifiantsDeConnexionFormType;
 use App\Form\modifierInformationCandidatTypeForm;
 use App\Repository\CandidatRepository;
+use App\Repository\OffreEmploiRepository;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,15 +23,69 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class ProfilCandidatController extends AbstractController
 {
-    #[Route("/profilCandidat", name:"profilCandidat")]
-    public function profil() {
+    #[Route("/profilCandidat", name:"profilCandidat", methods: ['GET'])]
+    public function profil(): Response {
         // Récuperer l'utilisateur depuis la session
         $uilisateur = $this->getUser();
 
-        // Faire ce que vous vous voulez avec, comme récuperer des donnés ect..
+        // Créer le formulaire de recherche
+        $formRecherche = $this->createForm(FiltreOffreEmploiFormType::class, null, [
+            'method' => 'GET',
+        ]);
 
         // Retourner la vue associé
-        return $this->render('pages/utilisateur/candidat/profil-candidat.html.twig', ['isSecondaryNavbar' => true]);
+        return $this->render('pages/utilisateur/candidat/profil-candidat.html.twig', [
+            'candidatNavbar' => true,
+            'formRecherche' => $formRecherche->createView(),
+        ]);
+    }
+
+
+    #[Route("/resultats/recherche", name:"traiter_recherche_offres", methods:['GET'])]
+
+    public function traiterRecherche(Request $request, OffreEmploiRepository $repository): Response
+    {
+        // Créer et gérer le formulaire
+        $formResultat = $this->createForm(FiltreOffreEmploiFormType::class, null, [
+            'method' => 'GET',
+        ]);
+        $formResultat->handleRequest($request);
+
+        // Initialiser les critères de recherche
+        $criteria = [];
+        if ($formResultat->isSubmitted() && $formResultat->isValid()) {
+            $data = $formResultat->getData();
+
+            // Ajouter des filtres dynamiques
+            if (!empty($data['poste'])) {
+                $criteria['poste'] = $data['poste'];
+            }
+            if (!empty($data['typeContrat'])) {
+                $criteria['typeContrat'] = $data['typeContrat'];
+            }
+            if (!empty($data['modaliteTravail'])) {
+                $criteria['modaliteTravail'] = $data['modaliteTravail'];
+            }
+            if (!empty($data['localisation'])) {
+                $criteria['localisation'] = $data['localisation'];
+            }
+        }
+
+        // Construire la requête pour la recherche
+        $queryBuilder = $repository->createQueryBuilder('o');
+
+        foreach ($criteria as $key => $value) {
+            $queryBuilder->andWhere("o.$key = :$key")
+                ->setParameter($key, $value);
+        }
+
+        $offres = $queryBuilder->getQuery()->getResult();
+
+        // Rendu de la page avec les résultats
+        return $this->render('components/resultat-offre.html.twig', [
+            'formResultat' => $formResultat->createView(),
+            'offres' => $offres,
+        ]);
     }
 
     #[Route("/deconnexion", name:"deconnexion")]
@@ -44,7 +100,7 @@ class ProfilCandidatController extends AbstractController
         $uilisateur = $this->getUser();
 
         return $this->render('pages/utilisateur/candidat/ma-fiche.html.twig', [
-            'isSecondaryNavbar' => true,
+            'candidatNavbar' => true,
         ]);
     }
 
@@ -115,7 +171,7 @@ class ProfilCandidatController extends AbstractController
     
         return $this->render('pages/utilisateur/candidat/modifier-mes-informations.html.twig', [
             'form' => $form->createView(),
-            'isSecondaryNavbar' => true,
+            'candidatNavbar' => true,
         ]);
     }
 
@@ -126,7 +182,7 @@ class ProfilCandidatController extends AbstractController
         $uilisateur = $this->getUser();
 
         return $this->render('pages/utilisateur/candidat/mes-candidatures.html.twig', [
-            'isSecondaryNavbar' => true,
+            'candidatNavbar' => true,
         ]);
     }
 
@@ -174,7 +230,7 @@ class ProfilCandidatController extends AbstractController
     
         return $this->render('pages/utilisateur/candidat/mes-identifiants-de-connexion.html.twig', [
             'form' => $form->createView(),
-            'isSecondaryNavbar' => true,
+            'candidatNavbar' => true,
         ]);
     }
 

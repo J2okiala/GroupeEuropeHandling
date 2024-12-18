@@ -1,0 +1,32 @@
+    <!-- Résultats de la recherche -->
+    <div>
+        <h2 class="mt-4">Résultats de la recherche</h2>
+
+        {% if offres is not empty %}
+            <table class="table table-striped mt-3">
+                <thead>
+                    <tr>
+                        <th>Poste</th>
+                        <th>Type de contrat</th>
+                        <th>Modalité de travail</th>
+                        <th>Localisation</th>
+                        <th>Date de publication</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for offre in offres %}
+                        <tr>
+                            <td>{{ offre.poste }}</td>
+                            <td>{{ offre.typeContrat }}</td>
+                            <td>{{ offre.modaliteTravail }}</td>
+                            <td>{{ offre.localisation }}</td>
+                            <td>{{ offre.datePublication|date('d/m/Y') }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-muted">Aucune offre ne correspond à vos critères de recherche.</p>
+        {% endif %}
+    </div>
+    

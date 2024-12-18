@@ -56,7 +56,12 @@
     </head>
     <body>
         <!-- Navbar -->
-        {% include "components/navbar.html.twig" with {'isSecondaryNavbar': isSecondaryNavbar|default(false)} %}
+        {% include "components/navbar.html.twig" with {
+            'employeurNavbar': employeurNavbar|default(false), 
+            'candidatNavbar': candidatNavbar|default(false),
+            'offreNavbar': offreNavbar|default(false), 
+            'withFiltrer': withFiltrer|default(true) 
+        } %}
 
         <!-- Main Content -->
             {% block body %}
