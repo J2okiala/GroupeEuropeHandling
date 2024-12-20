@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CandidatRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -49,6 +51,18 @@ class Candidat
 
     #[ORM\Column(type: "string", length: 255)]
     private ?string $prenom = null;
+
+    #[ORM\ManyToMany(targetEntity: OffreEmploi::class, inversedBy: 'candidats')]
+    #[ORM\JoinTable(name: 'candidats_offres_emploi')]
+    private Collection $offresEmploi;
+
+    // Constructeur
+
+    public function __construct()
+    {
+        $this->offresEmploi = new ArrayCollection();
+    }
+
 
     //Getter et Setter
 
@@ -164,6 +178,28 @@ class Candidat
     public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
+        return $this;
+    }
+
+    // Getter et setter pour la relation
+    public function getOffresEmploi(): Collection
+    {
+        return $this->offresEmploi;
+    }
+
+    public function addOffresEmploi(OffreEmploi $offreEmploi): self
+    {
+        if (!$this->offresEmploi->contains($offreEmploi)) {
+            $this->offresEmploi[] = $offreEmploi;
+        }
+
+        return $this;
+    }
+
+    public function removeOffresEmploi(OffreEmploi $offreEmploi): self
+    {
+        $this->offresEmploi->removeElement($offreEmploi);
+
         return $this;
     }
 

@@ -9,6 +9,15 @@
 {% endblock %}
 
 {% block body %}
+    {# Affiche les messages flash s'ils existent #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
 
     <main class="container">
     <h4 class=" font-weight-semibold mb-4 text-center">Bienvenue sur votre espace candidat ! </h4>
@@ -52,8 +61,7 @@
                                 {{ offre.localisation }}
                             </p>
                             <p>
-                                Mise en ligne le 31/10/2024
-                                {# <p>{{ offre.datePublication }}</p> #}
+                                Date de publication : {{ offre.datePublication|date('d/m/Y') }}
                             </p>
                             <div class="type">
                                 <div class="contrat">
@@ -62,6 +70,9 @@
                                 <div class="modalites">
                                     <p>{{ offre.modaliteTravail }}</p>
                                 </div>
+                                <form action="{{ path('postuler', {'offreId': offre.id}) }}" method="POST">
+                                    <input type="submit" value="Postuler">
+                                </form>
                             </div>
                             <p>
                                 Description du poste:

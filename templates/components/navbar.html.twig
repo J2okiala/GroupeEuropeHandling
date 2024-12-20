@@ -63,10 +63,6 @@
                             <li>
                                 <a href="{{ path('deconnexion') }}" class="candidature-link">Déconnexion</a>
                             </li>
-                        {% else %}
-                            <li><a href="{{ path('inscription') }}">Inscription</a></li>
-                            <li><a href="{{ path('connexion') }}">Connexion</a></li>
-                            <li><a href="{{ path('candidatureSpontanee') }}" class="candidature-link">Candidature Spontanée</a></li>
                         {% endif %}
                     </div>
                 </ul>
@@ -78,6 +74,7 @@
                     {% endif %}
             <style>
             /* image container */
+            /* css interne */
             .imagebackground {
                 height: 110vh; /* Hauteur complète de la fenêtre */
                 background-image: url('/img/imgresolus.jpg'); /* Image de fond */
@@ -138,7 +135,7 @@
                 <div class="imagebackground">
                 </div>
             {% endif %}
-            
+
         {% else %}
             <!-- Navbar par défaut -->
             <nav class="navbar" id="top">

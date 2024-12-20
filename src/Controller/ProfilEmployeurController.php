@@ -2,16 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Candidat;
 use App\Entity\Employeur;
 use App\Entity\OffreEmploi;
 use App\Form\MesIdentifiantsDeConnexionEFormType;
 use App\Form\ModifierInformationEmployeurTypeForm;
-use App\Form\OffreEmploiFormType;
 use App\Form\PostezOffreEmploiFormType;
-use App\Form\ProfilFormType;
 use App\Repository\EmployeurRepository;
+use App\Repository\OffreEmploiRepository;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -23,9 +24,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ProfilEmployeurController extends AbstractController
 {
+
     #[Route("/profilEmployeur", name:"profilEmployeur")]
     public function profile(
         Request $request,
@@ -65,8 +70,6 @@ class ProfilEmployeurController extends AbstractController
     public function logout() {
         // peut etre vide
     }
-
-
 
     #[Route('/poster-offre-emploi', name: 'poster-offre-emploi', methods: ['POST'])]
     public function traiterFormulaire(
@@ -172,16 +175,46 @@ class ProfilEmployeurController extends AbstractController
     }
     
 
-    #[Route('/mesOffresE', name: 'mesOffresE')]
-    public function mesOffres()
-    {
-        // Récuperer l'utilisateur depuis la session
-        // $utilisateur = $this->getUser();
 
+    #[Route('/mesOffresE', name:'mesOffresE')]
+    public function mesOffres(
+        OffreEmploiRepository $offreEmploiRepository, 
+        EmployeurRepository $employeurRepository,
+    ): Response {
+        // Récupérer l'utilisateur connecté
+        $utilisateur = $this->getUser();
+        
+        // Récupérer l'employeur associé à l'utilisateur connecté
+        $employeur = $employeurRepository->findOneBy(['utilisateur' => $utilisateur]);
+
+        // Vérification : l'utilisateur est bien lié à un employeur
+        if (!$employeur) {
+            $this->addFlash('error', 'Accès refusé ou employeur introuvable.');
+            return $this->redirectToRoute('profilEmployeur');
+        }
+
+        // Récupérer les offres de l'employeur
+        $offres = $offreEmploiRepository->findBy(['employeur' => $employeur]);
+
+        // Récupérer les candidats ayant postulé à ces offres
+        $candidatures = [];
+        foreach ($offres as $offre) {
+            // Les candidats qui ont postulé à cette offre (via la relation ManyToMany)
+            $candidats = $offre->getCandidats();
+
+            $candidatures[] = [
+                'offre' => $offre,
+                'candidats' => $candidats
+            ];
+        }
+
+        // Rendu de la page avec les offres et candidatures
         return $this->render('pages/utilisateur/employeur/mes-offres.html.twig', [
             'employeurNavbar' => true,
             'withFiltrer' => false, // Pas de filtrage sur cette page
-            'formPoster' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
+            'formPoster' => null, // Si vous n'avez pas besoin de ce formulaire
+            'offres' => $offres,
+            'candidatures' => $candidatures,
         ]);
     }
 
@@ -283,6 +316,34 @@ class ProfilEmployeurController extends AbstractController
             ['employeurNavbar' => true,
             'withFiltrer' => false, // Pas de filtrage sur cette page
             'formPoster' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
+        ]);
+    }
+
+    #[Route('/telecharger-cv/{candidatId}', name:'telecharger_cv')]
+    public function telechargerCv(int $candidatId, ManagerRegistry $doctrine): Response
+    {
+        // Utiliser le ManagerRegistry pour accéder au repository de l'entité Candidat
+        $candidat = $doctrine->getRepository(Candidat::class)->find($candidatId);
+
+        // Vérifier si le candidat existe et s'il a un CV
+        if (!$candidat || !$candidat->getCv()) {
+            throw $this->createNotFoundException('Candidat ou CV non trouvé.');
+        }
+
+        // Récupérer le chemin complet du fichier CV
+        $cvPath = $this->getParameter('kernel.project_dir') . '/public/uploads/cvs/' . $candidat->getCv();
+
+        // Vérifier si le fichier existe
+        if (!file_exists($cvPath)) {
+            throw new FileNotFoundException('Le fichier CV est introuvable.');
+        }
+
+        // Créer une réponse de téléchargement du fichier
+        return new StreamedResponse(function () use ($cvPath) {
+            readfile($cvPath);
+        }, Response::HTTP_OK, [
+            'Content-Type' => 'application/pdf', // Ou un autre type MIME selon ton fichier
+            'Content-Disposition' => 'attachment; filename="' . basename($cvPath) . '"',
         ]);
     }
 

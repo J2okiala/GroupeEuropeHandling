@@ -154,15 +154,27 @@ class ProfilCandidatController extends AbstractController
     }
 
     #[Route('/mesCandidatures', name: 'mesCandidatures')]
-    public function mesCandidatures()
+    public function mesCandidatures(CandidatRepository $candidatRepository): Response
     {
-        // Récuperer l'utilisateur depuis la session
-        $uilisateur = $this->getUser();
+        // Récupérer l'utilisateur connecté
+        $utilisateur = $this->getUser();
+
+        // Récupérer le candidat associé à l'utilisateur
+        $candidat = $candidatRepository->findOneBy(['utilisateur' => $utilisateur]);
+
+        if (!$candidat) {
+            $this->addFlash('error', 'Candidat introuvable.');
+            return $this->redirectToRoute('connexion');
+        }
+
+        // Récupérer toutes les offres auxquelles le candidat a postulé
+        $offresPostulees = $candidat->getOffresEmploi();
 
         return $this->render('pages/utilisateur/candidat/mes-candidatures.html.twig', [
             'candidatNavbar' => true,
             'withFiltrer' => false, // Pas de filtrage sur cette page
             'formRecherche' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
+            'offresPostulees' => $offresPostulees,
         ]);
     }
 
@@ -258,5 +270,41 @@ class ProfilCandidatController extends AbstractController
         return $this->redirectToRoute('home');
     }
 
+    #[Route('/postuler/{offreId}', name: 'postuler', methods: ['POST'])]
+    public function postuler(
+        CandidatRepository $candidatRepository,
+        OffreEmploiRepository $offreEmploiRepository,
+        EntityManagerInterface $entityManager,
+        int $offreId
+    ): Response {
+        // Récupérer l'utilisateur connecté
+        $utilisateur = $this->getUser();
+
+        // Vérifier si l'utilisateur est bien un candidat
+        $candidat = $candidatRepository->findOneBy(['utilisateur' => $utilisateur]);
+
+        if (!$candidat) {
+            $this->addFlash('error', 'Candidat introuvable.');
+            return $this->redirectToRoute('connexion');
+        }
+
+        // Récupérer l'offre d'emploi par son ID
+        $offreEmploi = $offreEmploiRepository->find($offreId);
+
+        if (!$offreEmploi) {
+            $this->addFlash('error', 'Offre d\'emploi introuvable.');
+            return $this->redirectToRoute('profilCandidat');
+        }
+
+        // Ajouter l'offre à la collection du candidat
+        $candidat->addOffresEmploi($offreEmploi);
+
+        // Sauvegarder les changements
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Vous avez postulé à l\'offre avec succès.');
+
+        return $this->redirectToRoute('profilCandidat');
+    }
 
 }

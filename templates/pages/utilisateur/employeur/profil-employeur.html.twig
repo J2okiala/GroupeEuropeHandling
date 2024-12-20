@@ -11,6 +11,15 @@
 
 
 {% block body %}
+    {# Affiche les messages flash s'ils existent #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
 
 
     <main class="container">
@@ -19,8 +28,13 @@
             <!-- Cartes -->
             <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
                 <div class="col m-2"><a href="{{ path('maFicheE') }}">
-                    <h3>Ma Fiche Candidat</h3>
+                    <h3>Ma Fiche Employeur</h3>
                     <img src="img/Capture d’écran ma fiche.png" alt="Ma fiche" width="70%"></a>
+                </div>
+
+                <div class="col m-2"><a href="{{ path('modifierMesInformationsE', {'id': app.user.employeur.id}) }}">
+                    <h3>Modifier Mes Informations</h3>
+                    <img src="img/Capture d’écran modifier mes infos.png" alt="Modifier Mes Informations" width="70%"></a>
                 </div>
 
                 <div class="col m-2"><a href="{{ path('mesOffresE') }}">
@@ -31,11 +45,6 @@
                 <div class="col m-2"><a href="{{ path('candidature-spontanee') }}">
                     <h3>Candidatures Spontanés</h3>
                     <img src="img/Capture d’écran alerte.png" alt="Mes Alertes" width="70%"></a>
-                </div>
-
-                <div class="col m-2"><a href="{{ path('modifierMesInformationsE', {'id': app.user.employeur.id}) }}">
-                    <h3>Modifier Mes Informations</h3>
-                    <img src="img/Capture d’écran modifier mes infos.png" alt="Modifier Mes Informations" width="70%"></a>
                 </div>
 
                 <div class="col m-2"><a href="{{ path('mesIdentifiantsDeConnexionE') }}">

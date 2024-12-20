@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OffreEmploiRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -41,9 +43,15 @@ class OffreEmploi
     #[ORM\JoinColumn(nullable: false)]
     private ?Employeur $employeur = null;
 
+    #[ORM\ManyToMany(targetEntity: Candidat::class, mappedBy: 'offresEmploi')]
+    private Collection $candidats;
+
+    // Constructeur
+
     public function __construct()
     {
         $this->datePublication = new \DateTime();
+        $this->candidats = new ArrayCollection();
     }
 
     // Getters et setters
@@ -129,4 +137,11 @@ class OffreEmploi
 
         return $this;
     }
+
+    // Getter et setter pour la relation
+    public function getCandidats(): Collection
+    {
+        return $this->candidats;
+    }
+    
 }
