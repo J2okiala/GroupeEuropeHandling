@@ -35,22 +35,24 @@
     <div class="form-container">
         <h3 class="text-center mb-2">Publier une Offre d'Emploi</h3> <!-- Titre centré -->
 
-        {{ form_start(form, {'action': path('poster-offre-emploi'), 'method': 'POST'}) }}
-        <div class="mb-3">
-            {{ form_row(form.poste, {'attr': {'class': 'form-control', 'placeholder': 'Intitulé du poste'}}) }}
-        </div>
-        <div class="mb-3">
-            {{ form_row(form.typeContrat, {'attr': {'class': 'form-control'}}) }}
-        </div>
-        <div class="mb-3">
-            {{ form_row(form.descriptionPoste, {'attr': {'class': 'form-control', 'rows': 2, 'placeholder': 'Description du poste'}}) }}
-        </div>
-        <div class="mb-3">
-            {{ form_row(form.modaliteTravail, {'attr': {'class': 'form-control'}}) }}
-        </div>
-        <div class="mb-3">
-            {{ form_row(form.localisation, {'attr': {'class': 'form-control', 'placeholder': 'Lieu de travail'}}) }}
-        </div>
-        {{ form_end(form) }}
+        {{ form_start(formPoster, {'action': path('poster-offre-emploi'), 'method': 'POST'}) }}
+            <div class="row g-4 mb-2">
+                <div class="col-md-5">
+                    {{ form_row(formPoster.poste, {'attr': {'class': 'form-control', 'placeholder': 'Intitulé du poste'}}) }}
+                </div>
+                <div class="col-md-5">
+                    {{ form_row(formPoster.typeContrat, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-md-8">
+                    {{ form_row(formPoster.descriptionPoste, {'attr': {'class': 'form-control', 'rows': 3, 'placeholder': 'Description du poste'}}) }}
+                </div>
+                <div class="col-md-5">
+                    {{ form_row(formPoster.modaliteTravail, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-md-5">
+                    {{ form_row(formPoster.localisation, {'attr': {'class': 'form-control', 'placeholder': 'Lieu de travail'}}) }}
+                </div>
+            </div>
+            {{ form_end(formPoster) }}
     </div>
 </div>

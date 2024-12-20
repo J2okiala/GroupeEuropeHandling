@@ -70,4 +70,43 @@ class OffreEmploiRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * Filtrer les offres d'emploi en fonction des critères fournis.
+     */
+    public function findByFiltre(array $criteria): array
+    {
+        $qb = $this->createQueryBuilder('o');
+
+        // Filtrer par poste
+        if (!empty($criteria['poste'])) {
+            $qb->andWhere('o.poste LIKE :poste')
+            ->setParameter('poste', '%' . $criteria['poste'] . '%');
+        }
+
+        // Filtrer par type de contrat
+        if (!empty($criteria['typeContrat'])) {
+            $qb->andWhere('o.typeContrat = :typeContrat')
+            ->setParameter('typeContrat', $criteria['typeContrat']);
+        }
+
+        // Filtrer par modalité de travail
+        if (!empty($criteria['modaliteTravail'])) {
+            $qb->andWhere('o.modaliteTravail = :modaliteTravail')
+            ->setParameter('modaliteTravail', $criteria['modaliteTravail']);
+        }
+
+        // Filtrer par localisation
+        if (!empty($criteria['localisation'])) {
+            $qb->andWhere('o.localisation LIKE :localisation')
+            ->setParameter('localisation', '%' . $criteria['localisation'] . '%');
+        }
+
+        // Trier par date de publication (décroissant)
+        $qb->orderBy('o.datePublication', 'DESC');
+
+        // Retourner les résultats
+        return $qb->getQuery()->getResult();
+    }
+
 }

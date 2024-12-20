@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Candidat;
 use App\Form\FiltreOffreEmploiFormType;
 use App\Form\MesIdentifiantsDeConnexionFormType;
-use App\Form\modifierInformationCandidatTypeForm;
+use App\Form\ModifierInformationCandidatTypeForm;
 use App\Repository\CandidatRepository;
 use App\Repository\OffreEmploiRepository;
 use App\Repository\UtilisateurRepository;
@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -24,7 +25,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 class ProfilCandidatController extends AbstractController
 {
     #[Route("/profilCandidat", name:"profilCandidat", methods: ['GET'])]
-    public function profil(): Response {
+    public function profil(OffreEmploiRepository $offreEmploiRepository, HttpFoundationRequest $request): Response {
         // Récuperer l'utilisateur depuis la session
         $uilisateur = $this->getUser();
 
@@ -33,58 +34,31 @@ class ProfilCandidatController extends AbstractController
             'method' => 'GET',
         ]);
 
+        // Traiter le formulaire
+        $formRecherche->handleRequest($request);
+
+        // Initialiser les offres
+        $offres = [];
+
+        if ($formRecherche->isSubmitted() && $formRecherche->isValid()) {
+            // Filtrer les offres en fonction des données du formulaire
+            $data = $formRecherche->getData();
+            $offres = $offreEmploiRepository->findByFiltre($data); // Méthode personnalisée à créer dans votre repository
+        } else {
+            // Afficher toutes les offres par défaut
+            $offres = $offreEmploiRepository->findAll();
+        }
+    
+        // Calculer le nombre total d'offres
+        $nombreOffres = count($offres);
+
         // Retourner la vue associé
         return $this->render('pages/utilisateur/candidat/profil-candidat.html.twig', [
             'candidatNavbar' => true,
             'formRecherche' => $formRecherche->createView(),
-        ]);
-    }
-
-
-    #[Route("/resultats/recherche", name:"traiter_recherche_offres", methods:['GET'])]
-
-    public function traiterRecherche(Request $request, OffreEmploiRepository $repository): Response
-    {
-        // Créer et gérer le formulaire
-        $formResultat = $this->createForm(FiltreOffreEmploiFormType::class, null, [
-            'method' => 'GET',
-        ]);
-        $formResultat->handleRequest($request);
-
-        // Initialiser les critères de recherche
-        $criteria = [];
-        if ($formResultat->isSubmitted() && $formResultat->isValid()) {
-            $data = $formResultat->getData();
-
-            // Ajouter des filtres dynamiques
-            if (!empty($data['poste'])) {
-                $criteria['poste'] = $data['poste'];
-            }
-            if (!empty($data['typeContrat'])) {
-                $criteria['typeContrat'] = $data['typeContrat'];
-            }
-            if (!empty($data['modaliteTravail'])) {
-                $criteria['modaliteTravail'] = $data['modaliteTravail'];
-            }
-            if (!empty($data['localisation'])) {
-                $criteria['localisation'] = $data['localisation'];
-            }
-        }
-
-        // Construire la requête pour la recherche
-        $queryBuilder = $repository->createQueryBuilder('o');
-
-        foreach ($criteria as $key => $value) {
-            $queryBuilder->andWhere("o.$key = :$key")
-                ->setParameter($key, $value);
-        }
-
-        $offres = $queryBuilder->getQuery()->getResult();
-
-        // Rendu de la page avec les résultats
-        return $this->render('components/resultat-offre.html.twig', [
-            'formResultat' => $formResultat->createView(),
             'offres' => $offres,
+            'nombreOffres' => $nombreOffres, // Passer le nombre d'offres au template
+
         ]);
     }
 
@@ -101,6 +75,8 @@ class ProfilCandidatController extends AbstractController
 
         return $this->render('pages/utilisateur/candidat/ma-fiche.html.twig', [
             'candidatNavbar' => true,
+            'withFiltrer' => false, // Pas de filtrage sur cette page
+            'formRecherche' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
         ]);
     }
 
@@ -172,17 +148,33 @@ class ProfilCandidatController extends AbstractController
         return $this->render('pages/utilisateur/candidat/modifier-mes-informations.html.twig', [
             'form' => $form->createView(),
             'candidatNavbar' => true,
+            'withFiltrer' => false, // Pas de filtrage sur cette page
+            'formRecherche' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
         ]);
     }
 
     #[Route('/mesCandidatures', name: 'mesCandidatures')]
-    public function mesCandidatures()
+    public function mesCandidatures(CandidatRepository $candidatRepository): Response
     {
-        // Récuperer l'utilisateur depuis la session
-        $uilisateur = $this->getUser();
+        // Récupérer l'utilisateur connecté
+        $utilisateur = $this->getUser();
+
+        // Récupérer le candidat associé à l'utilisateur
+        $candidat = $candidatRepository->findOneBy(['utilisateur' => $utilisateur]);
+
+        if (!$candidat) {
+            $this->addFlash('error', 'Candidat introuvable.');
+            return $this->redirectToRoute('connexion');
+        }
+
+        // Récupérer toutes les offres auxquelles le candidat a postulé
+        $offresPostulees = $candidat->getOffresEmploi();
 
         return $this->render('pages/utilisateur/candidat/mes-candidatures.html.twig', [
             'candidatNavbar' => true,
+            'withFiltrer' => false, // Pas de filtrage sur cette page
+            'formRecherche' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
+            'offresPostulees' => $offresPostulees,
         ]);
     }
 
@@ -231,12 +223,18 @@ class ProfilCandidatController extends AbstractController
         return $this->render('pages/utilisateur/candidat/mes-identifiants-de-connexion.html.twig', [
             'form' => $form->createView(),
             'candidatNavbar' => true,
+            'withFiltrer' => false, // Pas de filtrage sur cette page
+            'formRecherche' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
         ]);
     }
 
     #[Route('/supprimer-compte', name: 'supprimer_compte', methods: ['GET'])]
-    public function Suppression(): Response {
-        return $this->render('pages/utilisateur/candidat/supprimer-mon-compte.html.twig');
+    public function pageSuppression(): Response {
+        return $this->render('pages/utilisateur/candidat/supprimer-mon-compte.html.twig', [
+            'candidatNavbar' => true,
+            'withFiltrer' => false, // Pas de filtrage sur cette page
+            'formRecherche' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
+        ]);
     }
     
     #[Route('/confirmer-compte', name: 'confirmer_compte', methods: ['POST'])]
@@ -272,5 +270,41 @@ class ProfilCandidatController extends AbstractController
         return $this->redirectToRoute('home');
     }
 
+    #[Route('/postuler/{offreId}', name: 'postuler', methods: ['POST'])]
+    public function postuler(
+        CandidatRepository $candidatRepository,
+        OffreEmploiRepository $offreEmploiRepository,
+        EntityManagerInterface $entityManager,
+        int $offreId
+    ): Response {
+        // Récupérer l'utilisateur connecté
+        $utilisateur = $this->getUser();
+
+        // Vérifier si l'utilisateur est bien un candidat
+        $candidat = $candidatRepository->findOneBy(['utilisateur' => $utilisateur]);
+
+        if (!$candidat) {
+            $this->addFlash('error', 'Candidat introuvable.');
+            return $this->redirectToRoute('connexion');
+        }
+
+        // Récupérer l'offre d'emploi par son ID
+        $offreEmploi = $offreEmploiRepository->find($offreId);
+
+        if (!$offreEmploi) {
+            $this->addFlash('error', 'Offre d\'emploi introuvable.');
+            return $this->redirectToRoute('profilCandidat');
+        }
+
+        // Ajouter l'offre à la collection du candidat
+        $candidat->addOffresEmploi($offreEmploi);
+
+        // Sauvegarder les changements
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Vous avez postulé à l\'offre avec succès.');
+
+        return $this->redirectToRoute('profilCandidat');
+    }
 
 }

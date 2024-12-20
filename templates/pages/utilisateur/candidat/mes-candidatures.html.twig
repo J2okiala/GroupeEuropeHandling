@@ -9,5 +9,40 @@
 {% endblock %}
 
 {% block body %}
+    {# Affiche les messages flash s'ils existent #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <h2>Mes Candidatures</h2>
+    
+    {# Vérifie si l'utilisateur a des offres postulées #}
+    {% if offresPostulees is not empty %}
+        <div class="offres-list">
+            {% for offre in offresPostulees %}
+                <div class="offre-item flex m-2">
+                    <h3 class="m-2">GEH votre candidature:</h3>
+                    <div>
+                        <h4 class="m-2">{{ offre.poste }}</h4>
+                        <p class="m-2">Type de contrat : {{ offre.typeContrat }}</p>
+                        <p class="m-2">Localisation : {{ offre.localisation }}</p>
+                        <p>Date de publication : {{ offre.datePublication|date('d/m/Y') }}</p>
+                    </div>
+
+
+                    {# Ajoutez ici d'autres informations concernant l'offre, comme le salaire, description, etc. #}
+
+                    {# <a href="{{ path('offre_details', {'offreId': offre.id}) }}" class="btn btn-primary">Voir les détails</a> #}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Aucune candidature trouvée.</p>
+    {% endif %}
 
 {% endblock %}
