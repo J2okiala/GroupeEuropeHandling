@@ -2,7 +2,6 @@ parameters:
     env(MONGODB_URL): '' # URL de connexion à MongoDB
     env(MONGODB_DB): ''  # Nom de la base MongoDB
     uploads_directory: '%kernel.project_dir%/public/uploads' # Répertoire des uploads
-    upload_directory: '%kernel.project_dir%/public/uploads'  # Alternative pour le binding
 
 services:
     # Configuration par défaut pour les services
@@ -10,10 +9,16 @@ services:
         autowire: true      # Injection automatique des dépendances
         autoconfigure: true # Enregistrement automatique comme commandes, listeners, etc.
         bind:
-            $uploadsDirectory: '%uploads_directory%' # Exemple de liaison de paramètre
+            $uploadsDirectory: '%uploads_directory%' # Injection par défaut pour le paramètre $uploadsDirectory
 
+    # Déclaration explicite du service CandidatureSpontaneeRepository
+    App\Repository\CandidatureSpontaneeRepository:
+        arguments:
+            $dm: '@doctrine_mongodb.odm.document_manager'  # Injecte le DocumentManager
+            $uow: '@=service("doctrine_mongodb.odm.document_manager").getUnitOfWork()' # Injecte le UnitOfWork
+            $class: '@=service("doctrine_mongodb.odm.document_manager").getClassMetadata("App\Document\CandidatureSpontanee")' # Injecte les métadonnées de la classe
 
-    # Enregistrement automatique des services dans src/
+    # Enregistrement automatique des services dans le dossier src/
     App\:
         resource: '../src/'
         exclude:
@@ -26,11 +31,11 @@ services:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
 
-    # Services spécifiques ou externalisés
+    # Enregistrement des autres repositories
     App\Repository\:
         resource: '../src/Repository/'
-        
-    # l'implémentation du CustomAuthenticationSuccessHandler
+
+    # Service spécifique : CustomAuthenticationSuccessHandler
     App\Security\CustomAuthenticationSuccessHandler:
         arguments:
             $router: '@router.default'

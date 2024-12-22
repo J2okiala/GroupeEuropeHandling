@@ -1,7 +1,7 @@
 {% extends 'pages/base.html.twig' %}
 
 {% block title %}
-    Page de profil - candidat
+    profil - candidat
 {% endblock %}
 
 {% block stylesheets %}
@@ -20,7 +20,7 @@
     {% endfor %}
 
     <main class="container">
-    <h4 class=" font-weight-semibold mb-4 text-center">Bienvenue sur votre espace candidat ! </h4>
+    <h4 class=" font-weight-semibold mb-4 text-center">Bienvenue sur votre espace candidat {{ app.user.prenom }} ! </h4>
         <!-- Cartes -->
         <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
             <div class="col m-2"><a href="{{ path('maFiche') }}">

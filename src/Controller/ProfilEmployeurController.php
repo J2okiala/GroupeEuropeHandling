@@ -2,15 +2,19 @@
 
 namespace App\Controller;
 
+use App\Document\CandidatureSpontanee;
 use App\Entity\Candidat;
 use App\Entity\Employeur;
 use App\Entity\OffreEmploi;
+use App\Form\FiltrerCandidatureSpontaneeFormType;
 use App\Form\MesIdentifiantsDeConnexionEFormType;
 use App\Form\ModifierInformationEmployeurTypeForm;
 use App\Form\PostezOffreEmploiFormType;
 use App\Repository\EmployeurRepository;
 use App\Repository\OffreEmploiRepository;
 use App\Repository\UtilisateurRepository;
+use App\Repository\CandidatureSpontaneeRepository;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -310,12 +314,35 @@ class ProfilEmployeurController extends AbstractController
         return $this->redirectToRoute('home');
     }
 
-    #[Route('/candidature-spontanee', name: 'candidature-spontanee', methods: ['GET'])]
-    public function CandidatureSpontanee(): Response {
-            return $this->render('pages/utilisateur/employeur/les-candidatures-spontanee.html.twig', 
-            ['employeurNavbar' => true,
-            'withFiltrer' => false, // Pas de filtrage sur cette page
-            'formPoster' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
+    private $candidatureRepository;
+
+    public function __construct(CandidatureSpontaneeRepository $candidatureRepository)
+    {
+        $this->candidatureRepository = $candidatureRepository;
+    }
+
+    #[Route('/filtrer-candidatures', name: 'filtrer_candidatures', methods: ['GET', 'POST'])]
+    public function afficherCandidaturesFiltrees(Request $request): Response
+    {
+        $form = $this->createForm(FiltrerCandidatureSpontaneeFormType::class);
+        $form->handleRequest($request);
+
+        $candidatures = [];
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $poste = $form->get('poste')->getData();
+
+            if ($poste) {
+                $candidatures = $this->candidatureRepository->findByPoste($poste);
+            }
+        }
+
+        return $this->render('pages/utilisateur/employeur/afficher-les-candidatures-spontanee.html.twig', [
+            'form' => $form->createView(),
+            'candidatures' => $candidatures,
+            'employeurNavbar' => true,
+            'withFiltrer' => false,
+            'formPoster' => null,
         ]);
     }
 

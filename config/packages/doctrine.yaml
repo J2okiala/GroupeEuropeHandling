@@ -1,10 +1,8 @@
+# Doctrine DBAL Configuration (for relational databases)
 doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
-        
-        # Active les logs SQL de Doctrine
         logging: true
-
         profiling_collect_backtrace: '%kernel.debug%'
         use_savepoints: true
 
@@ -24,3 +22,30 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+
+# Doctrine MongoDB Configuration (ODM)
+doctrine_mongodb:
+    connections:
+        default:
+            server: '%env(MONGODB_URL)%'
+            options: {}
+
+    # Define the default database and connection settings for the MongoDB Document Manager
+    document_managers:
+        default:
+            connection: default
+            database: '%env(MONGODB_DB)%'
+            mappings:
+                App\Document:
+                    type: attribute
+                    dir: '%kernel.project_dir%/src/Document'
+                    prefix: 'App\Document'
+                    is_bundle: false
+
+    # You can also add other optional configurations specific to MongoDB ODM like proxy directory or hydrator settings
+    # Example:
+    # proxy_dir: '%kernel.project_dir%/var/proxies'
+    # hydrator_dir: '%kernel.project_dir%/var/hydrators'
+
+
+
