@@ -2,10 +2,11 @@
 
 namespace App\Document;
 
+use App\Repository\CandidatureSpontaneeRepository;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
-#[MongoDB\Document]
-class CandidatureSpontanee
+#[MongoDB\Document(repositoryClass: CandidatureSpontaneeRepository::class)] 
+class CandidatureSpontanee 
 {
     #[MongoDB\Id]
     private $id;
@@ -18,6 +19,9 @@ class CandidatureSpontanee
 
     #[MongoDB\Field(type: 'string')]
     private $poste;
+
+    #[MongoDB\Field(type: 'date')] // Nouveau champ pour la date de candidature
+    private $date;
 
     // Getters et Setters
 
@@ -56,6 +60,17 @@ class CandidatureSpontanee
     public function setPoste(string $poste): self
     {
         $this->poste = $poste;
+        return $this;
+    }
+
+    public function getDate(): ?\DateTime
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTime $date): self
+    {
+        $this->date = $date;
         return $this;
     }
 }

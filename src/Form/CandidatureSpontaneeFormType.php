@@ -6,7 +6,6 @@ use App\Document\CandidatureSpontanee;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,24 +16,28 @@ class CandidatureSpontaneeFormType extends AbstractType
         $builder
             ->add('cv', FileType::class, [
                 'label' => 'Votre CV (PDF)',
-                'mapped' => false, // pour indiquer qu'il ne s'agit pas d'un champ mappé directement à l'entité
+                'mapped' => true,  // On mappe directement à la propriété 'cv' de l'entité
                 'required' => true,
             ])
             ->add('lm', FileType::class, [
                 'label' => 'Votre Lettre de Motivation (PDF)',
-                'mapped' => false,
+                'mapped' => true, // On mappe directement à la propriété 'lm' de l'entité
                 'required' => true,
             ])
             ->add('poste', ChoiceType::class, [
                 'label' => 'Poste souhaité',
                 'choices' => [
-                    'Agent de piste' => 'agent_de_piste',
-                    'Agent d\'escale' => 'agent_d_escale',
-                    'Pilote' => 'pilote',
-                    'Hôtesse de l\'air / Steward' => 'hotesse_steward',
+                    'Agent de piste' => 'Agent de piste',
+                    'Agent de trafic' => 'Agent de trafic',
+                    'Manutentionnaire' => 'Manutentionnaire',
+                    'Agent escale' => 'Agent escale',
+                    'Agent cargo' => 'Agent cargo',
+                    'Bagagiste' => 'Bagagiste',
+                    'Agent livraison' => 'Agent livraison',
                 ],
                 'placeholder' => 'Sélectionnez un poste',
-                'attr' => ['class' => 'form-select'], // Bootstrap style
+                'mapped' => true, // Mapping du poste
+                'attr' => ['class' => 'form-select'], // Style Bootstrap
             ]);
     }
 

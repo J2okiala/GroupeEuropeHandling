@@ -1,18 +1,16 @@
-# see https://symfony.com/doc/current/reference/configuration/framework.html
+# Default configuration for session in the general environment
 framework:
     secret: '%env(APP_SECRET)%'
-    #csrf_protection: true
+    
+    # Enable session handling globally
+    session:
+        handler_id: null  # Utilisation de la gestion native des sessions par défaut
+        storage_factory_id: session.storage.factory.native  # Définir le type de stockage par défaut (native)
 
-    # Note that the session will be started ONLY if you read or write from it.
-    session: true
-
-    #esi: true
-    #fragments: true
-
+# Configuration spécifique pour l'environnement de test
 when@test:
     framework:
+        # Test spécifique
         test: true
         session:
-            storage_factory_id: session.storage.factory.mock_file
-
-
+            storage_factory_id: session.storage.factory.mock_file  # Utilise un mock pour les tests
