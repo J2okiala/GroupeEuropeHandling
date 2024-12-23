@@ -20,10 +20,11 @@ class CandidatureSpontaneeRepository extends DocumentRepository
     public function findByPoste(string $poste)
     {
         return $this->createQueryBuilder()
-            ->field('poste')->equals($poste)
+            ->field('poste')->equals($poste) // Filtre par le champ "poste"
             ->getQuery()
             ->execute();
     }
+
 }
 
 

@@ -222,6 +222,31 @@ class ProfilEmployeurController extends AbstractController
         ]);
     }
 
+
+    #[Route('/supprimer-offre/{id}', name: 'supprimer_offre', methods: ['POST'])]
+    public function SuppressionOffre(
+        int $id,
+        OffreEmploiRepository $offreEmploiRepository
+    ): Response {
+        // Trouve l'offre d'emploi par son ID
+        $offreEmploi = $offreEmploiRepository->find($id);
+    
+        if (!$offreEmploi) {
+            // Affiche une erreur si l'offre n'existe pas
+            $this->addFlash('danger', "L'offre d'emploi n'existe pas.");
+            return $this->redirectToRoute('liste_offres'); // Redirige vers une page listant les offres
+        }
+    
+        // Supprime l'offre
+        $offreEmploiRepository->remove($offreEmploi, true); // true pour effectuer le flush
+    
+        // Ajoute un message de succès
+        $this->addFlash('success', "L'offre d'emploi a été supprimée avec succès.");
+    
+        // Redirige vers la liste des offres après suppression
+        return $this->redirectToRoute('mesOffresE');
+    }
+
     #[Route('/mesIdentifiantsDeConnexionE', name: 'mesIdentifiantsDeConnexionE', methods: ['GET', 'POST'])]
     public function mesIdentifiantsDeConnexionE(
         Request $request,
@@ -314,37 +339,43 @@ class ProfilEmployeurController extends AbstractController
         return $this->redirectToRoute('home');
     }
 
-    private $candidatureRepository;
+    // private $candidatureSpontaneeRepository;
 
-    public function __construct(CandidatureSpontaneeRepository $candidatureRepository)
-    {
-        $this->candidatureRepository = $candidatureRepository;
-    }
+    // public function __construct(CandidatureSpontaneeRepository $candidatureRepository)
+    // {
+    //     $this->candidatureRepository = $candidatureRepository;
+    // }
 
-    #[Route('/filtrer-candidatures', name: 'filtrer_candidatures', methods: ['GET', 'POST'])]
-    public function afficherCandidaturesFiltrees(Request $request): Response
+    #[Route('/filtrer-candidatures', name: 'filtrer_candidatures', methods: ['GET'])]
+    public function afficherCandidaturesFiltrees(Request $request, CandidatureSpontaneeRepository $candidatureSpontaneeRepository): Response
     {
         $form = $this->createForm(FiltrerCandidatureSpontaneeFormType::class);
         $form->handleRequest($request);
-
+    
         $candidatures = [];
-
+        $toutesCandidatures = $candidatureSpontaneeRepository->findAll(); // Récupère toutes les candidatures
+    
         if ($form->isSubmitted() && $form->isValid()) {
             $poste = $form->get('poste')->getData();
-
-            if ($poste) {
-                $candidatures = $this->candidatureRepository->findByPoste($poste);
+    
+            if (!empty($poste)) {
+                dump('Poste filtré : ' . $poste); // Vérifie la valeur de $poste
+                $candidatures = $candidatureSpontaneeRepository->findByPoste($poste);
+                dump($candidatures); // Vérifie si la requête retourne quelque chose
             }
+            
         }
-
+    
         return $this->render('pages/utilisateur/employeur/afficher-les-candidatures-spontanee.html.twig', [
             'form' => $form->createView(),
             'candidatures' => $candidatures,
+            'toutesCandidatures' => $toutesCandidatures, // Passer toutes les candidatures pour le cas "else"
             'employeurNavbar' => true,
-            'withFiltrer' => false,
-            'formPoster' => null,
+            'withFiltrer' => false, // Pas de filtrage sur cette page
+            'formPoster' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
         ]);
     }
+
 
     #[Route('/telecharger-cv/{candidatId}', name:'telecharger_cv')]
     public function telechargerCv(int $candidatId, ManagerRegistry $doctrine): Response

@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FiltrerCandidatureSpontaneeFormType extends AbstractType
 {
@@ -22,16 +23,24 @@ class FiltrerCandidatureSpontaneeFormType extends AbstractType
                     'Bagagiste' => 'Bagagiste',
                     'Agent livraison' => 'Agent livraison',
                 ],
-                'placeholder' => 'Sélectionnez un poste',
-                'required' => true,
+                'placeholder' => 'Sélectionnez un poste', // Option par défaut
+                'required' => false, // Rendre le champ optionnel pour permettre un affichage global
+                'label' => 'Poste', // Ajouter un label clair
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Afficher les candidatures',
                 'attr' => ['class' => 'btn btn-primary'],
             ]);
     }
-}
 
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'csrf_protection' => true, // Activer la protection CSRF
+            'method' => 'GET', // Utiliser GET pour transmettre les données via l'URL
+        ]);
+    }
+}
 
 
 
