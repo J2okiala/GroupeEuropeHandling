@@ -36,6 +36,11 @@
                         <br>
                         CV : <a href="{{ path('telecharger_cv', { 'candidatId': candidat.id }) }}" target="_blank">Télécharger</a>
                     </li>
+                    <!-- Formulaire pour supprimer l'offre -->
+                    <form method="post" action="{{ path('supprimer_offre', { id: item.offre.id }) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette offre ?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ item.offre.id) }}">
+                        <button class="btn btn-danger btn-sm">Supprimer</button>
+                    </form>
                 {% endfor %}
             </ul>
         {% else %}
