@@ -20,14 +20,27 @@
         {% endfor %}
     {% endfor %}
 
-<h1>Supprimer mon compte</h1>
-<p>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>
+    <main class="container mt-5">
+        <h2 class="text-center text-white mb-4">Supprimer mon compte</h2>
+        <div class="row justify-content-center">
+            <!-- Cartes -->
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <h4>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</h4>
 
-<form method="POST" action="{{ path('confirmer_suppression-compteE') }}">
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('delete_account') }}">
-    <button type="submit" class="btn btn-danger">Oui, supprimer mon compte</button>
-    <a href="{{ path('profilEmployeur') }}" class="btn btn-secondary">Annuler</a>
-</form>
+                        <form method="POST" action="{{ path('confirmer_suppression-compteE') }}">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('delete_account') }}">
+                            <button type="submit" class="btn btn-danger">Oui, supprimer mon compte</button>
+                            <a href="{{ path('profilEmployeur') }}" class="btn btn-secondary">Annuler</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    
 
 
 {% endblock %}

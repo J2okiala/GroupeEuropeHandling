@@ -20,35 +20,53 @@
     {% endfor %}
 
     <main class="container">
-    <h4 class=" font-weight-semibold mb-4 text-center">Ma fiche candidat </h4>
+    <h2 class=" font-weight-semibold mb-4 text-center text-white">Ma fiche candidat </h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4">
             <!-- Cartes -->
-            <div class"bordure m-2">
-                <h3>Identité</h3>
-                <p>Civilité: {{ app.user.civilite }}</p>
-                <p>Nom: {{ app.user.nom }}</p>
-                <p>Prenom: {{ app.user.prenom }}</p>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h3>Identité</h3>
+                        <p>Civilité: {{ app.user.civilite }} </p>
+                        <p>Nom: {{ app.user.nom }} </p>
+                        <p>Prenom: {{ app.user.prenom }} </p>
+                    </div>
+                </div>
             </div>
 
-            <div class"bordure m-2">
-                <h3>Information personnelles</h3>
-                <p>Nationalité: {{ app.user.getCandidat.nationalite}}</p>
-                <p>Date de naissance: {{ app.user.getCandidat.dateNaissance|date('d/m/Y')}} </p>
-                <p>Telephone: {{ app.user.getCandidat.telephone }}</p>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h3>Information personnelles</h3>
+                        <p>Nationalité: {{ app.user.getCandidat.nationalite}}</p>
+                        <p>Date de naissance: {{ app.user.getCandidat.dateNaissance|date('d/m/Y')}} </p>
+                        <p>Telephone: {{ app.user.getCandidat.telephone }}</p>
+                    </div>
+                </div>
             </div>
 
-            <div class"bordure m-2">
-                <h3>Poste recherché</h3>
-                <p>Poste: {{ app.user.getCandidat.poste }}</p>
-                <p>Date de disponibilité: {{ app.user.getCandidat.dateDisponibilite|date('d/m/Y')}}</p>
-            </div>         
-
-            <div class"bordure  m-2">
-                <h3>Mes pièces jointes</h3>
-                <p>Cv: {{ app.user.getCandidat.cv }}</p>
-                <p>Lettre de motivation: {{ app.user.getCandidat.lettreMotivation}}</p>
-                <p><a href="{{ path('modifierMesInformations', {'id': app.user.candidat.id}) }}">Modifier mes informations</a></p>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h3>Poste recherché</h3>
+                        <p>Poste: {{ app.user.getCandidat.poste }}</p>
+                        <p>Date de disponibilité: {{ app.user.getCandidat.dateDisponibilite|date('d/m/Y')}}</p>
+                    </div>
+                </div>
             </div>
 
+            <div class="col">
+                <div class="card h-100">                        
+                    <div class="card-body">
+                        <h3>Mes pièces jointes</h3>
+                        <p>Cv: {{ app.user.getCandidat.cv }}</p>
+                        <p>Lettre de motivation: {{ app.user.getCandidat.lettreMotivation}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <h4><a href="{{ path('modifierMesInformations', {'id': app.user.candidat.id}) }}">Modifier mes informations</a></h4>
+        </div>
     </main>
 
 

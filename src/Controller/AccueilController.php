@@ -36,7 +36,7 @@ class AccueilController extends AbstractController
     
         // 3. Utiliser le repository pour appliquer les filtres et paginer
         $page = $request->query->getInt('page', 1); // Récupère la page actuelle ou 1 par défaut
-        $limit = 2; // Nombre d'offres par page
+        $limit = 6; // Nombre d'offres par page
         $offres = $offreRepository->searchWithPagination($criteria, $paginator, $page, $limit);
     
         // 4. Calculer le nombre total d'offres pour l'affichage

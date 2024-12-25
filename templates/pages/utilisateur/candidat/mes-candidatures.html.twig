@@ -19,30 +19,34 @@
         {% endfor %}
     {% endfor %}
 
-    <h2>Mes Candidatures</h2>
-    
-    {# Vérifie si l'utilisateur a des offres postulées #}
-    {% if offresPostulees is not empty %}
-        <div class="offres-list">
-            {% for offre in offresPostulees %}
-                <div class="offre-item flex m-2">
-                    <h3 class="m-2">GEH votre candidature:</h3>
-                    <div>
-                        <h4 class="m-2">{{ offre.poste }}</h4>
-                        <p class="m-2">Type de contrat : {{ offre.typeContrat }}</p>
-                        <p class="m-2">Localisation : {{ offre.localisation }}</p>
-                        <p>Date de publication : {{ offre.datePublication|date('d/m/Y') }}</p>
+    <main class="container">
+
+        <h2 class="text-white mb-4">Mes Candidatures</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4">
+            {# Vérifie si l'utilisateur a des offres postulées #}
+            {% if offresPostulees is not empty %}
+                {% for offre in offresPostulees %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h4 class="card-title">Votre candidature</h4>
+                                <p class="card-text">
+                                    <strong>Poste :</strong> {{ offre.poste }} <br>
+                                    <strong>Type de contrat :</strong> {{ offre.typeContrat }} <br>
+                                    <strong>Localisation :</strong> {{ offre.localisation }} <br>
+                                    <strong>Date de publication :</strong> {{ offre.datePublication|date('d/m/Y') }} <br>
+                                </p>
+                            </div>
+                        </div>
                     </div>
-
-
-                    {# Ajoutez ici d'autres informations concernant l'offre, comme le salaire, description, etc. #}
-
-                    {# <a href="{{ path('offre_details', {'offreId': offre.id}) }}" class="btn btn-primary">Voir les détails</a> #}
-                </div>
-            {% endfor %}
+                {% endfor %}
+            {% else %}
+                <p>Aucune candidature trouvée.</p>
+            {% endif %}
         </div>
-    {% else %}
-        <p>Aucune candidature trouvée.</p>
-    {% endif %}
+        
+    </main>
+
+
 
 {% endblock %}

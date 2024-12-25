@@ -19,37 +19,43 @@
         {% endfor %}
     {% endfor %}
 
-
-    <div class="container">
-        <h3>Filtrer les candidatures spontanées</h3>
-
-        {# Afficher le formulaire de filtrage #}
-        {{ form_start(form, {'method': 'GET'}) }}
-            <div class="form-group">
-                {{ form_row(form.poste) }}
+    <main class="container">
+        <h2 class"text-center text-white">Filtrer les candidatures spontanées</h2>
+        <div class="row g-4">
+            <!-- Cartes -->
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body"
+                        {# Afficher le formulaire de filtrage #}
+                        {{ form_start(form, {'method': 'GET'}) }}
+                            <div class="form-group">
+                                {{ form_row(form.poste) }}
+                            </div>
+                            <div>
+                                {{ form_row(form.submit) }}
+                            </div>
+                        {{ form_end(form) }}
+                        {# Vérifier s'il y a des candidatures filtrées ou non #}
+                        {% if candidatures is not empty %}
+                            <h3>Candidatures pour le poste sélectionné :</h3>
+                            <ul>
+                                {% for candidature in candidatures %}
+                                    <li>
+                                        <strong>Poste :</strong> {{ candidature.poste }}<br>
+                                        <strong>Date de candidature :</strong> {{ candidature.date|date('Y-m-d') }}<br>
+                                        <a href="{{ asset('uploads/cvs/' ~ candidature.cv) }}" download>Télécharger le CV</a><br>
+                                        <a href="{{ asset('uploads/cvs/' ~ candidature.lm) }}" download>Télécharger la Lettre de Motivation</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>Pas de candidatures pour ce poste</p>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
-            <div>
-                {{ form_row(form.submit) }}
-            </div>
-        {{ form_end(form) }}
-
-        {# Vérifier s'il y a des candidatures filtrées ou non #}
-        {% if candidatures is not empty %}
-            <h3>Candidatures pour le poste sélectionné :</h3>
-            <ul>
-                {% for candidature in candidatures %}
-                    <li>
-                        <strong>Poste :</strong> {{ candidature.poste }}<br>
-                        <strong>Date de candidature :</strong> {{ candidature.date|date('Y-m-d') }}<br>
-                        <a href="{{ asset('uploads/cvs/' ~ candidature.cv) }}" download>Télécharger le CV</a><br>
-                        <a href="{{ asset('uploads/cvs/' ~ candidature.lm) }}" download>Télécharger la Lettre de Motivation</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>Pas de candidatures pour ce poste</p>
-        {% endif %}
-    </div>
+        </div>
+    </main>
 
 
 

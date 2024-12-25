@@ -26,6 +26,7 @@
     <h2 class="text-white">{{ nombreOffres }} Offre{% if nombreOffres > 1 %}s{% endif %} disponible{% if nombreOffres > 1 %}s{% endif %}</h2>
 
         <section class="container">
+        <p>Page {{ offres.currentPageNumber }} sur {{ offres.pageCount }}</p>
             <!-- Grille Bootstrap -->
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4">
                 {% for offre in offres %}
@@ -58,21 +59,21 @@
                 {% else %}
                     <p>Aucune offre trouvée.</p>
                 {% endfor %}
+
+                <!-- Pagination -->
+                <div>
+                    
+
+                    {% if offres.currentPageNumber > 1 %}
+                        <a href="{{ path('profilCandidat', {'page': offres.currentPageNumber - 1}) }}" class="text-white">Page précédente</a>
+                    {% endif %}
+
+                    {% if offres.currentPageNumber < offres.pageCount %}
+                        <a href="{{ path('profilCandidat', {'page': offres.currentPageNumber + 1}) }}" class="text-white">Page suivante</a>
+                    {% endif %}
+                </div>
             </div>
         </section>
-
-        <!-- Pagination -->
-        <div>
-            <p>Page {{ offres.currentPageNumber }} sur {{ offres.pageCount }}</p>
-
-            {% if offres.currentPageNumber > 1 %}
-                <a href="{{ path('profilCandidat', {'page': offres.currentPageNumber - 1}) }}">Page précédente</a>
-            {% endif %}
-
-            {% if offres.currentPageNumber < offres.pageCount %}
-                <a href="{{ path('profilCandidat', {'page': offres.currentPageNumber + 1}) }}">Page suivante</a>
-            {% endif %}
-        </div>
 
         <!-- Cartes -->
         <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
