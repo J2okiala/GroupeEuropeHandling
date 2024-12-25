@@ -1,7 +1,7 @@
 {% extends 'pages/base.html.twig' %}
 
 {% block title %}
-    Blog - Page d'offres
+    Nos Offres d'emploi
 {% endblock %}
 
 {% block stylesheets %}
@@ -9,6 +9,9 @@
 {% endblock %}
 
 {% block body %}
+    {# <h2 class="text-white">
+        {{ nombreOffres }} Offre{% if nombreOffres > 1 %}s{% endif %} disponible{% if nombreOffres > 1 %}s{% endif %}
+    </h2> #}
 
     {# Affiche les messages flash s'ils existent #}
     {% for label, messages in app.flashes %}
@@ -20,39 +23,57 @@
         {% endfor %}
     {% endfor %}
 
-    <!-- Contenu principal -->
-    <h2>{{ nombreOffres }} Offre{% if nombreOffres > 1 %}s{% endif %} disponible{% if nombreOffres > 1 %}s{% endif %}</h2>
-    <section class="container-fluid">
-    
-    <div class="row">
-    {% for offre in offres %}
-            <div class="m-2 col-12 col-md-6 col-lg-3 card ">
-                <div>
-                    <h4 class="h-black">Offre d'emploi : {{ offre.poste }} (H/F) </h4>
-                    <p>
-                        {{ offre.localisation }}
-                    </p>
-                        Mise en ligne le : {{ offre.datePublication|date('d/m/Y') }}
-                    </p>
-                    <div class="type">
-                        <div class="contrat">
-                            <p>{{ offre.typeContrat }}</p>
-                        </div>
-                        <div class="modalites">
-                            <p>{{ offre.modaliteTravail }}</p>
+
+        <h2 class="text-white"> {{ nombreOffres }} offres disponible</h2>
+
+    <section class="container">
+            <!-- Grille Bootstrap -->
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4">
+                {% for offre in offres %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h4 class="card-title">Offre d'emploi : {{ offre.poste }} (H/F)</h4>
+                                <p class="card-text">
+                                    <strong>Localisation :</strong> {{ offre.localisation }}<br>
+                                    <strong>Date de publication :</strong> {{ offre.datePublication|date('d/m/Y') }}
+                                </p>
+                                <div class="type">
+                                    <div class="contrat">
+                                        <p><strong>Type de contrat :</strong> {{ offre.typeContrat }}</p>
+                                    </div>
+                                    <div class="modalites">
+                                        <p><strong>Modalités :</strong> {{ offre.modaliteTravail }}</p>
+                                    </div>
+                                </div>
+                                <p class="mt-3">
+                                    <strong>Description du poste :</strong><br>
+                                    {{ offre.descriptionPoste }}
+                                </p>
+                            </div>
                         </div>
                     </div>
-                    <p>
-                        Description du poste:
-                        {{ offre.descriptionPoste }}
-                    </p>
-                </div>
+                {% else %}
+                    <p>Aucune offre trouvée.</p>
+                {% endfor %}
             </div>
-    </div>
-    {% else %}
-        <p>Aucune offre trouvée.</p>
-    {% endfor %}
 
-    </section>
+        </section>
+
+        <div>
+            <p>Page {{ offres.currentPageNumber }} sur {{ offres.pageCount }}</p>
+
+            {% if offres.currentPageNumber > 1 %}
+                <a href="{{ path('nosOffres', {'page': offres.currentPageNumber - 1}) }}">Page précédente</a>
+            {% endif %}
+
+            {% if offres.currentPageNumber < offres.pageCount %}
+                <a href="{{ path('nosOffres', {'page': offres.currentPageNumber + 1}) }}">Page suivante</a>
+            {% endif %}
+        </div>
+
+
+
+
 
 {% endblock %}

@@ -3,3 +3,8 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+nos_offres:
+    path: /nos-offres
+    controller: App\Controller\OffreController::nosOffres
+    methods: [GET, POST]

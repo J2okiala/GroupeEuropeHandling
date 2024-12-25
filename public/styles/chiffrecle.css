@@ -1,4 +1,4 @@
-@import url(./compenent/global.css);
+
 /* styles.css */
 body {
     margin: 0;
@@ -38,7 +38,7 @@ body {
 }
 
 .Bckg-Carte:hover {
-    background: grey;
+    background: rgb(2, 54, 89);
     border: 3px solid navy;
     color: white;
 }
@@ -97,18 +97,6 @@ h5 {
     margin-bottom: 20px;
 }
 
-.Bckg-Carte1:hover {
-    border: 10px solid navy;
-
-}
-
-.Bckg-Carte1 h2:hover {
-    font-size: 100px;
-}
-
-.Bckg-Carte1 p {
-    font-size: 30px;
-}
 
 .Bckg-Carte2 {
     background: rgb(209, 226, 247);
@@ -119,17 +107,6 @@ h5 {
     margin-bottom: 20px;
 }
 
-.Bckg-Carte2:hover {
-    border: 10px solid navy;
-}
-
-.Bckg-Carte2 h2:hover {
-    font-size: 100px;
-}
-
-.Bckg-Carte2 p {
-    font-size: 30px;
-}
 
 
 .Bckg-Carte3 {
@@ -140,18 +117,6 @@ h5 {
     overflow: hidden;
 }
 
-.Bckg-Carte3 h2:hover {
-    font-size: 100px;
-}
-
-.Bckg-Carte3 p {
-    font-size: 30px;
-}
-
-
-.Bckg-Carte2:hover {
-    border: 10px solid navy;
-}
 
 
 #img2 {

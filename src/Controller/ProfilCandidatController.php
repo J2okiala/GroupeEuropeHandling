@@ -10,6 +10,7 @@ use App\Repository\CandidatRepository;
 use App\Repository\OffreEmploiRepository;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,43 +25,50 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class ProfilCandidatController extends AbstractController
 {
-    #[Route("/profilCandidat", name:"profilCandidat", methods: ['GET'])]
-    public function profil(OffreEmploiRepository $offreEmploiRepository, HttpFoundationRequest $request): Response {
+    #[Route("/profilCandidat", name: "profilCandidat", methods: ['GET'])]
+    public function profil(
+        OffreEmploiRepository $offreEmploiRepository,
+        Request $request,
+        PaginatorInterface $paginator
+    ): Response {
         // Récuperer l'utilisateur depuis la session
-        $uilisateur = $this->getUser();
-
+        $utilisateur = $this->getUser();
+    
         // Créer le formulaire de recherche
         $formRecherche = $this->createForm(FiltreOffreEmploiFormType::class, null, [
             'method' => 'GET',
         ]);
-
+    
         // Traiter le formulaire
         $formRecherche->handleRequest($request);
-
-        // Initialiser les offres
-        $offres = [];
-
+    
+        // Récupérer les données pour filtrer les offres
+        $criteria = [];
         if ($formRecherche->isSubmitted() && $formRecherche->isValid()) {
-            // Filtrer les offres en fonction des données du formulaire
-            $data = $formRecherche->getData();
-            $offres = $offreEmploiRepository->findByFiltre($data); // Méthode personnalisée à créer dans votre repository
-        } else {
-            // Afficher toutes les offres par défaut
-            $offres = $offreEmploiRepository->findAll();
+            $criteria = $formRecherche->getData();
         }
     
+        // Récupérer la page actuelle et définir la limite d'offres par page
+        $page = $request->query->getInt('page', 1); // Par défaut, page 1
+        $limit = 2; // Nombre d'offres par page
+    
+        // Appliquer la pagination avec les critères
+        $offres = $offreEmploiRepository->searchWithPagination($criteria, $paginator, $page, $limit);
+    
         // Calculer le nombre total d'offres
-        $nombreOffres = count($offres);
-
-        // Retourner la vue associé
+        $nombreOffres = $offres->getTotalItemCount();
+    
+        // Retourner la vue associée
         return $this->render('pages/utilisateur/candidat/profil-candidat.html.twig', [
             'candidatNavbar' => true,
             'formRecherche' => $formRecherche->createView(),
             'offres' => $offres,
-            'nombreOffres' => $nombreOffres, // Passer le nombre d'offres au template
-
+            'nombreOffres' => $nombreOffres,
+            'currentPage' => $page,
+            'totalPages' => ceil($offres->getTotalItemCount() / $limit), // Nombre total de pages
         ]);
     }
+    
 
     #[Route("/deconnexion", name:"deconnexion")]
     public function logout() {
