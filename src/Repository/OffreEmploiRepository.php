@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\OffreEmploi;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @extends ServiceEntityRepository<OffreEmploi>
@@ -20,6 +21,7 @@ class OffreEmploiRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, OffreEmploi::class);
     }
+
 
     /**
      * Ajouter une nouvelle offre d'emploi.
@@ -71,8 +73,9 @@ class OffreEmploiRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+
     /**
-     * Filtrer les offres d'emploi en fonction des critères fournis.
+     * Filtrer les offres d'emploi en fonction des critères fournis, avec pagination.
      */
     public function findByFiltre(array $criteria): array
     {
@@ -105,8 +108,75 @@ class OffreEmploiRepository extends ServiceEntityRepository
         // Trier par date de publication (décroissant)
         $qb->orderBy('o.datePublication', 'DESC');
 
+        // Gestion de la pagination
+        if (isset($criteria['limit'])) {
+            $qb->setMaxResults($criteria['limit']);
+        }
+
+        if (isset($criteria['offset'])) {
+            $qb->setFirstResult($criteria['offset']);
+        }
+
         // Retourner les résultats
         return $qb->getQuery()->getResult();
+        }
+
+    public function searchByCriteria(array $criteria)
+    {
+        $qb = $this->createQueryBuilder('o'); // 'o' est un alias pour OffreEmploi
+
+        if (!empty($criteria['poste'])) {
+            $qb->andWhere('o.poste LIKE :poste')
+                ->setParameter('poste', '%' . $criteria['poste'] . '%');
+        }
+
+        if (!empty($criteria['typeContrat'])) {
+            $qb->andWhere('o.typeContrat = :typeContrat')
+                ->setParameter('typeContrat', $criteria['typeContrat']);
+        }
+
+        if (!empty($criteria['localisation'])) {
+            $qb->andWhere('o.localisation LIKE :localisation')
+                ->setParameter('localisation', '%' . $criteria['localisation'] . '%');
+        }
+
+        return $qb->getQuery(); // Retourne une Query pour la pagination
     }
+
+    public function searchWithPagination(array $criteria, PaginatorInterface $paginator, int $page, int $limit)
+    {
+        $qb = $this->createQueryBuilder('o');
+    
+        if (!empty($criteria['poste'])) {
+            $qb->andWhere('o.poste LIKE :poste')
+                ->setParameter('poste', '%' . $criteria['poste'] . '%');
+        }
+    
+        if (!empty($criteria['typeContrat'])) {
+            $qb->andWhere('o.typeContrat = :typeContrat')
+                ->setParameter('typeContrat', $criteria['typeContrat']);
+        }
+    
+        if (!empty($criteria['modaliteTravail'])) {
+            $qb->andWhere('o.modaliteTravail = :modaliteTravail')
+                ->setParameter('modaliteTravail', $criteria['modaliteTravail']);
+        }
+    
+        if (!empty($criteria['localisation'])) {
+            $qb->andWhere('o.localisation LIKE :localisation')
+                ->setParameter('localisation', '%' . $criteria['localisation'] . '%');
+        }
+    
+        $qb->orderBy('o.datePublication', 'DESC');
+    
+        // Utilisation de KnpPaginator
+        return $paginator->paginate(
+            $qb->getQuery(),
+            $page,
+            $limit
+        );
+    }
+    
+
 
 }

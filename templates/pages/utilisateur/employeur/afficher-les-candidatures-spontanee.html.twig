@@ -24,7 +24,7 @@
         <h3>Filtrer les candidatures spontanées</h3>
 
         {# Afficher le formulaire de filtrage #}
-        {{ form_start(form, {'method': 'POST'}) }}
+        {{ form_start(form, {'method': 'GET'}) }}
             <div class="form-group">
                 {{ form_row(form.poste) }}
             </div>
@@ -47,19 +47,11 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <h3>Toutes les candidatures :</h3>
-            <ul>
-                {% for candidature in toutesCandidatures %}
-                    <li>
-                        <strong>Poste :</strong> {{ candidature.poste }}<br>
-                        <strong>Date de candidature :</strong> {{ candidature.date|date('Y-m-d') }}<br>
-                        <a href="{{ asset('uploads/cvs/' ~ candidature.cv) }}" download>Télécharger le CV</a><br>
-                        <a href="{{ asset('uploads/cvs/' ~ candidature.lm) }}" download>Télécharger la Lettre de Motivation</a>
-                    </li>
-                {% endfor %}
-            </ul>
+            <p>Pas de candidatures pour ce poste</p>
         {% endif %}
     </div>
+
+
 
 
 {% endblock %}

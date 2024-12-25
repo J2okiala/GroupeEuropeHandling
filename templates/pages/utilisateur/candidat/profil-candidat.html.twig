@@ -17,12 +17,66 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% endfor %}
-    {% endfor %}
+    {% endfor %}   
 
     <main class="container">
     <h4 class=" font-weight-semibold mb-4 text-center">Bienvenue sur votre espace candidat {{ app.user.prenom }} ! </h4>
+
+    <!-- Résultat des offres -->
+    <h2 class="text-white">{{ nombreOffres }} Offre{% if nombreOffres > 1 %}s{% endif %} disponible{% if nombreOffres > 1 %}s{% endif %}</h2>
+
+        <section class="container">
+            <!-- Grille Bootstrap -->
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4">
+                {% for offre in offres %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h4 class="card-title">Offre d'emploi : {{ offre.poste }} (H/F)</h4>
+                                <p class="card-text">
+                                    <strong>Localisation :</strong> {{ offre.localisation }}<br>
+                                    <strong>Date de publication :</strong> {{ offre.datePublication|date('d/m/Y') }}
+                                </p>
+                                <div class="type">
+                                    <div class="contrat">
+                                        <p><strong>Type de contrat :</strong> {{ offre.typeContrat }}</p>
+                                    </div>
+                                    <div class="modalites">
+                                        <p><strong>Modalités :</strong> {{ offre.modaliteTravail }}</p>
+                                    </div>
+                                </div>
+                                <form action="{{ path('postuler', {'offreId': offre.id}) }}" method="POST">
+                                    <button type="submit" class="btn btn-primary">Postuler</button>
+                                </form>
+                                <p class="mt-3">
+                                    <strong>Description du poste :</strong><br>
+                                    {{ offre.descriptionPoste }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <p>Aucune offre trouvée.</p>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Pagination -->
+        <div>
+            <p>Page {{ offres.currentPageNumber }} sur {{ offres.pageCount }}</p>
+
+            {% if offres.currentPageNumber > 1 %}
+                <a href="{{ path('profilCandidat', {'page': offres.currentPageNumber - 1}) }}">Page précédente</a>
+            {% endif %}
+
+            {% if offres.currentPageNumber < offres.pageCount %}
+                <a href="{{ path('profilCandidat', {'page': offres.currentPageNumber + 1}) }}">Page suivante</a>
+            {% endif %}
+        </div>
+
         <!-- Cartes -->
         <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+
             <div class="col m-2"><a href="{{ path('maFiche') }}">
                 <h3>Ma Fiche Candidat</h3>
                 <img src="img/Capture d’écran ma fiche.png" alt="Ma fiche" width="70%"></a>
@@ -49,43 +103,7 @@
             </div>
         </section>
 
-        <!-- resultat offre -->
-        <h2>{{ nombreOffres }} Offre{% if nombreOffres > 1 %}s{% endif %} disponible{% if nombreOffres > 1 %}s{% endif %}</h2>
-        <section class="container-fluid">
-            <div class="row">
-            {% for offre in offres %}
-                    <div class="m-2 col-12 col-md-6 col-lg-3 card ">
-                        <div>
-                            <h4 class="h-black">Offre d'emploi : {{ offre.poste }} (H/F) </h4>
-                            <p>
-                                {{ offre.localisation }}
-                            </p>
-                            <p>
-                                Date de publication : {{ offre.datePublication|date('d/m/Y') }}
-                            </p>
-                            <div class="type">
-                                <div class="contrat">
-                                    <p>{{ offre.typeContrat }}</p>
-                                </div>
-                                <div class="modalites">
-                                    <p>{{ offre.modaliteTravail }}</p>
-                                </div>
-                                <form action="{{ path('postuler', {'offreId': offre.id}) }}" method="POST">
-                                    <input type="submit" value="Postuler">
-                                </form>
-                            </div>
-                            <p>
-                                Description du poste:
-                                {{ offre.descriptionPoste }}
-                            </p>
-                        </div>
-                    </div>
-            </div>
-            {% else %}
-                <p>Aucune offre trouvée.</p>
-            {% endfor %}
-        </section>
-        
+
     </main>
 
 {% endblock %}

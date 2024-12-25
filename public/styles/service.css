@@ -1,4 +1,4 @@
-@import url(./compenent/global.css);
+
 /* styles.css */
 body {
     margin: 0;
@@ -24,7 +24,6 @@ body {
 #p {
     color: rgba(255, 255, 255, 0.5);
 }
-
 
 
 /* MAIN */
@@ -77,7 +76,7 @@ h2 {
     margin-bottom: 10px;
     margin-left: 5px;
     padding: 10px 30px 100px 10px;
-    font-size: xx-large;
+    font-size: small;
 
 }
 
@@ -96,7 +95,7 @@ h2 {
     width: 100%;
     overflow: hidden;
     padding: 32px;
-    font-size: large;
+    /* font-size: large; */
 }
 
 .implemantation-Card {

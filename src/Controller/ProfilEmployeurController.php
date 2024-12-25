@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Psr\Log\LoggerInterface;
 use App\Document\CandidatureSpontanee;
 use App\Entity\Candidat;
 use App\Entity\Employeur;
@@ -347,11 +348,14 @@ class ProfilEmployeurController extends AbstractController
     // }
 
     #[Route('/filtrer-candidatures', name: 'filtrer_candidatures', methods: ['GET'])]
-    public function afficherCandidaturesFiltrees(Request $request, CandidatureSpontaneeRepository $candidatureSpontaneeRepository): Response
+    public function afficherCandidaturesFiltrees(Request $request, CandidatureSpontaneeRepository $candidatureSpontaneeRepository, LoggerInterface $logger): Response
     {
+   
         $form = $this->createForm(FiltrerCandidatureSpontaneeFormType::class);
         $form->handleRequest($request);
-    
+
+
+
         $candidatures = [];
         $toutesCandidatures = $candidatureSpontaneeRepository->findAll(); // Récupère toutes les candidatures
     
@@ -365,7 +369,7 @@ class ProfilEmployeurController extends AbstractController
             }
             
         }
-    
+        $logger->info('Request data: ' . json_encode($candidatures));
         return $this->render('pages/utilisateur/employeur/afficher-les-candidatures-spontanee.html.twig', [
             'form' => $form->createView(),
             'candidatures' => $candidatures,
