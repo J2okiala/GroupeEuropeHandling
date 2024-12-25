@@ -340,17 +340,11 @@ class ProfilEmployeurController extends AbstractController
         return $this->redirectToRoute('home');
     }
 
-    // private $candidatureSpontaneeRepository;
-
-    // public function __construct(CandidatureSpontaneeRepository $candidatureRepository)
-    // {
-    //     $this->candidatureRepository = $candidatureRepository;
-    // }
 
     #[Route('/filtrer-candidatures', name: 'filtrer_candidatures', methods: ['GET'])]
     public function afficherCandidaturesFiltrees(Request $request, CandidatureSpontaneeRepository $candidatureSpontaneeRepository, LoggerInterface $logger): Response
     {
-   
+
         $form = $this->createForm(FiltrerCandidatureSpontaneeFormType::class);
         $form->handleRequest($request);
 

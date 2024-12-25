@@ -19,21 +19,25 @@
         {% endfor %}
     {% endfor %}
 
-<main class="container mt-5">
-    <h2 class="text-center mb-4">Modifier mes identifiants</h2>
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-        {{ form_start(form) }}
-            {{ form_row(form.email) }}
-            {{ form_row(form.confirmEmail) }}
-            {{ form_row(form.password) }}
-            {{ form_row(form.confirmPassword) }}
-            <button type="submit">Valider</button>
-        {{ form_end(form) }}
-
+    <main class="container mt-5">
+        <h2 class="text-center text-white mb-4">Modifier mes identifiants</h2>
+        <div class="row justify-content-center">
+            <!-- Cartes -->
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                            {{ form_row(form.email) }}
+                            {{ form_row(form.confirmEmail) }}
+                            {{ form_row(form.password) }}
+                            {{ form_row(form.confirmPassword) }}
+                            <button type="submit">Valider</button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</main>
+    </main>
 
 {% endblock %}
 

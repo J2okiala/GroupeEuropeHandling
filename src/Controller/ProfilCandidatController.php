@@ -50,7 +50,7 @@ class ProfilCandidatController extends AbstractController
     
         // Récupérer la page actuelle et définir la limite d'offres par page
         $page = $request->query->getInt('page', 1); // Par défaut, page 1
-        $limit = 2; // Nombre d'offres par page
+        $limit = 4; // Nombre d'offres par page
     
         // Appliquer la pagination avec les critères
         $offres = $offreEmploiRepository->searchWithPagination($criteria, $paginator, $page, $limit);
