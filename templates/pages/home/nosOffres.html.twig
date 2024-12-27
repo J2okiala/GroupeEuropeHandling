@@ -9,9 +9,6 @@
 {% endblock %}
 
 {% block body %}
-    {# <h2 class="text-white">
-        {{ nombreOffres }} Offre{% if nombreOffres > 1 %}s{% endif %} disponible{% if nombreOffres > 1 %}s{% endif %}
-    </h2> #}
 
     {# Affiche les messages flash s'ils existent #}
     {% for label, messages in app.flashes %}
@@ -22,9 +19,6 @@
             </div>
         {% endfor %}
     {% endfor %}
-
-
-        
 
     <main class="container">
     
@@ -60,22 +54,16 @@
                     <p>Aucune offre trouvée.</p>
                 {% endfor %}
             </div>
+            <div>
+                {% if offres.currentPageNumber > 1 %}
+                    <a class="text-white text-decoration-none btn btn-primary m-2" href="{{ path('nosOffres', {'page': offres.currentPageNumber - 1}) }}">Page précédente</a>
+                {% endif %}
 
+                {% if offres.currentPageNumber < offres.pageCount %}
+                    <a class="text-white text-decoration-none btn btn-primary m-2" href="{{ path('nosOffres', {'page': offres.currentPageNumber + 1}) }}">Page suivante</a>
+                {% endif %}
+            </div>
         </main>
-
-        <div>
-
-            {% if offres.currentPageNumber > 1 %}
-                <a href="{{ path('nosOffres', {'page': offres.currentPageNumber - 1}) }}">Page précédente</a>
-            {% endif %}
-
-            {% if offres.currentPageNumber < offres.pageCount %}
-                <a href="{{ path('nosOffres', {'page': offres.currentPageNumber + 1}) }}">Page suivante</a>
-            {% endif %}
-        </div>
-
-
-
 
 
 {% endblock %}

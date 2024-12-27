@@ -40,7 +40,7 @@ class FiltreOffreEmploiFormType extends AbstractType
             ])
             ->add('modaliteTravail', ChoiceType::class, [
                 'choices' => [
-                    'Temps plein' => 'temps pleins',
+                    'Temps pleins' => 'temps pleins',
                     'Temps partiel' => 'temps partiel',
                 ],
                 'label' => 'Modalité de travail',
