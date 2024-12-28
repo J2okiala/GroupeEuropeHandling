@@ -34,7 +34,7 @@
     <!-- Boîte contenant le formulaire -->
     <div class="form-container">
         <h3 class="text-center mb-2">Rechercher une offre d'emploi</h3>
-        {{ form_start(formRecherche, { 'attr': { 'class': 'form-inline' } }) }}
+        {{ form_start(formRecherche, { 'method': 'GET', 'attr': { 'class': 'form-inline' } }) }}
             <div class="row g-4 mb-4">
                 <div class="col-md-5">
                     {{ form_label(formRecherche.poste, 'Poste') }}
