@@ -115,13 +115,28 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
+    
     public function setRoles(array $roles): self
-{
-    if ($this->roles !== $roles) {
-        $this->roles = $roles;
+    {
+        if (!is_array($roles)) {
+            throw new \InvalidArgumentException('Roles must be an array.');
+        }
+        $this->roles = array_values(array_unique($roles));
+        return $this;
     }
-    return $this;
-}
+
+    public function getSingleRole(): ?string
+    {
+        // Retourne le premier rôle ou null si le tableau est vide
+        return $this->roles[0] ?? null;
+    }
+
+    public function setSingleRole(string $role): self
+    {
+        // Stocke un tableau avec un seul rôle
+        $this->roles = [$role];
+        return $this;
+    }
 
 
     public function getCandidat(): ?Candidat
