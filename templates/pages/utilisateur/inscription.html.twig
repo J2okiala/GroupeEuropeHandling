@@ -61,13 +61,6 @@
             {{ form_errors(registrationForm.confirmPassword) }}
         </div>
 
-        <div class="text-dark form-group mb-5">
-            {{ form_label(registrationForm.roles, 'Êtes vous :', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(registrationForm.roles, {'attr': {'class': 'form-check-input'}}) }}
-            {{ form_errors(registrationForm.roles) }}
-        </div>
-
-
         {{ form_end(registrationForm) }}
         <p class="text-dark">Déja inscrit ? <a href="{{ path('connexion') }}">Connectez-vous</a></p>
     </div>

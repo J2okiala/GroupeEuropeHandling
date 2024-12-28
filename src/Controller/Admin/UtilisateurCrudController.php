@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Admin;
 use App\Entity\Candidat;
 use App\Entity\Employeur;
 use App\Entity\Utilisateur;
@@ -46,14 +47,20 @@ class UtilisateurCrudController extends AbstractCrudController
             $entityManager->persist($employeur);
         }
 
+        if (in_array('ROLE_ADMIN', $roles)) {
+            $admin = new Admin();
+            $admin->setUtilisateur($entityInstance);
+            $admin->setNom($entityInstance->getNom());
+            $admin->setPrenom($entityInstance->getPrenom());
+
+            $entityManager->persist($admin);
+        }
+
         if (in_array('ROLE_CANDIDAT', $roles)) {
             $candidat = new Candidat();
             $candidat->setUtilisateur($entityInstance);
             $candidat->setNom($entityInstance->getNom());
             $candidat->setPrenom($entityInstance->getPrenom());
-            // Initialisation de champs facultatifs si nécessaire
-            $candidat->setDateNaissance(new \DateTime()); // Exemple
-            $candidat->setTelephone('0000000000');        // Exemple
 
             $entityManager->persist($candidat);
         }
@@ -92,7 +99,8 @@ class UtilisateurCrudController extends AbstractCrudController
                 ])
                 ->allowMultipleChoices(false) // Un seul rôle possible
                 ->renderExpanded(false) // Affiche une liste déroulante
-                ->setRequired(true), // Rendre le champ obligatoire
+                ->setRequired(true) // Rendre le champ obligatoire
+                ->hideWhenUpdating(),
         ];
     }
 }

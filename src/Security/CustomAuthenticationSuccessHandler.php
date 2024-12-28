@@ -27,6 +27,8 @@ class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler
             $redirectUrl = $this->router->generate('profilEmployeur');
         } elseif (in_array('ROLE_CANDIDAT', $roles, true)) {
             $redirectUrl = $this->router->generate('profilCandidat');
+        } elseif (in_array('ROLE_ADMIN', $roles, true)) {
+            $redirectUrl = $this->router->generate('admin');
         } else {
             $redirectUrl = $this->router->generate('home'); // Page par défaut
         }

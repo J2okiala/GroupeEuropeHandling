@@ -36,28 +36,29 @@ security:
 
   # Hiérarchie des rôles
   role_hierarchy:
-    ROLE_ADMIN: [ROLE_CANDIDAT]
+    ROLE_ADMIN: [ROLE_ADMIN]
 
   # Règles d'accès
   access_control:
-    - { path: "^/profilCandidat", roles: [IS_AUTHENTICATED_FULLY] }
-    - { path: "^/maFiche", roles: [IS_AUTHENTICATED_FULLY] }
-    - { path: "^/modifierMesInformations", roles: [IS_AUTHENTICATED_FULLY] }
-    - { path: "^/mesCandidatures", roles: [IS_AUTHENTICATED_FULLY] }
-    - { path: "^/mesIdentifiantsDeConnexion", roles: [IS_AUTHENTICATED_FULLY] }
-    - { path: "^/'postuler", roles: [IS_AUTHENTICATED_FULLY] }
-    - { path: "^/supprimer-compte", roles: [IS_AUTHENTICATED_FULLY] }
-    - { path: "^/confirmer_compte", roles: [IS_AUTHENTICATED_FULLY] }
-    - { path: "^/profilEmployeur", roles: [IS_AUTHENTICATED_FULLY] }
-    - { path: "^/filtrer-candidatures", roles: [IS_AUTHENTICATED_FULLY] }
-    - { path: "^/maFicheE", roles: [IS_AUTHENTICATED_FULLY] }
-    - { path: "^/mesOffresE", roles: [IS_AUTHENTICATED_FULLY] }
-    - { path: "^/supprimer_offre", roles: [IS_AUTHENTICATED_FULLY] }
-    - { path: "^/mesIdentifiantsDeConnexionE", roles: [IS_AUTHENTICATED_FULLY] }
-    - { path: "^/supprimer_compteE", roles: [IS_AUTHENTICATED_FULLY] }
-    - { path: "^/confirmer_suppression-compteE", roles: [IS_AUTHENTICATED_FULLY] }
-    - { path: "^/filtrer_candidatures", roles: [IS_AUTHENTICATED_FULLY] }
-    - { path: "^/telecharger_cv", roles: [IS_AUTHENTICATED_FULLY] }
+    - { path: "^/admin", roles: [ROLE_ADMIN] }
+    - { path: "^/profilCandidat", roles: [ROLE_CANDIDAT] } 
+    - { path: "^/maFiche", roles: [ROLE_CANDIDAT] }
+    - { path: "^/modifierMesInformations", roles: [ROLE_CANDIDAT] }
+    - { path: "^/mesCandidatures", roles: [ROLE_CANDIDAT] }
+    - { path: "^/mesIdentifiantsDeConnexion", roles: [ROLE_CANDIDAT] }
+    - { path: "^/'postuler", roles: [ROLE_CANDIDAT] }
+    - { path: "^/supprimer-compte", roles: [ROLE_CANDIDAT] }
+    - { path: "^/confirmer_compte", roles: [ROLE_CANDIDAT] }
+    - { path: "^/profilEmployeur", roles: [ROLE_EMPLOYEUR] }
+    - { path: "^/filtrer-candidatures", roles: [ROLE_EMPLOYEUR] }
+    - { path: "^/maFicheE", roles: [ROLE_EMPLOYEUR] }
+    - { path: "^/mesOffresE", roles: [ROLE_EMPLOYEUR] }
+    - { path: "^/supprimer_offre", roles: [ROLE_EMPLOYEUR] }
+    - { path: "^/mesIdentifiantsDeConnexionE", roles: [ROLE_EMPLOYEUR] }
+    - { path: "^/supprimer_compteE", roles: [ROLE_EMPLOYEUR] }
+    - { path: "^/confirmer_suppression-compteE", roles: [ROLE_EMPLOYEUR] }
+    - { path: "^/filtrer_candidatures", roles: [ROLE_EMPLOYEUR] }
+    - { path: "^/telecharger_cv", roles: [ROLE_EMPLOYEUR] }
 
 when@test:
   security:
