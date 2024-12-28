@@ -120,17 +120,6 @@ class InscriptionFormType extends AbstractType
                         new Callback([$this, 'validatePasswordMatch'])
                     ],
                 ])
-            ->add('roles', ChoiceType::class, [
-                'choices' => [
-                    'Candidat' => 'ROLE_CANDIDAT',
-                    'Employeur' => 'ROLE_EMPLOYEUR',
-                ],
-                'label' => 'Rôle',
-                'expanded' => true, // Affiche des boutons radio
-                'multiple' => false, // Un seul rôle sélectionnable
-                'mapped' => false, // Important : ne pas mapper directement à une propriété, nous le gérons dans la route
-                'data' => 'ROLE_CANDIDAT', // Valeur par défaut si aucun rôle n'est sélectionné
-            ])
             ->add(
                 'Inscription',
                 SubmitType::class,
