@@ -24,7 +24,6 @@ class UtilisateurController extends AbstractController
         Request $request, 
         UtilisateurRepository $utilisateurRepository, 
         CandidatRepository $candidatRepository, 
-        EmployeurRepository $employeurRepository, 
         UserPasswordHasherInterface $passwordHasher
     ): Response {
         // Redirige l'utilisateur vers la page de profil s'il est déjà connecté
@@ -47,35 +46,22 @@ class UtilisateurController extends AbstractController
                 $hashedPassword = $passwordHasher->hashPassword($utilisateur, $utilisateur->getPassword());
                 $utilisateur->setPassword($hashedPassword);
     
-                // Récupère le rôle sélectionné depuis le formulaire
-                $roles = $form->get('roles')->getData(); // Récupère le rôle sélectionné
-                $utilisateur->setRoles([$roles]); // Définir le rôle sur l'utilisateur
+                // Définit le rôle par défaut : ROLE_CANDIDAT
+                $utilisateur->setRoles(['ROLE_CANDIDAT']);
     
-                // Crée l'entité Candidat ou Employeur selon le rôle sélectionné
-                if ($roles === 'ROLE_CANDIDAT') {
-                    $candidat = new Candidat();
-                    $candidat->setUtilisateur($utilisateur);
-                    $candidat->setNom($utilisateur->getNom());
-                    $candidat->setPrenom($utilisateur->getPrenom());
-                    $candidatRepository->save($candidat, true);
-                } elseif ($roles === 'ROLE_EMPLOYEUR') {
-                    $employeur = new Employeur();
-                    $employeur->setUtilisateur($utilisateur);
-                    
-                    // Ne pas définir le champ entreprise ici, il sera mis à jour plus tard
-                    $employeur->setNom($utilisateur->getNom());
-                    $employeur->setPrenom($utilisateur->getPrenom());
-
-                    // Sauvegarde l'employeur sans le champ entreprise
-                    $employeurRepository->save($employeur, true);
-                }
-
+                // Crée une entité Candidat associée
+                $candidat = new Candidat();
+                $candidat->setUtilisateur($utilisateur);
+                $candidat->setNom($utilisateur->getNom());
+                $candidat->setPrenom($utilisateur->getPrenom());
+                $candidatRepository->save($candidat, true);
+    
                 // Sauvegarde l'utilisateur dans la base de données
                 $utilisateurRepository->save($utilisateur, true);
-
+    
                 // Ajoute un message de succès
                 $this->addFlash('success', 'Inscription réussie ! Vous pouvez maintenant vous connecter.');
-                
+    
                 // Redirige après l'inscription
                 return $this->redirectToRoute('nosOffres');
             }
@@ -87,8 +73,8 @@ class UtilisateurController extends AbstractController
             'withFiltrer' => false, // Pas de filtrage sur cette page
             'formRecherche' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
         ]);
-    }
-    
+    }    
+
 
     #[Route("/connexion", name: "connexion")]
     public function connexion(

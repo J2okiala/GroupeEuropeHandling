@@ -54,13 +54,15 @@
                     <p>Aucune offre trouvée.</p>
                 {% endfor %}
             </div>
-            <div>
+
+            <!-- Pagination -->
+            <div class="d-flex">
                 {% if offres.currentPageNumber > 1 %}
                     <a class="text-white text-decoration-none btn btn-primary m-2" href="{{ path('nosOffres', {'page': offres.currentPageNumber - 1}) }}">Page précédente</a>
                 {% endif %}
 
                 {% if offres.currentPageNumber < offres.pageCount %}
-                    <a class="text-white text-decoration-none btn btn-primary m-2" href="{{ path('nosOffres', {'page': offres.currentPageNumber + 1}) }}">Page suivante</a>
+                    <a class="text-white text-decoration-none btn btn-primary ms-auto m-2" href="{{ path('nosOffres', {'page': offres.currentPageNumber + 1}) }}">Page suivante</a>
                 {% endif %}
             </div>
         </main>

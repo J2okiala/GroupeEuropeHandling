@@ -60,44 +60,44 @@
                     <p>Aucune offre trouvée.</p>
                 {% endfor %}
 
-                <!-- Pagination -->
-                <div class="d-flex">
+            </div>
+            <!-- Pagination -->
+            <div class="d-flex">
 
-                    {% if offres.currentPageNumber > 1 %}
-                        <a href="{{ path('profilCandidat', {'page': offres.currentPageNumber - 1}) }}" class="text-white text-decoration-none btn btn-primary m-2">Page précédente</a>
-                    {% endif %}
+                {% if offres.currentPageNumber > 1 %}
+                    <a href="{{ path('profilCandidat', {'page': offres.currentPageNumber - 1}) }}" class="text-white text-decoration-none btn btn-primary m-2">Page précédente</a>
+                {% endif %}
 
-                    {% if offres.currentPageNumber < offres.pageCount %}
-                        <a href="{{ path('profilCandidat', {'page': offres.currentPageNumber + 1}) }}" class="text-white text-decoration-none btn btn-primary m-2 ms-auto">Page suivante</a>
-                    {% endif %}
-                </div>
+                {% if offres.currentPageNumber < offres.pageCount %}
+                    <a href="{{ path('profilCandidat', {'page': offres.currentPageNumber + 1}) }}" class="text-white text-decoration-none btn btn-primary m-2 ms-auto">Page suivante</a>
+                {% endif %}
             </div>
         </section>
 
         <!-- Cartes -->
-        <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+        <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3 d-flex">
 
-            <div class="col m-2"><a href="{{ path('maFiche') }}">
+            <div class="col m-4"><a href="{{ path('maFiche') }}">
                 <h3>Ma Fiche Candidat</h3>
                 <img src="img/Capture d’écran ma fiche.png" alt="Ma fiche" width="70%"></a>
             </div>
 
-            <div class="col m-2"><a href="{{ path('modifierMesInformations', {'id': app.user.candidat.id}) }}">
+            <div class="col m-4 ms-auto"><a href="{{ path('modifierMesInformations', {'id': app.user.candidat.id}) }}">
                 <h3>Modifier Mes Informations</h3>
                 <img src="img/Capture d’écran modifier mes infos.png" alt="Modifier Mes Informations" width="70%"></a>
             </div>
 
-            <div class="col m-2"><a href="{{ path('mesCandidatures') }}">
+            <div class="col m-4"><a href="{{ path('mesCandidatures') }}">
                 <h3>Visualiser Mes candidatures</h3>
                 <img src="img/Capture d’écran Mes Candidatures.png" alt="Mes Candidatures" width="70%"></a>
             </div>
 
-            <div class="col m-2"><a href="{{ path('mesIdentifiantsDeConnexion') }}">
+            <div class="col m-4 ms-auto"><a href="{{ path('mesIdentifiantsDeConnexion') }}">
                 <h3>Modifier Mes Identifiants</h3>
                 <img src="img/Capture d’écran modifier mes infos.png" alt="Modifier Mes Identifiants" width="70%"></a>
             </div>
 
-            <div class="col m-2"><a href="{{ path('supprimer_compte') }}">
+            <div class="col m-4"><a href="{{ path('supprimer_compte') }}">
                 <h3>Supprimer Mon Compte</h3>
                 <img src="img/Capture d’écran desactivez mon compte.png" alt="Desactiver Mon Compte" width="70%"></a>
             </div>
