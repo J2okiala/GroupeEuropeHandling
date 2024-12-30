@@ -2,10 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\OffreEmploi;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -64,9 +62,8 @@ class FiltreOffreEmploiFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => OffreEmploi::class,
-            'method' => 'GET', // Permet de transmettre les données via l'URL
-            'csrf_protection' => false, // Désactivé pour des formulaires de recherche
-        ]);
+            'method' => 'GET', 
+            'csrf_protection' => false, // Désactivé pour les formulaires de recherche
+        ]);        
     }
 }
