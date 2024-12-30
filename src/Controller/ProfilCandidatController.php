@@ -31,34 +31,43 @@ class ProfilCandidatController extends AbstractController
         Request $request,
         PaginatorInterface $paginator
     ): Response {
-        // Récuperer l'utilisateur depuis la session
+        // Récupérer l'utilisateur depuis la session
         $utilisateur = $this->getUser();
     
         // Créer le formulaire de recherche
         $formRecherche = $this->createForm(FiltreOffreEmploiFormType::class, null, [
             'method' => 'GET',
         ]);
-    
-        // Traiter le formulaire
         $formRecherche->handleRequest($request);
     
-        // Récupérer les données pour filtrer les offres
-        $criteria = [];
+        // Initialiser les offres à un tableau vide au cas où aucune recherche n'est effectuée
+        $offres = [];
+        $nombreOffres = 0;
+    
+        // Récupérer les critères du formulaire uniquement si valide
         if ($formRecherche->isSubmitted() && $formRecherche->isValid()) {
+            // Récupérer les données du formulaire
             $criteria = $formRecherche->getData();
+    
+            // Pagination : récupérer la page actuelle et définir la limite d'offres par page
+            $page = $request->query->getInt('page', 1);
+            $limit = 4;
+    
+            // Appliquer les critères pour rechercher avec pagination
+            $offres = $offreEmploiRepository->searchWithPagination($criteria, $paginator, $page, $limit);
+    
+            // Calculer le nombre total d'offres
+            $nombreOffres = $offres->getTotalItemCount();
+        } else {
+            // Si le formulaire n'est pas soumis ou valide, afficher toutes les offres par défaut
+            $page = $request->query->getInt('page', 1);
+            $limit = 4;
+    
+            $offres = $offreEmploiRepository->searchWithPagination([], $paginator, $page, $limit);
+            $nombreOffres = $offres->getTotalItemCount();
         }
     
-        // Récupérer la page actuelle et définir la limite d'offres par page
-        $page = $request->query->getInt('page', 1); // Par défaut, page 1
-        $limit = 4; // Nombre d'offres par page
-    
-        // Appliquer la pagination avec les critères
-        $offres = $offreEmploiRepository->searchWithPagination($criteria, $paginator, $page, $limit);
-    
-        // Calculer le nombre total d'offres
-        $nombreOffres = $offres->getTotalItemCount();
-    
-        // Retourner la vue associée
+        // Retourner la vue associée avec toutes les données nécessaires
         return $this->render('pages/utilisateur/candidat/profil-candidat.html.twig', [
             'candidatNavbar' => true,
             'formRecherche' => $formRecherche->createView(),
@@ -67,7 +76,7 @@ class ProfilCandidatController extends AbstractController
             'currentPage' => $page,
             'totalPages' => ceil($offres->getTotalItemCount() / $limit), // Nombre total de pages
         ]);
-    }
+    }    
     
 
     #[Route("/deconnexion", name:"deconnexion")]

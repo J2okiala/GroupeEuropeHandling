@@ -1,7 +1,7 @@
 {% extends 'pages/base.html.twig' %}
 
 {% block title %}
-    profil - candidat
+    Profil - Candidat
 {% endblock %}
 
 {% block stylesheets %}
@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block body %}
-    {# Affiche les messages flash s'ils existent #}
+    {# Messages flash s'ils existent #}
     {% for label, messages in app.flashes %}
         {% for message in messages %}
             <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
@@ -17,17 +17,22 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% endfor %}
-    {% endfor %}   
+    {% endfor %}
 
     <main class="container">
-    <h4 class=" font-weight-semibold mb-4 text-center">Bienvenue sur votre espace candidat {{ app.user.prenom }} ! </h4>
+        <h4 class="font-weight-semibold mb-4 text-center">
+            Bienvenue sur votre espace candidat, {{ app.user.prenom }} !
+        </h4>
 
-    <!-- Résultat des offres -->
-    <h2 class="text-white">{{ nombreOffres }} Offre{% if nombreOffres > 1 %}s{% endif %} disponible{% if nombreOffres > 1 %}s{% endif %}</h2>
+        <!-- Résultat des offres -->
+        <h2 class="text-white">
+            {{ nombreOffres }} Offre{% if nombreOffres > 1 %}s{% endif %} disponible{% if nombreOffres > 1 %}s{% endif %}
+        </h2>
 
         <section class="container">
-        <p>Page {{ offres.currentPageNumber }} sur {{ offres.pageCount }}</p>
-            <!-- Grille Bootstrap -->
+            <p>Page {{ offres.currentPageNumber }} sur {{ offres.pageCount }}</p>
+
+            <!-- Grille Bootstrap pour les offres -->
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4">
                 {% for offre in offres %}
                     <div class="col">
@@ -51,7 +56,7 @@
                                 </form>
                                 <p class="mt-3">
                                     <strong>Description du poste :</strong><br>
-                                    {{ offre.descriptionPoste }}
+                                    {{ offre.descriptionPoste|raw }}
                                 </p>
                             </div>
                         </div>
@@ -59,51 +64,58 @@
                 {% else %}
                     <p>Aucune offre trouvée.</p>
                 {% endfor %}
-
             </div>
-            <!-- Pagination -->
-            <div class="d-flex">
 
+            <!-- Pagination -->
+            <div class="d-flex justify-content-between mt-4">
                 {% if offres.currentPageNumber > 1 %}
-                    <a href="{{ path('profilCandidat', {'page': offres.currentPageNumber - 1}) }}" class="text-white text-decoration-none btn btn-primary m-2">Page précédente</a>
+                    <a href="{{ path('profilCandidat', {'page': offres.currentPageNumber - 1}) }}" class="btn btn-primary">Page précédente</a>
+                {% else %}
+                    <span></span> {# Pour équilibrer le layout #}
                 {% endif %}
 
                 {% if offres.currentPageNumber < offres.pageCount %}
-                    <a href="{{ path('profilCandidat', {'page': offres.currentPageNumber + 1}) }}" class="text-white text-decoration-none btn btn-primary m-2 ms-auto">Page suivante</a>
+                    <a href="{{ path('profilCandidat', {'page': offres.currentPageNumber + 1}) }}" class="btn btn-primary">Page suivante</a>
                 {% endif %}
             </div>
         </section>
 
-        <!-- Cartes -->
-        <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3 d-flex">
-
-            <div class="col m-4"><a href="{{ path('maFiche') }}">
-                <h3>Ma Fiche Candidat</h3>
-                <img src="img/Capture d’écran ma fiche.png" alt="Ma fiche" width="70%"></a>
+        <!-- Cartes des actions -->
+        <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3 d-flex mt-5">
+            <div class="col m-4">
+                <a href="{{ path('maFiche') }}">
+                    <h3>Ma Fiche Candidat</h3>
+                    <img src="img/Capture d’écran ma fiche.png" alt="Ma fiche" width="70%">
+                </a>
             </div>
 
-            <div class="col m-4 ms-auto"><a href="{{ path('modifierMesInformations', {'id': app.user.candidat.id}) }}">
-                <h3>Modifier Mes Informations</h3>
-                <img src="img/Capture d’écran modifier mes infos.png" alt="Modifier Mes Informations" width="70%"></a>
+            <div class="col m-4 ms-auto">
+                <a href="{{ path('modifierMesInformations', {'id': app.user.candidat.id}) }}">
+                    <h3>Modifier Mes Informations</h3>
+                    <img src="img/Capture d’écran modifier mes infos.png" alt="Modifier Mes Informations" width="70%">
+                </a>
             </div>
 
-            <div class="col m-4"><a href="{{ path('mesCandidatures') }}">
-                <h3>Visualiser Mes candidatures</h3>
-                <img src="img/Capture d’écran Mes Candidatures.png" alt="Mes Candidatures" width="70%"></a>
+            <div class="col m-4">
+                <a href="{{ path('mesCandidatures') }}">
+                    <h3>Visualiser Mes candidatures</h3>
+                    <img src="img/Capture d’écran Mes Candidatures.png" alt="Mes Candidatures" width="70%">
+                </a>
             </div>
 
-            <div class="col m-4 ms-auto"><a href="{{ path('mesIdentifiantsDeConnexion') }}">
-                <h3>Modifier Mes Identifiants</h3>
-                <img src="img/Capture d’écran modifier mes infos.png" alt="Modifier Mes Identifiants" width="70%"></a>
+            <div class="col m-4 ms-auto">
+                <a href="{{ path('mesIdentifiantsDeConnexion') }}">
+                    <h3>Modifier Mes Identifiants</h3>
+                    <img src="img/Capture d’écran modifier mes infos.png" alt="Modifier Mes Identifiants" width="70%">
+                </a>
             </div>
 
-            <div class="col m-4"><a href="{{ path('supprimer_compte') }}">
-                <h3>Supprimer Mon Compte</h3>
-                <img src="img/Capture d’écran desactivez mon compte.png" alt="Desactiver Mon Compte" width="70%"></a>
+            <div class="col m-4">
+                <a href="{{ path('supprimer_compte') }}">
+                    <h3>Supprimer Mon Compte</h3>
+                    <img src="img/Capture d’écran desactivez mon compte.png" alt="Désactiver Mon Compte" width="70%">
+                </a>
             </div>
         </section>
-
-
     </main>
-
 {% endblock %}
