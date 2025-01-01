@@ -41,6 +41,7 @@
 
         {{ form_end(connexionForm) }}
         <p class="text-dark">Pas encore inscrit ? <a href="{{ path('inscription') }}">Créer un compte</a></p>
+        <p class="text-dark">Mot de passe oublié ? <a href="{{ path('app_forgot_password_request') }}">Generer mot de passe</a></p>
     </div>
 
     {# Affiche un message d'erreur s'il y a un problème de connexion #}
