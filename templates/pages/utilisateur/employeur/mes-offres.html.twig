@@ -1,0 +1,64 @@
+{% extends 'pages/base.html.twig' %}
+
+{% block title %}
+    mesOffres - employeur
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="styles/offres.css">
+{% endblock %}
+
+{% block body %}
+    {# Affiche les messages flash s'ils existent #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <main class="container">
+    <h2 class="text-white">Mes Offres</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4">
+            {% for item in candidatures %}
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h4 class="card-title">Publiée par l'employeur : {{ app.user.prenom }}</h4>
+                            <p class="card-text">
+                                <strong>Poste : </strong> {{ item.offre.poste }}<br>
+                                <strong>Localisation : </strong> {{ item.offre.localisation }}<br>
+                                <strong>Date de publication : </strong> {{ item.offre.datePublication|date('d/m/Y') }}<br>
+                            </p>
+
+                            <strong>Candidats ayant postulé : </strong>
+                            {% if item.candidats is not empty %}
+                                <ul>
+                                    {% for candidat in item.candidats %}
+                                        <li>
+                                            <strong>{{ candidat.nom }} {{ candidat.prenom }}</strong><br>
+                                            CV : 
+                                            <a href="{{ path('telecharger_cv', { 'candidatId': candidat.id }) }}" target="_blank">Télécharger</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p>Aucun candidat n'a postulé pour cette offre.</p>
+                            {% endif %}
+
+                            <!-- Formulaire pour supprimer l'offre -->
+                            <form method="post" action="{{ path('supprimer_offre', { id: item.offre.id }) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette offre ?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ item.offre.id) }}">
+                                <button class="btn btn-danger btn-sm">Supprimer</button>
+                            </form>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+
+{% endblock %}

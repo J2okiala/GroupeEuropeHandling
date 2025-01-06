@@ -1,0 +1,47 @@
+{% extends 'pages/base.html.twig' %}
+
+{% block title %}
+    Supprimer le compte - candidat
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="styles/offres.css">
+{% endblock %}
+
+
+{% block body %}
+    {# Affiche les messages flash s'ils existent #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <main class="container mt-5">
+        <h2 class="text-center text-white mb-4">Supprimer mon compte</h2>
+        <div class="row justify-content-center">
+            <!-- Cartes -->
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <h4>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</h4>
+                        <form method="POST" action="{{ path('confirmer_compte') }}">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('delete_account') }}">
+                            <button type="submit" class="btn btn-danger">Oui, supprimer mon compte</button>
+                            <a href="{{ path('profilCandidat') }}" class="btn btn-secondary">Annuler</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}
+
+
+
+
+

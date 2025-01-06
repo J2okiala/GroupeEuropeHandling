@@ -1,0 +1,44 @@
+{% extends 'pages/base.html.twig' %}
+
+{% block title %}
+    modification-identifiants - employeur
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="styles/offres.css">
+{% endblock %}
+
+{% block body %}
+    {# Affiche les messages flash s'ils existent #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <main class="container mt-5">
+        <h2 class="text-center text-white mb-4">Modifier mes identifiants</h2>
+        <div class="row justify-content-center">
+            <!-- Cartes -->
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                            {{ form_row(form.email) }}
+                            {{ form_row(form.confirmEmail) }}
+                            {{ form_row(form.password) }}
+                            {{ form_row(form.confirmPassword) }}
+                            <button type="submit">Valider</button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}
+
+

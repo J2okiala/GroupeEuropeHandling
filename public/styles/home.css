@@ -1,0 +1,125 @@
+
+/* styles.css */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden; 
+    background: rgb(2,4,25);
+    background: linear-gradient(260deg, rgba(2,4,25,1) 19%, rgba(159,9,9,1) 88%);
+    color: white; 
+    box-sizing: border-box;
+}
+
+
+/* color */
+.shadow-blue {
+    -webkit-box-shadow: inset -1px 3px 8px 5px #1F87FF, 2px 5px 16px 0px #0B325E, 0px 0px 15px 5px #06439C; 
+    box-shadow: inset -1px 3px 8px 5px #1F87FF, 2px 5px 16px 0px #0B325E, 0px 0px 15px 5px #06439C;
+}
+
+/* .h-black {
+    color: black;
+} */
+
+#p {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+
+/* MAIN */
+
+main {
+    padding: 20px;
+    margin-top: 100px;
+}  
+
+h1 {
+    font-size: 5rem;
+    text-align: center;
+    align-items: center;
+    color: black;
+}
+
+.Bckg-Carte {
+    background: rgb(31, 15, 15);
+    border: 2px solid rgb(4, 57, 79);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: background 3s;
+    
+}
+
+.Bckg-Carte:hover {
+  background-color: #003165;
+  border: 2px solid white;
+
+}
+
+a {
+  color: inherit; /* Utilise la couleur du texte environnant */
+  text-decoration: none; /* Supprime le surlignage */
+}
+
+a:hover {
+  color: inherit; /* Couleur au survol */
+  text-decoration: none; /* Pas de soulignement au survol */
+}
+
+.Bckg-button {
+    color: white;
+    font-size: 1rem;
+    border: 2px solid navy;
+    border-radius: 0.5rem ;
+    transition: background 2s, font-size 5s color 2s;
+}
+
+.Bckg-button:hover {
+  background: #003165;
+  font-size: 1.5rem;
+  border: 4px solid navy;
+
+}
+
+
+h2 {
+    font-size: 3rem;
+    text-decoration:solid;
+}
+
+
+
+
+.card {
+  position: relative;
+  /* padding: 20px; */
+  border-radius: 10px;
+  color: white;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  border: 2px solid black;
+}
+
+
+.violet {
+  background-color: hsl(263, 55%, 52%);
+}
+
+.grayish-blue {
+  background-color: hsl(217, 19%, 35%);
+}
+
+.blackish-blue {
+  background-color: hsl(217, 85%, 26%);
+}
+
+.white {
+  background-color: grey;
+}
+
+.red {
+  background: rgb(78, 13, 13);
+}
+
+
+
+

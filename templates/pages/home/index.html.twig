@@ -1,0 +1,209 @@
+{% extends 'pages/base.html.twig' %}
+
+{% block title %}
+    Page d'accueil
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="styles/home.css">
+{% endblock %}
+
+{% block body %}
+
+    {# Affiche les messages flash s'ils existent #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <main>
+        <h2 class="text-white">NOS SERVICES</h2>
+        <div class="container-fluid">
+            <!-- Section 1 : Nos Services -->
+            <section class="row row-cols-1 row-cols-md-2 row-cols-lg-2 ">
+                <div class="col Bckg-Carte">
+                    <img src="img/photo4aero.jpg" alt="Service Piste" width="100%">
+                    <div class="carte-texte">
+                        <h4>Piste</h4>
+                        <p>
+                            Chargement, déchargement et transport des bagages du fret et de la poste, Placement avion, Tractage, repoussage, départs au casque, 
+                            Livraison de pièces d’avion, Nettoyage avion, Eau potable et vidange, Transport des passagers et équipages.
+                        </p>
+                    </div>
+                </div>
+                <div class="col Bckg-Carte">
+                    <img src="img/Photo-GEH-Passager.webp" alt="Services Passagers" width="100%">
+                    <div class="carte-texte">
+                        <h4>Services aux passagers</h4>
+                        <p>
+                            Accueil passagers, Enregistrement, embarquement et débarquement, Billetterie, Traitement des passagers en correspondance.
+                        </p>
+                    </div>
+                </div>
+                <div class="col Bckg-Carte">
+                    <img src="img/Photo-GEH-Cargo.webp" alt="Service Cargo" width="100%">
+                    <div class="carte-texte">
+                        <h4>Cargo, Fret et Poste</h4>
+                        <p>
+                            Transport de fret et de la poste en piste arrivée et départ, Traitement des vols camionnés (Vrac et ULD), 
+                            Acceptation, sécurisation, tri, classement et palettisation du fret.
+                        </p>
+                    </div>
+                </div>
+                <div class="col Bckg-Carte">
+                    <img src="img/Photo-GEH-Maintenance.webp" alt="Service Maintenance" width="100%">
+                    <div class="carte-texte">
+                        <h4>Maintenance</h4>
+                        <p>
+                            Atelier de maintenance dédié de 3000 m² pour l’entretien et la réparation des véhicules et engins de piste.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div>
+            <h3 class="m-2 w-25 p-1 Bckg-button"><a href={{path('nosServices')}}>Tous Nos Services<a/></h3>
+        </div>
+
+        <!-- Section : nosOffres -->
+        <h2 class="m-5 text-white">NOS OFFRES</h2>
+
+        <section class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4 card violet">
+                    <div>
+                    <h4 class="h-black">Offre d'emploi : Agent de Piste (H/F) </h4>
+                    <p>
+                        Roissy
+                    </p>
+                    <p>
+                        Mise en ligne le : 15/07/2024
+                    </p>
+                    <p>
+                        Description du poste:
+                        Vous êtes passionné(e) par l'univers aéroportuaire et souhaitez contribuer à la bonne gestion des opérations au sol ? 
+                        Rejoignez notre équipe en tant qu'Agent de Piste (H/F).
+                        En tant qu'Agent de Piste, vous jouerez un rôle essentiel dans le bon déroulement des activités autour des avions, 
+                        garantissant sécurité, efficacité et ponctualité.
+                    </p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4 card grayish-blue">   
+                    <div>
+                    <h4 class="h-black">Offre d'emploi : Agent de Trafic (H/F)</h4>
+                    <p>
+                        Orly
+                    </p>
+                    <p>
+                        Mise en ligne le : 13/08/2024
+                    </p>
+                    <p>
+                        Description du poste:
+                        Vous êtes organisé(e), réactif(ve) et passionné(e) par le domaine de l'aviation ? 
+                        Rejoignez notre équipe dynamique en tant qu'Agent de Trafic (H/F) et participez activement à la coordination des opérations aériennes au sol.
+                        En tant qu'Agent de Trafic, vous jouerez un rôle crucial dans la gestion et l'organisation des vols. 
+                
+                    </p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4 card white ">
+                    <div>
+                    <h4 class="h-black">Offre d'emploi : Bagagiste (H/F)</h4>
+                    <p>
+                        Orly
+                    </p>
+                    <p>
+                        Mise en ligne le : 23/09/2024
+                    </p>
+                    <p>
+                        Description du poste:
+                        Vous aimez travailler dans un environnement dynamique et contribuer à l'expérience des passagers dans l'univers aéroportuaire ? 
+                        Rejoignez notre équipe en tant que Bagagiste (H/F) 
+                        et participez activement aux opérations au sol en assurant la gestion des bagages avec efficacité et précision.
+                    </p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-6 card white">
+                    <div>
+                    <h4 class="h-black">Offre d'emploi : Agent Cargo (H/F)</h4>
+                    <p>
+                        Roissy
+                    </p>
+                    <p>
+                        Mise en ligne le : 05/10/2024
+                    </p>
+                    <p>
+                        Description du poste:
+                        Vous êtes attiré(e) par le secteur aéroportuaire et souhaitez participer aux opérations de logistique et de fret aérien ? 
+                        Rejoignez notre équipe en tant qu'Agent Cargo (H/F) et contribuez à la gestion efficace et sécurisée des marchandises qui transitent par nos plateformes aéroportuaires.
+                        En tant qu’Agent Cargo, vous serez un maillon essentiel de la chaîne logistique, assurant le traitement, 
+                        le contrôle et l’expédition des marchandises tout en respectant les normes de sécurité et de qualité.
+                    </p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-12 col-lg-6 card blackish-blue">
+                    <div>
+                    <h4 class="h-black">Offre d'emploi : Manutentionnaire (H/F)</h4>
+                    <p>
+                        Roissy
+                    </p>
+                    <p>
+                        Mise en ligne le : 15/11/2024
+                    </p>
+                    <p>
+                        Description du poste:
+                        Vous souhaitez contribuer au bon fonctionnement des opérations aéroportuaires et faire partie d’un environnement dynamique et stimulant ? 
+                        Rejoignez-nous en tant que Manutentionnaire Aéroportuaire (H/F). 
+                        Ce poste clé vous permettra de travailler dans les coulisses de l’aéroport pour garantir l’efficacité et la fluidité des opérations de manutention.
+                    </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div>
+            <h3 class="m-2 w-25 p-1 Bckg-button"><a href={{path('nosOffres')}}>Toutes Nos Offres<a/></h3>
+        </div>
+
+        <!-- Section : Chiffres Clés -->
+        <h2 class="m-5 text-white">CHIFFRES CLÉS</h2>
+        <section class="container-fluid">
+            <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4"> 
+                <div class="m-2 col Bckg-Carte red">
+                    <div >
+                        <p>PASSAGE</p>
+                        <h4>94</h4>
+                        <p>Millions de passagers transportés par le Groupe Europe Handling en 2023.</p>
+                    </div>
+                </div>
+                <div class="m-2 col Bckg-Carte red">
+                    <div>
+                        <p>PASSAGE</p>
+                        <h4>80</h4>
+                        <p>Pays desservis par le Groupe Europe Handling sur tous les continents.</p>
+                    </div>
+                </div>
+                <div class="m-2 col Bckg-Carte red"> 
+                    <div>
+                        <p>DÉVELOPPEMENT DURABLE</p>
+                        <h4>-30%</h4>
+                        <p>Réduction d’émissions de CO2 par passager-kilomètre d’ici 2030 par rapport à 2020.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="container-fluid">
+            <h3 class="m-2 w-25 p-1 Bckg-button"><a href={{path('nosChiffres')}}>Tous Nos Chiffres<a/></h3>
+        </div>
+    </main>
+{% endblock %}

@@ -1,0 +1,117 @@
+/* styles.css */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden; 
+    background: rgb(2,4,25);
+    background: linear-gradient(260deg, rgba(2,4,25,1) 19%, rgba(159,9,9,1) 88%);
+    color: white; 
+    box-sizing: border-box;
+}
+
+/* HEADER */
+
+.secondary-navbar {
+    background: linear-gradient(88.96deg, #051039 33.47%, #003165 99.14%);
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between; /* Sépare les groupes à gauche et à droite */
+    align-items: center;
+}
+
+.secondary-navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    width: 100%;
+
+}
+
+.secondary-navbar ul li {
+    display: inline;
+    margin-right: 15px;
+}
+
+.secondary-navbar ul li a {
+text-decoration: none;
+color: white;
+}
+
+.secondary-navbar ul li a:hover {
+text-decoration: underline;
+}
+
+.secondary-navbar ul .right-links {
+    margin-left: auto; /* Pousse les liens vers la droite */
+    display: flex; /* Active le comportement en ligne pour les éléments enfants */
+    align-items: center;
+}
+
+/* Style spécifique pour le lien "Finance" */
+.secondary-navbar ul li a.candidature-link {
+    background-color: red;
+    color: white; /* Pour s'assurer que le texte est lisible */
+    padding: 5px 10px; /* Ajoute un peu d'espace autour du texte */
+    border-radius: 5px; /* Donne un effet arrondi au bouton */
+    text-decoration: none; /* Supprime le soulignement */
+}
+
+/* Effet au survol */
+.secondary-navbar ul li a.candidature-link:hover {
+    background-color: darkred; /* Change légèrement la couleur au survol */
+}
+
+
+
+
+h2 {
+    font-size: 4rem;
+    text-align: center;
+    align-items: center;
+    color: black;
+}
+
+
+/* MAIN */
+
+
+h1 {
+    font-size: 5rem;
+    text-align: center;
+    align-items: center;
+    color: black;
+}
+
+.type {
+    display: flex;
+    border-bottom: 1px solid #0b0707;
+}
+
+.contrat {
+    margin: 10px;
+    background-color:navy;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
+.modalites {
+    margin: 10px;
+    background-color:navy;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.bordure {
+    background-color: #f2f2f2; /* Couleur de fond gris clair */
+    border: 1px solid #cccccc; /* Bordure grise */
+    border-radius: 5px; /* Coins arrondis */
+    padding: 20px; /* Espace interne pour aérer le contenu */
+    margin: 10px 0; /* Espacement externe entre les divs */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Légère ombre pour donner de la profondeur */
+}
