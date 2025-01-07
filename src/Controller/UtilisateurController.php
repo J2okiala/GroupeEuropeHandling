@@ -4,12 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Utilisateur;
 use App\Entity\Candidat;
-use App\Entity\Employeur;
+use App\Service\MailerService; // Import du MailerService
 use App\Form\ConnexionFormType;
 use App\Form\InscriptionFormType;
 use App\Repository\UtilisateurRepository;
 use App\Repository\CandidatRepository;
-use App\Repository\EmployeurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +23,8 @@ class UtilisateurController extends AbstractController
         Request $request, 
         UtilisateurRepository $utilisateurRepository, 
         CandidatRepository $candidatRepository, 
-        UserPasswordHasherInterface $passwordHasher
+        UserPasswordHasherInterface $passwordHasher,
+        MailerService $mailerService // Injection du service Mailer
     ): Response {
         // Redirige l'utilisateur vers la page de profil s'il est déjà connecté
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
@@ -59,8 +59,20 @@ class UtilisateurController extends AbstractController
                 // Sauvegarde l'utilisateur dans la base de données
                 $utilisateurRepository->save($utilisateur, true);
     
+                // Génère un lien de confirmation d'inscription
+                $confirmationLink = $this->generateUrl('profilCandidat', [], true);
+
+                // Envoie l'email de confirmation
+                $mailerService->sendEmail(
+                    $utilisateur->getEmail(),
+                    'Confirmation de votre inscription',
+                    "<p>Bonjour " . $utilisateur->getPrenom() . ",</p>
+                    <p>Merci pour votre inscription ! Cliquez sur le lien ci-dessous pour confirmer votre inscription :</p>
+                    <a href='" . $confirmationLink . "'>Confirmer mon inscription</a>"
+                );
+
                 // Ajoute un message de succès
-                $this->addFlash('success', 'Inscription réussie ! Vous pouvez maintenant vous connecter.');
+                $this->addFlash('success', 'Inscription réussie ! Un email de confirmation vous a été envoyé.');
     
                 // Redirige après l'inscription
                 return $this->redirectToRoute('nosOffres');
@@ -73,7 +85,7 @@ class UtilisateurController extends AbstractController
             'withFiltrer' => false, // Pas de filtrage sur cette page
             'formRecherche' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
         ]);
-    }    
+    }
 
 
     #[Route("/connexion", name: "connexion")]
