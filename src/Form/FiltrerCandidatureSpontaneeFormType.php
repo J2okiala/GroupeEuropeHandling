@@ -36,8 +36,8 @@ class FiltrerCandidatureSpontaneeFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'csrf_protection' => true, // Activer la protection CSRF
             'method' => 'GET', // Utiliser GET pour transmettre les données via l'URL
+            'csrf_protection' => true, // Activer la protection CSRF
         ]);
     }
 }

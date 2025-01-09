@@ -37,6 +37,7 @@ class CandidatureSpontaneeFormType extends AbstractType
                 ],
                 'placeholder' => 'Sélectionnez un poste',
                 'mapped' => true, // Mapping du poste
+                'required' => true,
                 'attr' => ['class' => 'form-select'], // Style Bootstrap
             ]);
     }
@@ -45,6 +46,7 @@ class CandidatureSpontaneeFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => CandidatureSpontanee::class,
+            'csrf_protection' => true, // Activer la protection CSRF
         ]);
     }
 }

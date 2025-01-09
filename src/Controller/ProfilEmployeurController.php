@@ -340,7 +340,6 @@ class ProfilEmployeurController extends AbstractController
         return $this->redirectToRoute('home');
     }
 
-
     #[Route('/filtrer-candidatures', name: 'filtrer_candidatures', methods: ['GET'])]
     public function afficherCandidaturesFiltrees(Request $request, CandidatureSpontaneeRepository $candidatureSpontaneeRepository, LoggerInterface $logger): Response
     {
@@ -402,6 +401,5 @@ class ProfilEmployeurController extends AbstractController
             'Content-Disposition' => 'attachment; filename="' . basename($cvPath) . '"',
         ]);
     }
-
 
 }

@@ -65,6 +65,7 @@ class ModifierInformationEmployeurTypeForm extends AbstractType
         // Utilisez uniquement Candidat::class, pas Utilisateur::class
         $resolver->setDefaults([
             'data_class' => Employeur::class,
+            'csrf_protection' => true, // Activer la protection CSRF
         ]);
     }
 }

@@ -52,9 +52,9 @@ class InscriptionFormType extends AbstractType
                         new NotBlank(["message" => "Le nom est obligatoire"]),
                         new Length([
                             'min' => 3,
-                            'minMessage' => "Le nom doit contenir au moins {{ limit }} caractères",
+                            'minMessage' => "Le nom doit contenir au moins {{ limit }} caractères.",
                             'max' => 30,
-                            'maxMessage' => "Le nom doit contenir au maximum {{ limit }} caractères",
+                            'maxMessage' => "Le nom doit contenir au maximum {{ limit }} caractères.",
                         ]),
                     ],
                 ])
@@ -69,9 +69,9 @@ class InscriptionFormType extends AbstractType
                         new NotBlank(["message" => "Le prenom est obligatoire"]),
                         new Length([
                             'min' => 3,
-                            'minMessage' => "Le prenom doit contenir au moins {{ limit }} caractères",
+                            'minMessage' => "Le prenom doit contenir au moins {{ limit }} caractères.",
                             'max' => 30,
-                            'maxMessage' => "Le prenom doit contenir au maximum {{ limit }} caractères",
+                            'maxMessage' => "Le prenom doit contenir au maximum {{ limit }} caractères.",
                         ]),
                     ],
                 ])
@@ -98,8 +98,9 @@ class InscriptionFormType extends AbstractType
                         new NotBlank(["message" => "Le mot de passe est obligatoire"]),
                         new Length([
                             'min' => 8,
-                            'minMessage' => "Le mot de passe doit contenir au moins {{ limit }} caractères",
+                            'minMessage' => "Le mot de passe doit contenir au moins {{ limit }} caractères.",
                             'max' => 255,
+                            'maxMessage' => "Le mot de passe ne doit pas dépasser {{ limit }} caractères.",
                         ]),
                     ],
                 ])
@@ -113,9 +114,10 @@ class InscriptionFormType extends AbstractType
                     'constraints' => [
                         new NotBlank(["message" => "La confirmation du mot de passe est obligatoire"]),
                         new Length([
-                            'min' => 6,
+                            'min' => 8,
                             'minMessage' => "Le mot de passe doit contenir au moins {{ limit }} caractères",
                             'max' => 255,
+                            'maxMessage' => "Le mot de passe ne doit pas dépasser {{ limit }} caractères.",
                         ]),
                         new Callback([$this, 'validatePasswordMatch'])
                     ],
@@ -146,6 +148,7 @@ class InscriptionFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Utilisateur::class,
+            'csrf_protection' => true, // Activer la protection CSRF
         ]);
     }
 }

@@ -88,7 +88,7 @@ class ProfilCandidatController extends AbstractController
     public function maFiche()
     {
         // Récuperer l'utilisateur depuis la session
-        $uilisateur = $this->getUser();
+        $utilisateur = $this->getUser();
 
         return $this->render('pages/utilisateur/candidat/ma-fiche.html.twig', [
             'candidatNavbar' => true,

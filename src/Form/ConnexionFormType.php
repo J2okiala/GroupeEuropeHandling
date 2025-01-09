@@ -46,6 +46,7 @@ class ConnexionFormType extends AbstractType
                             'min' => 8,
                             'minMessage' => "Le mot de passe doit contenir au moins {{ limit }} caractères",
                             'max' => 255,
+                            'maxMessage' => "Le mot de passe ne doit pas dépasser {{ limit }} caractères.",
                         ]),
                     ],
                 ])
@@ -60,6 +61,7 @@ class ConnexionFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Utilisateur::class,
+            'csrf_protection' => true, // Activer la protection CSRF
         ]);
     }
 }

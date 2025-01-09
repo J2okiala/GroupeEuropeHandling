@@ -63,7 +63,7 @@ class FiltreOffreEmploiFormType extends AbstractType
     {
         $resolver->setDefaults([
             'method' => 'GET', 
-            'csrf_protection' => false, // Désactivé pour les formulaires de recherche
+            'csrf_protection' => true, // Activer la protection CSRF
         ]);        
     }
 }
