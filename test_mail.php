@@ -8,7 +8,7 @@ require 'vendor/autoload.php';
 
 try {
     // Crée le transport MailTrap
-    $dsn = 'smtp://24d31f34c786ef:2ebb8929850e75@smtp.mailtrap.io:2525';
+    $dsn = 'smtp://test:123456@localhost:25';
     $transport = Transport::fromDsn($dsn);
 
     // Instancie le service Mailer

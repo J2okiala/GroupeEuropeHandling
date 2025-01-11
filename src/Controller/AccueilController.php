@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AccueilController extends AbstractController
 {
+
     #[Route('/', name: 'home')]
     public function home()
     {

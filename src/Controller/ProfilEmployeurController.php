@@ -257,16 +257,9 @@ class ProfilEmployeurController extends AbstractController
     ): Response {
         $utilisateur = $this->getUser();
     
-        // Récupérer le candidat lié à l'utilisateur
+        // Récupérer l'employeur lié à l'utilisateur
         $employeur = $employeurRepository->findOneBy(['utilisateur' => $utilisateur]);
-    
-        // Récupérer le candidat lié à l'utilisateur
-        $employeur = $employeurRepository->findOneBy(['utilisateur' => $utilisateur]);
-
-        if (!$employeur) {
-            $this->addFlash('error', 'Aucun employeur associé à cet utilisateur.');
-            return $this->redirectToRoute('connexion');
-        }
+        dd($employeur);
 
         // Créer le formulaire pour l'entité Employeur
         $form = $this->createForm(MesIdentifiantsDeConnexionEFormType::class, $employeur);

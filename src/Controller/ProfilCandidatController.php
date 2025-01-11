@@ -206,14 +206,6 @@ class ProfilCandidatController extends AbstractController
     
         // Récupérer le candidat lié à l'utilisateur
         $candidat = $candidatRepository->findOneBy(['utilisateur' => $utilisateur]);
-    
-        // Récupérer le candidat lié à l'utilisateur
-        $candidat = $candidatRepository->findOneBy(['utilisateur' => $utilisateur]);
-
-        if (!$candidat) {
-            $this->addFlash('error', 'Aucun candidat associé à cet utilisateur.');
-            return $this->redirectToRoute('app_logout');
-        }
 
         // Créer le formulaire pour l'entité Candidat
         $form = $this->createForm(MesIdentifiantsDeConnexionFormType::class, $candidat);
