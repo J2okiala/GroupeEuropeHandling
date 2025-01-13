@@ -49,5 +49,16 @@ class CandidatRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findOffresPostuleesByUser(int $userId): array
+    {
+        return $this->createQueryBuilder('c')
+            ->select('o.id') // Sélectionne l'ID des offres
+            ->join('c.offresEmploi', 'o') // Effectue la jointure avec les offres d'emploi
+            ->where('c.utilisateur = :userId') // Filtre par utilisateur
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getResult(); // Retourne une liste des IDs d'offres
+    }
+    
 
 }

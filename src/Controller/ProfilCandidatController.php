@@ -28,56 +28,90 @@ class ProfilCandidatController extends AbstractController
     #[Route("/profilCandidat", name: "profilCandidat", methods: ['GET'])]
     public function profil(
         OffreEmploiRepository $offreEmploiRepository,
+        CandidatRepository $candidatRepository,
         Request $request,
         PaginatorInterface $paginator
     ): Response {
-        // Récupérer l'utilisateur depuis la session
         $utilisateur = $this->getUser();
     
-        // Créer le formulaire de recherche
+        // Vérification si l'utilisateur est connecté
+        if (!$utilisateur) {
+            return $this->redirectToRoute('login');
+        }
+    
+        // Récupération des offres déjà postulées par l'utilisateur
+        $offresPostulees = $candidatRepository->findOffresPostuleesByUser($utilisateur->getId());
+    
+        // Création du formulaire de recherche pour filtrer les offres d'emploi
         $formRecherche = $this->createForm(FiltreOffreEmploiFormType::class, null, [
-            'method' => 'GET',
+            'method' => 'GET', // Utilisation de la méthode GET pour la recherche
         ]);
         $formRecherche->handleRequest($request);
     
-        // Initialiser les offres à un tableau vide au cas où aucune recherche n'est effectuée
+        // Déclaration des variables
         $offres = [];
         $nombreOffres = 0;
+        $page = $request->query->getInt('page', 1); // Page courante, par défaut 1
+        $limit = 4; // Limite d'affichage par page
     
-        // Récupérer les critères du formulaire uniquement si valide
+        // Si le formulaire est soumis et valide, on filtre les résultats selon les critères
         if ($formRecherche->isSubmitted() && $formRecherche->isValid()) {
-            // Récupérer les données du formulaire
             $criteria = $formRecherche->getData();
-    
-            // Pagination : récupérer la page actuelle et définir la limite d'offres par page
-            $page = $request->query->getInt('page', 1);
-            $limit = 4;
-    
-            // Appliquer les critères pour rechercher avec pagination
+            // Recherche avec pagination en fonction des critères
             $offres = $offreEmploiRepository->searchWithPagination($criteria, $paginator, $page, $limit);
-    
-            // Calculer le nombre total d'offres
-            $nombreOffres = $offres->getTotalItemCount();
+            $nombreOffres = $offres->getTotalItemCount(); // Nombre total d'offres correspondant aux critères
         } else {
-            // Si le formulaire n'est pas soumis ou valide, afficher toutes les offres par défaut
-            $page = $request->query->getInt('page', 1);
-            $limit = 4;
-    
+            // Sinon, on affiche toutes les offres avec pagination
             $offres = $offreEmploiRepository->searchWithPagination([], $paginator, $page, $limit);
-            $nombreOffres = $offres->getTotalItemCount();
+            $nombreOffres = $offres->getTotalItemCount(); // Nombre total d'offres sans filtre
         }
     
-        // Retourner la vue associée avec toutes les données nécessaires
+        // Calcul du nombre total de pages pour la pagination
+        $totalPages = ceil($offres->getTotalItemCount() / $limit);
+    
+        // Rendu du template avec toutes les variables nécessaires
         return $this->render('pages/utilisateur/candidat/profil-candidat.html.twig', [
             'candidatNavbar' => true,
             'formRecherche' => $formRecherche->createView(),
             'offres' => $offres,
             'nombreOffres' => $nombreOffres,
-            'currentPage' => $page,
-            'totalPages' => ceil($offres->getTotalItemCount() / $limit), // Nombre total de pages
+            'offresPostulees' => array_map(fn($offre) => $offre['id'], $offresPostulees), // Transformation en tableau d'IDs
+            'currentPage' => $page, // Page courante
+            'totalPages' => $totalPages, // Nombre total de pages pour la pagination
         ]);
-    }    
+    }
     
+
+    #[Route('/postuler/{offreId}', name: 'postuler', methods: ['POST'])]
+    public function postuler(
+        CandidatRepository $candidatRepository,
+        OffreEmploiRepository $offreEmploiRepository,
+        EntityManagerInterface $entityManager,
+        int $offreId
+    ): Response {
+        $utilisateur = $this->getUser();
+        $candidat = $candidatRepository->findOneBy(['utilisateur' => $utilisateur]);
+
+        if (!$candidat) {
+            $this->addFlash('error', 'Candidat introuvable.');
+            return $this->redirectToRoute('connexion');
+        }
+
+        $offreEmploi = $offreEmploiRepository->find($offreId);
+
+        if (!$offreEmploi) {
+            $this->addFlash('error', 'Offre d\'emploi introuvable.');
+            return $this->redirectToRoute('profilCandidat');
+        }
+
+        $candidat->addOffresEmploi($offreEmploi);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Vous avez postulé à l\'offre avec succès.');
+
+        return $this->redirectToRoute('profilCandidat');
+    }
+
 
     #[Route("/deconnexion", name:"deconnexion")]
     public function logout() {
@@ -279,41 +313,5 @@ class ProfilCandidatController extends AbstractController
         return $this->redirectToRoute('home');
     }
 
-    #[Route('/postuler/{offreId}', name: 'postuler', methods: ['POST'])]
-    public function postuler(
-        CandidatRepository $candidatRepository,
-        OffreEmploiRepository $offreEmploiRepository,
-        EntityManagerInterface $entityManager,
-        int $offreId
-    ): Response {
-        // Récupérer l'utilisateur connecté
-        $utilisateur = $this->getUser();
-
-        // Vérifier si l'utilisateur est bien un candidat
-        $candidat = $candidatRepository->findOneBy(['utilisateur' => $utilisateur]);
-
-        if (!$candidat) {
-            $this->addFlash('error', 'Candidat introuvable.');
-            return $this->redirectToRoute('connexion');
-        }
-
-        // Récupérer l'offre d'emploi par son ID
-        $offreEmploi = $offreEmploiRepository->find($offreId);
-
-        if (!$offreEmploi) {
-            $this->addFlash('error', 'Offre d\'emploi introuvable.');
-            return $this->redirectToRoute('profilCandidat');
-        }
-
-        // Ajouter l'offre à la collection du candidat
-        $candidat->addOffresEmploi($offreEmploi);
-
-        // Sauvegarder les changements
-        $entityManager->flush();
-
-        $this->addFlash('success', 'Vous avez postulé à l\'offre avec succès.');
-
-        return $this->redirectToRoute('profilCandidat');
-    }
 
 }
