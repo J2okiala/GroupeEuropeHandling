@@ -66,7 +66,7 @@ class UtilisateurController extends AbstractController
     
                 // Prépare et envoie l'email de confirmation
                 $email = (new Email())
-                    ->from('noreply@votredomaine.com') // Adresse valide et autorisée par votre serveur
+                    ->from('noreply@geh.com') // Adresse valide et autorisée par votre serveur
                     ->to($utilisateur->getEmail())
                     ->subject('Confirmation de votre inscription')
                     ->html("

@@ -7,6 +7,7 @@ use App\Document\CandidatureSpontanee;
 use App\Entity\Candidat;
 use App\Entity\Employeur;
 use App\Entity\OffreEmploi;
+use App\Entity\Utilisateur;
 use App\Form\FiltrerCandidatureSpontaneeFormType;
 use App\Form\MesIdentifiantsDeConnexionEFormType;
 use App\Form\ModifierInformationEmployeurTypeForm;
@@ -178,7 +179,6 @@ class ProfilEmployeurController extends AbstractController
             'formPoster' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
         ]);
     }
-    
 
 
     #[Route('/mesOffresE', name:'mesOffresE')]
@@ -248,18 +248,65 @@ class ProfilEmployeurController extends AbstractController
         return $this->redirectToRoute('mesOffresE');
     }
 
+    // #[Route('/mesIdentifiantsDeConnexionE', name: 'mesIdentifiantsDeConnexionE', methods: ['GET', 'POST'])]
+    // public function mesIdentifiantsDeConnexionE(
+    //     Request $request,
+    //     EmployeurRepository $employeurRepository,
+    //     EntityManagerInterface $entityManager,
+    //     UserPasswordHasherInterface $passwordHasher
+    // ): Response {
+    //     $utilisateur = $this->getUser();
+    
+    //     // Récupérer l'employeur lié à l'utilisateur
+    //     $employeur = $employeurRepository->findOneBy(['utilisateur' => $utilisateur]);
+    //     dd($employeur);
+
+    //     // Créer le formulaire pour l'entité Employeur
+    //     $form = $this->createForm(MesIdentifiantsDeConnexionEFormType::class, $employeur);
+    //     $form->handleRequest($request);
+
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $email = $form->get('email')->getData();
+    //         $plainPassword = $form->get('password')->getData();
+        
+    //         // Mettre à jour l'entité Utilisateur
+    //         $utilisateur->setEmail($email);
+    //         if (!empty($plainPassword)) {
+    //             $hashedPassword = $passwordHasher->hashPassword($utilisateur, $plainPassword);
+    //             $utilisateur->setPassword($hashedPassword);
+    //         }
+        
+    //         $entityManager->persist($utilisateur);
+    //         $entityManager->flush();
+
+    //         $this->addFlash('success', 'Vos identifiants ont été mis à jour avec succès.');
+    //         return $this->redirectToRoute('profilEmployeur');
+    //     }
+    
+    //     return $this->render('pages/utilisateur/employeur/mes-identifiants-de-connexion.html.twig', [
+    //         'form' => $form->createView(),
+    //         'employeurNavbar' => true,
+    //         'withFiltrer' => false, // Pas de filtrage sur cette page
+    //         'formPoster' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
+    //     ]);
+    // }
+
     #[Route('/mesIdentifiantsDeConnexionE', name: 'mesIdentifiantsDeConnexionE', methods: ['GET', 'POST'])]
     public function mesIdentifiantsDeConnexionE(
         Request $request,
         EmployeurRepository $employeurRepository,
         EntityManagerInterface $entityManager,
-        UserPasswordHasherInterface $passwordHasher
+        UserPasswordHasherInterface $passwordHasher,
     ): Response {
         $utilisateur = $this->getUser();
-    
+
+        // Vérifier que l'utilisateur est bien une instance de Utilisateur
+        if (!$utilisateur instanceof Utilisateur) {
+            throw $this->createAccessDeniedException('Utilisateur non valide.');
+        }
+
         // Récupérer l'employeur lié à l'utilisateur
         $employeur = $employeurRepository->findOneBy(['utilisateur' => $utilisateur]);
-        dd($employeur);
 
         // Créer le formulaire pour l'entité Employeur
         $form = $this->createForm(MesIdentifiantsDeConnexionEFormType::class, $employeur);
@@ -268,28 +315,29 @@ class ProfilEmployeurController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $email = $form->get('email')->getData();
             $plainPassword = $form->get('password')->getData();
-        
+
             // Mettre à jour l'entité Utilisateur
             $utilisateur->setEmail($email);
             if (!empty($plainPassword)) {
                 $hashedPassword = $passwordHasher->hashPassword($utilisateur, $plainPassword);
                 $utilisateur->setPassword($hashedPassword);
             }
-        
+
             $entityManager->persist($utilisateur);
             $entityManager->flush();
 
             $this->addFlash('success', 'Vos identifiants ont été mis à jour avec succès.');
             return $this->redirectToRoute('profilEmployeur');
         }
-    
+
         return $this->render('pages/utilisateur/employeur/mes-identifiants-de-connexion.html.twig', [
             'form' => $form->createView(),
             'employeurNavbar' => true,
-            'withFiltrer' => false, // Pas de filtrage sur cette page
-            'formPoster' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
+            'withFiltrer' => false,
+            'formPoster' => null,
         ]);
     }
+
 
     #[Route('/supprimer-compteE', name: 'supprimer_compteE')]
     public function Suppression(): Response {
