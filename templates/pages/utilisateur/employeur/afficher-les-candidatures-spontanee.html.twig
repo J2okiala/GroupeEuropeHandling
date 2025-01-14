@@ -27,7 +27,7 @@
                 <div class="card h-100">
                     <div class="card-body"
                         {# Afficher le formulaire de filtrage #}
-                        {{ form_start(form, {'method': 'GET'}) }}
+                        {{ form_start(form, {'method': 'GET', 'action': path('filtrer_candidatures')}) }}
                             <div class="form-group">
                                 {{ form_row(form.poste) }}
                             </div>
@@ -56,8 +56,5 @@
             </div>
         </div>
     </main>
-
-
-
 
 {% endblock %}

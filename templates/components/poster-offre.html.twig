@@ -35,7 +35,7 @@
     <div class="form-container">
         <h3 class="text-center mb-2">Publier une Offre d'Emploi</h3> <!-- Titre centré -->
 
-        {{ form_start(formPoster, {'action': path('poster-offre-emploi'), 'method': 'POST'}) }}
+        {{ form_start(formPoster, {'action': path('poster-offre-emploi'), 'method': 'POST', 'attr': {'onsubmit': "return confirm('Êtes-vous sûr de vouloir poster cette offre ?');"} }) }}
             <div class="row g-4 mb-2">
                 <div class="col-md-5">
                     {{ form_row(formPoster.poste, {'attr': {'class': 'form-control', 'placeholder': 'Intitulé du poste'}}) }}
