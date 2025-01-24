@@ -52,7 +52,6 @@
         {% block importmap %}
             {{ importmap('app') }}
         {% endblock %}
-
     </head>
     <body>
         <!-- Navbar -->
@@ -64,8 +63,8 @@
         } %}
 
         <!-- Main Content -->
-            {% block body %}
-            {% endblock %}
+        {% block body %}
+        {% endblock %}
 
         <!-- Footer -->
         {% include "components/footer.html.twig" %}

@@ -20,9 +20,9 @@
     {% endfor %}
 
     <main class="container">
-    <h2 class=" font-weight-semibold mb-4 text-center text-white">Ma fiche candidat </h2>
+        <h2 class=" font-weight-semibold mb-4 text-center text-white">Ma fiche candidat </h2>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4">
-            <!-- Cartes -->
+            <!-- Carte Identité -->
             <div class="col">
                 <div class="card h-100">
                     <div class="card-body">
@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-
+            <!-- Carte Informormation personnelles-->
             <div class="col">
                 <div class="card h-100">
                     <div class="card-body">
@@ -44,7 +44,7 @@
                     </div>
                 </div>
             </div>
-
+            <!-- Carte Poste recherché-->
             <div class="col">
                 <div class="card h-100">
                     <div class="card-body">
@@ -54,7 +54,7 @@
                     </div>
                 </div>
             </div>
-
+            <!-- Carte Mes pièces jointes-->
             <div class="col">
                 <div class="card h-100">                        
                     <div class="card-body">
@@ -64,12 +64,8 @@
                     </div>
                 </div>
             </div>
-
             <h4><a href="{{ path('modifierMesInformations', {'id': app.user.candidat.id}) }}">Modifier mes informations</a></h4>
         </div>
     </main>
-
-
-
 
 {% endblock %}

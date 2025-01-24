@@ -223,7 +223,6 @@ class ProfilEmployeurController extends AbstractController
         ]);
     }
 
-
     #[Route('/supprimer-offre/{id}', name: 'supprimer_offre', methods: ['POST'])]
     public function SuppressionOffre(
         int $id,
