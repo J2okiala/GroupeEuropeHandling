@@ -298,7 +298,7 @@ class ProfilEmployeurController extends AbstractController
     }
 
 
-    #[Route('/supprimer-compteE', name: 'supprimer-compteE')]
+    #[Route('/supprimer-compteE', name: 'supprimer-compteE', methods: ['GET'])]
     public function Suppression(): Response {
         return $this->render('pages/utilisateur/employeur/supprimer-mon-compte.html.twig', [
             'employeurNavbar' => true,
