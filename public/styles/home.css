@@ -41,6 +41,19 @@ h1 {
     color: black;
 }
 
+.Bckg-titre {
+  color: white;
+  border: 5px solid navy;
+  border-radius: 0.5rem ;
+  transition: background 5s, color 5s;
+}
+
+.Bckg-titre:hover {
+  background: #003165;
+  border: 8px solid navy;
+
+}
+
 .Bckg-Carte {
     background: rgb(31, 15, 15);
     border: 2px solid rgb(4, 57, 79);
