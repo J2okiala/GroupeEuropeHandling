@@ -72,11 +72,6 @@ class ProfilEmployeurController extends AbstractController
         ]);
     }
 
-    #[Route("/deconnexion", name:"deconnexion")]
-    public function logout() {
-        // peut etre vide
-    }
-
     #[Route('/poster-offre-emploi', name: 'poster-offre-emploi', methods: ['POST'])]
     public function traiterFormulaire(
         Request $request,
@@ -124,7 +119,10 @@ class ProfilEmployeurController extends AbstractController
         return $this->redirectToRoute('profilEmployeur');
     }
 
-
+    #[Route("/deconnexion", name:"deconnexion")]
+    public function logout() {
+        // peut etre vide
+    }
 
     #[Route('/maFicheE', name: 'maFicheE')]
     public function maFiche()
@@ -179,7 +177,6 @@ class ProfilEmployeurController extends AbstractController
             'formPoster' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
         ]);
     }
-
 
     #[Route('/mesOffresE', name:'mesOffresE')]
     public function mesOffres(
@@ -247,7 +244,7 @@ class ProfilEmployeurController extends AbstractController
         return $this->redirectToRoute('mesOffresE');
     }
 
-
+    //Route pour modifier mes identifiants de connexion employeur
     #[Route('/mesIdentifiantsDeConnexionE', name: 'mesIdentifiantsDeConnexionE', methods: ['GET', 'POST'])]
     public function mesIdentifiantsDeConnexionE(
         Request $request,
@@ -297,7 +294,7 @@ class ProfilEmployeurController extends AbstractController
         ]);
     }
 
-
+    //Route pour supprimer mon compte Employeur
     #[Route('/supprimer-compteE', name: 'supprimer-compteE', methods: ['GET'])]
     public function Suppression(): Response {
         return $this->render('pages/utilisateur/employeur/supprimer-mon-compte.html.twig', [

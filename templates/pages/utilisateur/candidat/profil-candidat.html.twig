@@ -1,6 +1,8 @@
 {% extends 'pages/base.html.twig' %}
 
-{% block title %}Profil - Candidat{% endblock %}
+{% block title %}
+    Page Profil - Candidat
+{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="styles/offres.css">
@@ -25,6 +27,7 @@
         </h2>
         <section class="container">
             <p>Page {{ offres.currentPageNumber }} sur {{ offres.pageCount }}</p>
+            <!-- Carte des offres -->
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4">
                 {% for offre in offres %}
                     <div class="col">
@@ -77,7 +80,7 @@
                 {% endif %}
             </div>
         </section>
-        <!-- Cartes des actions -->
+        <!-- Cartes des actions de mon profil-->
         <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3 d-flex mt-5">
             <div class="col m-4">
                 <a href="{{ path('maFiche') }}">
@@ -129,5 +132,4 @@
             });
         });
     </script>
-    
 {% endblock %}

@@ -45,7 +45,7 @@ h1 {
   color: white;
   border: 5px solid navy;
   border-radius: 0.5rem ;
-  transition: background 5s, color 5s;
+  transition: background 2s, color 2s;
 }
 
 .Bckg-titre:hover {

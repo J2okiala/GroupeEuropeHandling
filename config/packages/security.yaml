@@ -59,7 +59,7 @@ security:
     - { path: "^/mesOffresE", roles: [ROLE_EMPLOYEUR] }
     - { path: "^/supprimer_offre", roles: [ROLE_EMPLOYEUR] }
     - { path: "^/mesIdentifiantsDeConnexionE", roles: [ROLE_EMPLOYEUR] }
-    - { path: "^/supprimer_compteE", roles: [ROLE_EMPLOYEUR] }
+    - { path: "^/supprimer-compteE", roles: [ROLE_EMPLOYEUR] }
     - { path: "^/confirmer_suppression-compteE", roles: [ROLE_EMPLOYEUR] }
     - { path: "^/filtrer_candidatures", roles: [ROLE_EMPLOYEUR] }
     - { path: "^/telecharger_cv", roles: [ROLE_EMPLOYEUR] }

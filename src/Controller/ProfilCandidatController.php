@@ -32,11 +32,22 @@ class ProfilCandidatController extends AbstractController
         Request $request,
         PaginatorInterface $paginator
     ): Response {
+        // Récupérer l'utilisateur connecté
         $utilisateur = $this->getUser();
     
         // Vérification si l'utilisateur est connecté
         if (!$utilisateur) {
-            return $this->redirectToRoute('login');
+            $this->addFlash('error', 'Vous devez être connecté pour accéder à cette page.');
+            return $this->redirectToRoute('connexion');
+        }
+
+        // Récupérer le candidat lié à cet utilisateur
+        $candidat = $candidatRepository->findOneBy(['utilisateur' => $utilisateur]);
+
+        // Vérification : si aucun candidat n'est trouvé
+        if (!$candidat) {
+            $this->addFlash('error', 'Aucun candidat associé à cet utilisateur.');
+            return $this->redirectToRoute('profilCandidat');
         }
     
         // Récupération des offres déjà postulées par l'utilisateur
@@ -119,10 +130,27 @@ class ProfilCandidatController extends AbstractController
     }
 
     #[Route('/maFiche', name: 'maFiche')]
-    public function maFiche()
-    {
-        // Récuperer l'utilisateur depuis la session
+    public function maFiche( 
+        Request $request, 
+        CandidatRepository $candidatRepository
+        ): Response{
+        // Récupérer l'utilisateur connecté
         $utilisateur = $this->getUser();
+    
+        // Vérification si l'utilisateur est connecté
+        if (!$utilisateur) {
+            $this->addFlash('error', 'Vous devez être connecté pour accéder à cette page.');
+            return $this->redirectToRoute('connexion');
+        }
+
+        // Récupérer le candidat lié à cet utilisateur
+        $candidat = $candidatRepository->findOneBy(['utilisateur' => $utilisateur]);
+
+        // Vérification : si aucun candidat n'est trouvé
+        if (!$candidat) {
+            $this->addFlash('error', 'Aucun candidat associé à cet utilisateur.');
+            return $this->redirectToRoute('profilCandidat');
+        }
 
         return $this->render('pages/utilisateur/candidat/ma-fiche.html.twig', [
             'candidatNavbar' => true,
@@ -147,9 +175,12 @@ class ProfilCandidatController extends AbstractController
             $uploadDirectory = $this->getParameter('kernel.project_dir') . '/public/uploads'; // Défini par défaut
         }
     
-        // Vérification : l'utilisateur est bien lié au candidat
-        if (!$candidat || $candidat->getUtilisateur() !== $utilisateur) {
-            $this->addFlash('error', 'Accès refusé ou candidat introuvable.');
+        // Récupérer le candidat lié à cet utilisateur
+        $candidat = $candidatRepository->findOneBy(['utilisateur' => $utilisateur]);
+
+        // Vérification : si aucun candidat n'est trouvé
+        if (!$candidat) {
+            $this->addFlash('error', 'Aucun candidat associé à cet utilisateur.');
             return $this->redirectToRoute('profilCandidat');
         }
     

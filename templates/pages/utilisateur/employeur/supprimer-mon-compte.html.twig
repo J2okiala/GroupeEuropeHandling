@@ -1,13 +1,12 @@
 {% extends 'pages/base.html.twig' %}
 
 {% block title %}
-    Supprimer le compte - employeur
+    SupprimerMonCompte - employeur
 {% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="styles/offres.css">
 {% endblock %}
-
 
 {% block body %}
     {# Affiche les messages flash s'ils existent #}
@@ -28,7 +27,6 @@
                 <div class="card h-100">
                     <div class="card-body text-center">
                         <h4>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</h4>
-
                         <form method="POST" action="{{ path('confirmer_suppression-compteE') }}">
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token('delete_account') }}">
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.');">Oui, supprimer mon compte</button>
@@ -39,10 +37,6 @@
             </div>
         </div>
     </main>
-
-    
-
-
 {% endblock %}
 
 

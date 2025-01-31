@@ -1,7 +1,7 @@
 {% extends 'pages/base.html.twig' %}
 
 {% block title %}
-    maFiche - candidat
+    MaFiche - candidat
 {% endblock %}
 
 {% block stylesheets %}
@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Carte Informormation personnelles-->
+            <!-- Carte Inforrmation personnelles-->
             <div class="col">
                 <div class="card h-100">
                     <div class="card-body">
@@ -67,5 +67,4 @@
             <h4><a href="{{ path('modifierMesInformations', {'id': app.user.candidat.id}) }}">Modifier mes informations</a></h4>
         </div>
     </main>
-
 {% endblock %}

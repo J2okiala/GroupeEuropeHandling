@@ -1,7 +1,7 @@
 {% extends 'pages/base.html.twig' %}
 
 {% block title %}
-    mesCandidatures - candidat
+    MesCandidatures - candidat
 {% endblock %}
 
 {% block stylesheets %}
@@ -22,7 +22,7 @@
     <main class="container">
         <h2 class="text-white mb-4">Mes Candidatures</h2>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4">
-            {# Vérifie si l'utilisateur a des offres postulées #}
+            {# Vérifie si l'utilisateur postulées a des offres #}
             {% if offresPostulees is not empty %}
                 {% for offre in offresPostulees %}
                     <div class="col">
@@ -40,9 +40,8 @@
                     </div>
                 {% endfor %}
             {% else %}
-                <p>Aucune candidature trouvée.</p>
+                <p>Vous avez postulée a aucune offre.</p>
             {% endif %}
         </div>
     </main>
-
 {% endblock %}
