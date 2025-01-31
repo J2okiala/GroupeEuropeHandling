@@ -169,11 +169,6 @@ class ProfilCandidatController extends AbstractController
     ): Response {
         // Récupérer l'utilisateur connecté
         $utilisateur = $this->getUser();
-
-        // Vérification si le répertoire existe
-        if (!$uploadDirectory) {
-            $uploadDirectory = $this->getParameter('kernel.project_dir') . '/public/uploads'; // Défini par défaut
-        }
     
         // Récupérer le candidat lié à cet utilisateur
         $candidat = $candidatRepository->findOneBy(['utilisateur' => $utilisateur]);
@@ -183,7 +178,12 @@ class ProfilCandidatController extends AbstractController
             $this->addFlash('error', 'Aucun candidat associé à cet utilisateur.');
             return $this->redirectToRoute('profilCandidat');
         }
-    
+
+        // Vérification si le répertoire existe
+        if (!$uploadDirectory) {
+            $uploadDirectory = $this->getParameter('kernel.project_dir') . '/public/uploads'; // Défini par défaut
+        }
+        
         // Créer le formulaire
         $form = $this->createForm(ModifierInformationCandidatTypeForm::class, $candidat);
         $form->handleRequest($request);
