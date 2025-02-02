@@ -67,8 +67,12 @@ class ModifierInformationCandidatTypeForm extends AbstractType
             ->add('poste', ChoiceType::class, [
                 'choices' => [
                     'Agent de piste' => 'Agent de piste',
-                    'Agent d\'escale' => 'Agent d\'escale',
                     'Agent de trafic' => 'Agent de trafic',
+                    'Manutentionnaire' => 'Manutentionnaire',
+                    'Agent d\'escale' => 'Agent d\'escale',
+                    'Agent cargo' => 'Agent cargo',
+                    'Bagagiste' => 'Bagagiste',
+                    'Agent livraison' => 'Agent livraison',
                 ],
                 'label' => 'Poste',
                 'expanded' => false,

@@ -21,11 +21,12 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
-
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ProfilCandidatController extends AbstractController
 {
     #[Route("/profilCandidat", name: "profilCandidat", methods: ['GET'])]
+    #[IsGranted('ROLE_CANDIDAT')]
     public function profil(
         OffreEmploiRepository $offreEmploiRepository,
         CandidatRepository $candidatRepository,
@@ -94,6 +95,7 @@ class ProfilCandidatController extends AbstractController
     
 
     #[Route('/postuler/{offreId}', name: 'postuler', methods: ['POST'])]
+    #[IsGranted('ROLE_CANDIDAT')]
     public function postuler(
         CandidatRepository $candidatRepository,
         OffreEmploiRepository $offreEmploiRepository,
@@ -116,7 +118,9 @@ class ProfilCandidatController extends AbstractController
         }
 
         $candidat->addOffresEmploi($offreEmploi);
+        $entityManager->persist($candidat);
         $entityManager->flush();
+
 
         $this->addFlash('success', 'Vous avez postulé à l\'offre avec succès.');
 
@@ -125,11 +129,13 @@ class ProfilCandidatController extends AbstractController
 
 
     #[Route("/deconnexion", name:"deconnexion")]
+    #[IsGranted('ROLE_CANDIDAT')]
     public function logout() {
         // peut etre vide
     }
 
     #[Route('/maFiche', name: 'maFiche')]
+    #[IsGranted('ROLE_CANDIDAT')]
     public function maFiche( 
         Request $request, 
         CandidatRepository $candidatRepository
@@ -160,6 +166,7 @@ class ProfilCandidatController extends AbstractController
     }
 
     #[Route('/profil-candidat/modifier/{id}', name: 'modifierMesInformations')]
+    #[IsGranted('ROLE_CANDIDAT')]
     public function modifierMesInformations(
         Request $request,
         Candidat $candidat,
@@ -236,6 +243,7 @@ class ProfilCandidatController extends AbstractController
     }
 
     #[Route('/mesCandidatures', name: 'mesCandidatures')]
+    #[IsGranted('ROLE_CANDIDAT')]
     public function mesCandidatures(CandidatRepository $candidatRepository): Response
     {
         // Récupérer l'utilisateur connecté
@@ -261,6 +269,7 @@ class ProfilCandidatController extends AbstractController
     }
 
     #[Route('/mesIdentifiantsDeConnexion', name: 'mesIdentifiantsDeConnexion', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_CANDIDAT')]
     public function mesIdentifiantsDeConnexion(
         Request $request,
         CandidatRepository $candidatRepository,
@@ -303,6 +312,7 @@ class ProfilCandidatController extends AbstractController
     }
 
     #[Route('/supprimer-compte', name: 'supprimer_compte', methods: ['GET'])]
+    #[IsGranted('ROLE_CANDIDAT')]
     public function pageSuppression(): Response {
         return $this->render('pages/utilisateur/candidat/supprimer-mon-compte.html.twig', [
             'candidatNavbar' => true,
@@ -312,6 +322,7 @@ class ProfilCandidatController extends AbstractController
     }
     
     #[Route('/confirmer-compte', name: 'confirmer_compte', methods: ['POST'])]
+    #[IsGranted('ROLE_CANDIDAT')]
     public function supprimerCompte(
         Request $request,
         SessionInterface $session, // Injection de la session
