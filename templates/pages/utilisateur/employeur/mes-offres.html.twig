@@ -50,7 +50,7 @@
                                 <p>Aucun candidat n'a postulé pour cette offre.</p>
                             {% endif %}
                             <!-- Action pour supprimer l'offre -->
-                            <form method="post" action="{{ path('supprimer_offre', { id: item.offre.id }) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette offre ?');">
+                            <form method="post" action="{{ path('supprimer_offre', { id: item.offre.id }) }}">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ item.offre.id) }}">
                                 <button class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette offre ? Cette action est irréversible.');">Supprimer</button>
                             </form>
