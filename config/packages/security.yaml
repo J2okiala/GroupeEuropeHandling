@@ -33,6 +33,7 @@ security:
       # Configuration de la déconnexion
       logout:
         path: deconnexion
+        target: / # Redirige vers la page d'accueil
 
   # Hiérarchie des rôles
   role_hierarchy:

@@ -95,7 +95,6 @@ class UtilisateurController extends AbstractController
             'formRecherche' => null,
         ]);
     }
-    
 
     #[Route("/connexion", name: "connexion")]
     public function connexion(

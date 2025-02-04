@@ -314,6 +314,7 @@ class ProfilEmployeurController extends AbstractController
     }
 
     #[Route('/filtrer-candidatures', name: 'filtrer_candidatures', methods: ['GET'])]
+    #[IsGranted('ROLE_EMPLOYEUR')]
     public function afficherCandidaturesFiltrees(
         Request $request, 
         CandidatureSpontaneeRepository $candidatureSpontaneeRepository, 

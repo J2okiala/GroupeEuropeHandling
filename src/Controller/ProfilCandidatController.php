@@ -92,7 +92,6 @@ class ProfilCandidatController extends AbstractController
             'totalPages' => $totalPages, // Nombre total de pages pour la pagination
         ]);
     }
-    
 
     #[Route('/postuler/{offreId}', name: 'postuler', methods: ['POST'])]
     #[IsGranted('ROLE_CANDIDAT')]
@@ -126,7 +125,6 @@ class ProfilCandidatController extends AbstractController
 
         return $this->redirectToRoute('profilCandidat');
     }
-
 
     #[Route("/deconnexion", name:"deconnexion")]
     #[IsGranted('ROLE_CANDIDAT')]
@@ -354,6 +352,5 @@ class ProfilCandidatController extends AbstractController
         $this->addFlash('success', 'Votre compte a été supprimé avec succès.');
         return $this->redirectToRoute('home');
     }
-
 
 }

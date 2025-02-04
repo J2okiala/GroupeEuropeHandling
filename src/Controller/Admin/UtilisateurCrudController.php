@@ -35,7 +35,7 @@ class UtilisateurCrudController extends AbstractCrudController
             $entityInstance->setPassword($hashedPassword);
         }
 
-        // Vérification du rôle et création des entités associées (Employeur ou Candidat)
+        // Vérification du rôle et création des entités associées (Employeur, Candidat ou Admin)
         $roles = $entityInstance->getRoles();
 
         if (in_array('ROLE_EMPLOYEUR', $roles)) {
