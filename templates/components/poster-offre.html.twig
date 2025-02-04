@@ -32,8 +32,8 @@
 <section class="container-form-page">
     <!-- Boîte contenant le formulaire -->
     <div class="form-container">
-        <h3 class="text-center mb-2">Publier une Offre d'Emploi</h3> <!-- Titre centré -->
-
+        <!-- Titre centré -->
+        <h3 class="text-center mb-2">Publier une Offre d'Emploi</h3> 
         {{ form_start(formPoster, {'action': path('poster-offre-emploi'), 'method': 'POST', 'attr': {'onsubmit': "return confirm('Êtes-vous sûr de vouloir poster cette offre ?');"} }) }}
             <div class="row g-4 mb-2">
                 <div class="col-md-5">
@@ -52,6 +52,6 @@
                     {{ form_row(formPoster.localisation, {'attr': {'class': 'form-control', 'placeholder': 'Lieu de travail'}}) }}
                 </div>
             </div>
-            {{ form_end(formPoster) }}
+        {{ form_end(formPoster) }}
     </div>
 </section>

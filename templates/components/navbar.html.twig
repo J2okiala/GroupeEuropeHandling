@@ -1,7 +1,7 @@
 <header>
     <div>
         {% if offreNavbar|default(false) %}
-            <!-- Navbar spécifique a la page nos offre-->
+            <!-- Navbar spécifique a la page NosOffres -->
             <nav class="secondary-navbar navbar" id="top">
                 <ul>
                     <li class="logo-group">
@@ -46,7 +46,7 @@
             <div class="imagebackground">
             </div>
         {% elseif employeurNavbar|default(false) %}
-            <!-- Navbar spécifique a la page employeur -->
+            <!-- Navbar spécifique a la page Employeur -->
             <nav class="secondary-navbar navbar" id="top">
                 <ul>
                     <li class="logo-group">
@@ -88,7 +88,7 @@
             <div class="imagebackground">
             </div>
         {% elseif candidatNavbar|default(false) %}
-            <!-- Navbar spécifique a la page candidat -->
+            <!-- Navbar spécifique a la page Candidat -->
             <nav class="secondary-navbar navbar" id="top">
                 <ul>
                     <li class="logo-group">
@@ -132,7 +132,7 @@
                 </div>
             {% endif %}
         {% else %}
-            <!-- Navbar par défaut -->
+            <!-- Navbar par Défaut -->
             <nav class="navbar" id="top">
                 <div class="logo-group">
                     <a href="{{ path('home') }}">
