@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AccueilController extends AbstractController
 {
+
     #[Route('/', name: 'home')]
     public function home()
     {
@@ -72,5 +73,11 @@ class AccueilController extends AbstractController
     {
         return $this->render('pages/home/mentionsLegales.html.twig');
 
+    }
+
+    #[Route('/politiquesUtilisation', name: 'politiquesUtilisation')]
+    public function politiques()
+    {
+        return $this->render('pages/home/politiquesUtilisation.html.twig');
     }
 }

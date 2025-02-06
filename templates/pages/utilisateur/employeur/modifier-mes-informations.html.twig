@@ -1,11 +1,11 @@
 {% extends 'pages/base.html.twig' %}
 
 {% block title %}
-    modification - employeur
+    ModifierMesInformations - employeur
 {% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="styles/offres.css">
+    <link rel="stylesheet" href="{{ asset('styles/offres.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -20,7 +20,7 @@
     {% endfor %}
 
     <main class="container">
-    <h2 class="text-center text-white mb-4">Modifier mes informations</h2>
+        <h2 class="text-center text-white mb-4">Modifier Mes Informations</h2>
         <div class="row g-4">
             <!-- Cartes -->
             <div class="col">
@@ -28,29 +28,24 @@
                     <div class="card-body">
                         <div class="col-md-8">
                             {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-
                             <div class="text-dark form-group mb-3">
                                 {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
                                 {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
                                 {{ form_errors(form.nom) }}
                             </div>
-
                             <div class="text-dark form-group mb-3">
                                 {{ form_label(form.prenom, 'Prénom', {'label_attr': {'class': 'form-label'}}) }}
                                 {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
                                 {{ form_errors(form.prenom) }}
                             </div>
-
                             <div class="text-dark form-group mb-3">
                                 {{ form_label(form.entreprise, 'Entreprise', {'label_attr': {'class': 'form-label'}}) }}
                                 {{ form_widget(form.entreprise, {'attr': {'class': 'form-control'}}) }}
                                 {{ form_errors(form.entreprise) }}
                             </div>
-
                             <div class="text-center mt-4">
                                 <button type="submit" class="btn btn-primary">Mettre à jour</button>
                             </div>
-
                             {{ form_end(form) }}
                         </div>
                     </div>
@@ -58,7 +53,4 @@
             </div>
         </div>
     </main>
-
-
-
 {% endblock %}

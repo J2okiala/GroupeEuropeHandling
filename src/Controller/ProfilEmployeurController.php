@@ -7,6 +7,7 @@ use App\Document\CandidatureSpontanee;
 use App\Entity\Candidat;
 use App\Entity\Employeur;
 use App\Entity\OffreEmploi;
+use App\Entity\Utilisateur;
 use App\Form\FiltrerCandidatureSpontaneeFormType;
 use App\Form\MesIdentifiantsDeConnexionEFormType;
 use App\Form\ModifierInformationEmployeurTypeForm;
@@ -32,11 +33,13 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ProfilEmployeurController extends AbstractController
 {
 
     #[Route("/profilEmployeur", name:"profilEmployeur")]
+    #[IsGranted('ROLE_EMPLOYEUR')]
     public function profile(
         Request $request,
         EmployeurRepository $employeurRepository // Injectez le repository
@@ -71,11 +74,6 @@ class ProfilEmployeurController extends AbstractController
         ]);
     }
 
-    #[Route("/deconnexion", name:"deconnexion")]
-    public function logout() {
-        // peut etre vide
-    }
-
     #[Route('/poster-offre-emploi', name: 'poster-offre-emploi', methods: ['POST'])]
     public function traiterFormulaire(
         Request $request,
@@ -88,7 +86,7 @@ class ProfilEmployeurController extends AbstractController
         // Vérifier si l'utilisateur est connecté
         if (!$utilisateur) {
             $this->addFlash('error', 'Vous devez être connecté pour accéder à cette page.');
-            return $this->redirectToRoute('connexion');
+            return $this->redirectToRoute('profilEmployeur');
         }
 
         // Récupérer l'employeur lié à cet utilisateur
@@ -123,13 +121,22 @@ class ProfilEmployeurController extends AbstractController
         return $this->redirectToRoute('profilEmployeur');
     }
 
-
+    #[Route("/deconnexion", name:"deconnexion")]
+    #[IsGranted('ROLE_EMPLOYEUR')]
+    public function logout() {
+        // peut etre vide
+    }
 
     #[Route('/maFicheE', name: 'maFicheE')]
-    public function maFiche()
-    {
+    #[IsGranted('ROLE_EMPLOYEUR')]
+    public function maFiche() {
         // Récuperer l'utilisateur depuis la session
-        $uilisateur = $this->getUser();
+        $utilisateur = $this->getUser();
+        // Vérification : l'utilisateur est bien lié à l'employeur
+        if (!$utilisateur) {
+            $this->addFlash('error', 'Vous devez être connecté pour accéder à cette page.');
+            return $this->redirectToRoute('profilEmployeur');
+        }
 
         return $this->render('pages/utilisateur/employeur/ma-fiche.html.twig', [
         'employeurNavbar' => true,
@@ -139,6 +146,7 @@ class ProfilEmployeurController extends AbstractController
     }
 
     #[Route('/profil-employeur/modifier/{id}', name: 'modifierMesInformationsE')]
+    #[IsGranted('ROLE_EMPLOYEUR')]
     public function modifierMesInformations(
         Request $request,
         Employeur $employeur,
@@ -178,10 +186,9 @@ class ProfilEmployeurController extends AbstractController
             'formPoster' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
         ]);
     }
-    
-
 
     #[Route('/mesOffresE', name:'mesOffresE')]
+    #[IsGranted('ROLE_EMPLOYEUR')]
     public function mesOffres(
         OffreEmploiRepository $offreEmploiRepository, 
         EmployeurRepository $employeurRepository,
@@ -223,8 +230,66 @@ class ProfilEmployeurController extends AbstractController
         ]);
     }
 
+    #[Route('/telecharger-cv/{candidatId}', name:'telecharger_cv')]
+    #[IsGranted('ROLE_EMPLOYEUR')]
+    public function telechargerCv(int $candidatId, ManagerRegistry $doctrine): Response
+    {
+        // Utiliser le ManagerRegistry pour accéder au repository de l'entité Candidat
+        $candidat = $doctrine->getRepository(Candidat::class)->find($candidatId);
+
+        // Vérifier si le candidat existe et s'il a un CV
+        if (!$candidat || !$candidat->getCv()) {
+            throw $this->createNotFoundException('Candidat ou CV non trouvé.');
+        }
+
+        // Récupérer le chemin complet du fichier CV
+        $cvPath = $this->getParameter('kernel.project_dir') . '/public/uploads/' . $candidat->getCv();
+
+        // Vérifier si le fichier existe
+        if (!file_exists($cvPath)) {
+            throw new FileNotFoundException('Le fichier CV est introuvable.');
+        }
+
+        // Créer une réponse de téléchargement du fichier
+        return new StreamedResponse(function () use ($cvPath) {
+            readfile($cvPath);
+        }, Response::HTTP_OK, [
+            'Content-Type' => 'application/pdf', // Ou un autre type MIME selon ton fichier
+            'Content-Disposition' => 'attachment; filename="' . basename($cvPath) . '"',
+        ]);
+    }
+
+    #[Route('/telecharger-lettre-motivation/{candidatId}', name:'telecharger_lettre_motivation')]
+    #[IsGranted('ROLE_EMPLOYEUR')]
+    public function telechargerLettreMotivation(int $candidatId, ManagerRegistry $doctrine): Response
+    {
+        // Utiliser le ManagerRegistry pour accéder au repository de l'entité Candidat
+        $candidat = $doctrine->getRepository(Candidat::class)->find($candidatId);
+    
+        // Vérifier si le candidat existe et s'il a une lettre de motivation
+        if (!$candidat || !$candidat->getLettreMotivation()) {
+            throw $this->createNotFoundException('Candidat ou lettre de motivation non trouvée.');
+        }
+    
+        // Récupérer le chemin complet du fichier lettre de motivation
+        $lettreMotivationPath = $this->getParameter('kernel.project_dir') . '/public/uploads/' . $candidat->getLettreMotivation();
+    
+        // Vérifier si le fichier existe
+        if (!file_exists($lettreMotivationPath)) {
+            throw new FileNotFoundException('Le fichier de la lettre de motivation est introuvable.');
+        }
+    
+        // Créer une réponse de téléchargement du fichier
+        return new StreamedResponse(function () use ($lettreMotivationPath) {
+            readfile($lettreMotivationPath);
+        }, Response::HTTP_OK, [
+            'Content-Type' => 'application/pdf', // Ou un autre type MIME si nécessaire
+            'Content-Disposition' => 'attachment; filename="' . basename($lettreMotivationPath) . '"',
+        ]);
+    } 
 
     #[Route('/supprimer-offre/{id}', name: 'supprimer_offre', methods: ['POST'])]
+    #[IsGranted('ROLE_EMPLOYEUR')]
     public function SuppressionOffre(
         int $id,
         OffreEmploiRepository $offreEmploiRepository
@@ -248,106 +313,16 @@ class ProfilEmployeurController extends AbstractController
         return $this->redirectToRoute('mesOffresE');
     }
 
-    #[Route('/mesIdentifiantsDeConnexionE', name: 'mesIdentifiantsDeConnexionE', methods: ['GET', 'POST'])]
-    public function mesIdentifiantsDeConnexionE(
-        Request $request,
-        EmployeurRepository $employeurRepository,
-        EntityManagerInterface $entityManager,
-        UserPasswordHasherInterface $passwordHasher
-    ): Response {
-        $utilisateur = $this->getUser();
-    
-        // Récupérer le candidat lié à l'utilisateur
-        $employeur = $employeurRepository->findOneBy(['utilisateur' => $utilisateur]);
-    
-        // Récupérer le candidat lié à l'utilisateur
-        $employeur = $employeurRepository->findOneBy(['utilisateur' => $utilisateur]);
-
-        if (!$employeur) {
-            $this->addFlash('error', 'Aucun employeur associé à cet utilisateur.');
-            return $this->redirectToRoute('connexion');
-        }
-
-        // Créer le formulaire pour l'entité Employeur
-        $form = $this->createForm(MesIdentifiantsDeConnexionEFormType::class, $employeur);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $email = $form->get('email')->getData();
-            $plainPassword = $form->get('password')->getData();
-        
-            // Mettre à jour l'entité Utilisateur
-            $utilisateur->setEmail($email);
-            if (!empty($plainPassword)) {
-                $hashedPassword = $passwordHasher->hashPassword($utilisateur, $plainPassword);
-                $utilisateur->setPassword($hashedPassword);
-            }
-        
-            $entityManager->persist($utilisateur);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Vos identifiants ont été mis à jour avec succès.');
-            return $this->redirectToRoute('profilEmployeur');
-        }
-    
-        return $this->render('pages/utilisateur/employeur/mes-identifiants-de-connexion.html.twig', [
-            'form' => $form->createView(),
-            'employeurNavbar' => true,
-            'withFiltrer' => false, // Pas de filtrage sur cette page
-            'formPoster' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
-        ]);
-    }
-
-    #[Route('/supprimer-compteE', name: 'supprimer_compteE')]
-    public function Suppression(): Response {
-        return $this->render('pages/utilisateur/employeur/supprimer-mon-compte.html.twig', [
-            'employeurNavbar' => true,
-            'withFiltrer' => false, // Pas de filtrage sur cette page
-            'formPoster' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
-        ]);
-    }
-    
-    #[Route('/confirmer_suppression-compteE', name: 'confirmer_suppression-compteE', methods: ['POST'])]
-    public function supprimerCompteE(
-        Request $request,
-        SessionInterface $session, // Injection de la session
-        UtilisateurRepository $utilisateurRepository,
-        CsrfTokenManagerInterface $csrfTokenManager
-    ): Response {
-        // Vérification CSRF
-        $csrfToken = $request->request->get('_csrf_token');
-        if (!$csrfTokenManager->isTokenValid(new CsrfToken('delete_account', $csrfToken))) {
-            $this->addFlash('error', 'Action non autorisée.');
-            return $this->redirectToRoute('profilEmployeur');
-        }
-    
-        $utilisateur = $this->getUser();
-        if (!$utilisateur) {
-            $this->addFlash('error', 'Vous devez être connecté pour supprimer votre compte.');
-            return $this->redirectToRoute('connexion');
-        }
-    
-        // Suppression de l'utilisateur
-        $utilisateurRepository->remove($utilisateur, true);
-    
-        // Invalidation de la session
-        $session->invalidate();
-    
-        // Déconnexion de l'utilisateur
-        $this->container->get('security.token_storage')->setToken(null);
-    
-        $this->addFlash('success', 'Votre compte a été supprimé avec succès.');
-        return $this->redirectToRoute('home');
-    }
-
-
     #[Route('/filtrer-candidatures', name: 'filtrer_candidatures', methods: ['GET'])]
-    public function afficherCandidaturesFiltrees(Request $request, CandidatureSpontaneeRepository $candidatureSpontaneeRepository, LoggerInterface $logger): Response
-    {
+    #[IsGranted('ROLE_EMPLOYEUR')]
+    public function afficherCandidaturesFiltrees(
+        Request $request, 
+        CandidatureSpontaneeRepository $candidatureSpontaneeRepository, 
+        LoggerInterface $logger
+    ): Response {
 
         $form = $this->createForm(FiltrerCandidatureSpontaneeFormType::class);
         $form->handleRequest($request);
-
 
 
         $candidatures = [];
@@ -374,34 +349,100 @@ class ProfilEmployeurController extends AbstractController
         ]);
     }
 
+    
+    #[Route('/mesIdentifiantsDeConnexionE', name: 'mesIdentifiantsDeConnexionE', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_EMPLOYEUR')]
+    public function mesIdentifiantsDeConnexionE(
+        Request $request,
+        EmployeurRepository $employeurRepository,
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $passwordHasher
+    ): Response {
+        
+        $utilisateur = $this->getUser();
 
-    #[Route('/telecharger-cv/{candidatId}', name:'telecharger_cv')]
-    public function telechargerCv(int $candidatId, ManagerRegistry $doctrine): Response
-    {
-        // Utiliser le ManagerRegistry pour accéder au repository de l'entité Candidat
-        $candidat = $doctrine->getRepository(Candidat::class)->find($candidatId);
-
-        // Vérifier si le candidat existe et s'il a un CV
-        if (!$candidat || !$candidat->getCv()) {
-            throw $this->createNotFoundException('Candidat ou CV non trouvé.');
+        // Récupérer l'employeur lié à l'utilisateur
+        $employeur = $employeurRepository->findOneBy(['utilisateur' => $utilisateur]);
+        // dd($employeur);
+        
+        // Vérification : l'utilisateur est bien lié à un employeur
+        if (!$employeur) {
+            $this->addFlash('error', 'Accès refusé ou employeur introuvable.');
+            return $this->redirectToRoute('profilEmployeur');
         }
 
-        // Récupérer le chemin complet du fichier CV
-        $cvPath = $this->getParameter('kernel.project_dir') . '/public/uploads/cvs/' . $candidat->getCv();
+        // Créer le formulaire pour l'entité Employeur
+        $form = $this->createForm(MesIdentifiantsDeConnexionEFormType::class, $employeur);
+        $form->handleRequest($request);
 
-        // Vérifier si le fichier existe
-        if (!file_exists($cvPath)) {
-            throw new FileNotFoundException('Le fichier CV est introuvable.');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $email = $form->get('email')->getData();
+            $plainPassword = $form->get('password')->getData();
+
+            // Mettre à jour l'entité Utilisateur
+            $utilisateur->setEmail($email);
+            if (!empty($plainPassword)) {
+                $hashedPassword = $passwordHasher->hashPassword($utilisateur, $plainPassword);
+                $utilisateur->setPassword($hashedPassword);
+            }
+
+            $entityManager->persist($utilisateur);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Vos identifiants ont été mis à jour avec succès.');
+            return $this->redirectToRoute('profilEmployeur');
         }
 
-        // Créer une réponse de téléchargement du fichier
-        return new StreamedResponse(function () use ($cvPath) {
-            readfile($cvPath);
-        }, Response::HTTP_OK, [
-            'Content-Type' => 'application/pdf', // Ou un autre type MIME selon ton fichier
-            'Content-Disposition' => 'attachment; filename="' . basename($cvPath) . '"',
+        return $this->render('pages/utilisateur/employeur/mes-identifiants-de-connexion.html.twig', [
+            'form' => $form->createView(),
+            'employeurNavbar' => true,
+            'withFiltrer' => false,
+            'formPoster' => null,
         ]);
     }
 
+    #[Route('/supprimer-compteE', name: 'supprimer-compteE', methods: ['GET'])]
+    #[IsGranted('ROLE_EMPLOYEUR')]
+    public function Suppression(): Response {
+        return $this->render('pages/utilisateur/employeur/supprimer-mon-compte.html.twig', [
+            'employeurNavbar' => true,
+            'withFiltrer' => false, // Pas de filtrage sur cette page
+            'formPoster' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
+        ]);
+    }
+
+    #[Route('/confirmer_suppression-compteE', name: 'confirmer_suppression-compteE', methods: ['POST'])]
+    #[IsGranted('ROLE_EMPLOYEUR')]
+    public function supprimerCompteE(
+        Request $request,
+        SessionInterface $session,
+        UtilisateurRepository $utilisateurRepository,
+        CsrfTokenManagerInterface $csrfTokenManager
+    ): Response {
+        // Vérification CSRF
+        $csrfToken = $request->request->get('_csrf_token');
+        if (!$csrfToken || !$csrfTokenManager->isTokenValid(new CsrfToken('delete_account', $csrfToken))) {
+            $this->addFlash('error', 'Action non autorisée.');
+            return $this->redirectToRoute('profilEmployeur');
+        }
+
+        $utilisateur = $this->getUser();
+        if (!$utilisateur) {
+            $this->addFlash('error', 'Vous devez être connecté pour supprimer votre compte.');
+            return $this->redirectToRoute('connexion');
+        }
+
+        // Suppression de l'utilisateur
+        $utilisateurRepository->remove($utilisateur, true);
+
+        // Déconnexion et invalidation de la session
+        $session->invalidate();
+        $this->container->get('security.token_storage')->setToken(null);
+
+        $this->addFlash('success', 'Votre compte a été supprimé avec succès.');
+        return $this->redirectToRoute('home');
+    }
 
 }
+
+

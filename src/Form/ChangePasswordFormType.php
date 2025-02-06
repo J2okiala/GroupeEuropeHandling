@@ -21,31 +21,31 @@ class ChangePasswordFormType extends AbstractType
                 'type' => PasswordType::class,
                 'options' => [
                     'attr' => [
-                        'autocomplete' => 'new-password',
+                        'autocomplete' => 'new-password', // Aurocomplétion désactivée pour le nouveaux mot de pass
                     ],
                 ],
                 'first_options' => [
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'Please enter a password',
+                            'message' => 'Veuillez entrer un mot de passe', // Message : Veuillez entrer un mot de passe
                         ]),
                         new Length([
-                            'min' => 12,
-                            'minMessage' => 'Your password should be at least {{ limit }} characters',
-                            // max length allowed by Symfony for security reasons
-                            'max' => 4096,
+                            'min' => 8,
+                            'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères',
+                            'max' => 255,
+                            'maxMessage' => "Le mot de passe ne doit pas dépasser {{ limit }} caractères.",
                         ]),
-                        new PasswordStrength(),
-                        new NotCompromisedPassword(),
+                        new PasswordStrength(), // Vérifie la complexité du mot de passe
+                        new NotCompromisedPassword(), // Vérifie si le mot de passe n'est pas compromis (apparaît dans des bases de données piratées)
                     ],
-                    'label' => 'New password',
+                    'label' => 'Nouveau mot de passe',
                 ],
                 'second_options' => [
-                    'label' => 'Repeat Password',
+                    'label' => 'Répétez le mot de passe',
                 ],
-                'invalid_message' => 'The password fields must match.',
-                // Instead of being set onto the object directly,
-                // this is read and encoded in the controller
+                'invalid_message' => 'Les champs de mot de passe doivent correspondre.', // Message : Les champs de mot de passe doivent correspondre
+                // Au lieu d'être directement défini dans l'objet,
+                // ce mot de passe est lu et encodé dans le contrôleur
                 'mapped' => false,
             ])
         ;
@@ -53,6 +53,9 @@ class ChangePasswordFormType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([]);
+        $resolver->setDefaults([
+            'csrf_protection' => true, // Activer la protection CSRF
+        ]);
+
     }
 }

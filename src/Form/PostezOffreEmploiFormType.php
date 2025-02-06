@@ -63,6 +63,7 @@ class PostezOffreEmploiFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => OffreEmploi::class,
+            'csrf_protection' => true, // Activer la protection CSRF
         ]);
     }
 }

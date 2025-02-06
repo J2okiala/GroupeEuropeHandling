@@ -1,14 +1,12 @@
 {% extends 'pages/base.html.twig' %}
 
 {% block title %}
-    profil - employeur
+    Page Profil - employeur
 {% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="styles/offres.css">
 {% endblock %}
-
-
 
 {% block body %}
     {# Affiche les messages flash s'ils existent #}
@@ -21,44 +19,34 @@
         {% endfor %}
     {% endfor %}
 
-
     <main class="container">
-
-    <h4 class=" font-weight-semibold mb-4 text-center">Bienvenue sur votre espace employeur {{ app.user.prenom }} ! </h4>
-            <!-- Cartes -->
-            <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3 d-flex">
-                <div class="col m-4"><a href="{{ path('maFicheE') }}">
-                    <h3>Ma Fiche Employeur</h3>
-                    <img src="img/Capture d’écran ma fiche.png" alt="Ma fiche" width="70%"></a>
-                </div>
-
-                <div class="col m-4 ms-auto"><a href="{{ path('modifierMesInformationsE', {'id': app.user.employeur.id}) }}">
-                    <h3>Modifier Mes Informations</h3>
-                    <img src="img/Capture d’écran modifier mes infos.png" alt="Modifier Mes Informations" width="70%"></a>
-                </div>
-
-                <div class="col m-4"><a href="{{ path('mesOffresE') }}">
-                    <h3>Visualiser Mes offres</h3>
-                    <img src="img/Capture d’écran Mes Candidatures.png" alt="Mes Offres" width="70%"></a>
-                </div>
-
-                <div class="col m-4 ms-auto"><a href="{{ path('filtrer_candidatures') }}">
-                    <h3>Candidatures Spontanés</h3>
-                    <img src="img/Capture d’écran alerte.png" alt="Mes Alertes" width="70%"></a>
-                </div>
-
-                <div class="col m-4"><a href="{{ path('mesIdentifiantsDeConnexionE') }}">
-                    <h3>Modifier Identifiants</h3>
-                    <img src="img/Capture d’écran Modifier Mes Piece Jointes.png" alt="Modifier mes identifiants" width="70%"></a>
-                </div>
-
-                <div class="col m-4 ms-auto"><a href="{{ path('supprimer_compteE') }}">
-                    <h3>Supprimer Mon Compte</h3>
-                    <img src="img/Capture d’écran desactivez mon compte.png" alt="Supprimer Mon Compte" width="70%"></a>
-                </div>
-
-            </section>
-        </div>
+        <h3 class=" font-weight-semibold mb-4 text-center">Bienvenue sur votre espace employeur {{ app.user.prenom }} ! </h3>
+        <!-- Cartes -->
+        <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3 d-flex">
+            <div class="col m-4"><a href="{{ path('maFicheE') }}">
+                <h3>Ma Fiche Employeur</h3>
+                <img src="img/Capture d’écran ma fiche.png" alt="Ma fiche" width="70%"></a>
+            </div>
+            <div class="col m-4 ms-auto"><a href="{{ path('modifierMesInformationsE', {'id': app.user.employeur.id}) }}">
+                <h3>Modifier Mes Informations</h3>
+                <img src="img/Capture d’écran modifier mes infos.png" alt="Modifier Mes Informations" width="70%"></a>
+            </div>
+            <div class="col m-4"><a href="{{ path('mesOffresE') }}">
+                <h3>Visualiser Mes Offres</h3>
+                <img src="img/Capture d’écran Mes Candidatures.png" alt="Mes Offres" width="70%"></a>
+            </div>
+            <div class="col m-4 ms-auto"><a href="{{ path('filtrer_candidatures') }}">
+                <h3>Candidatures Spontanés</h3>
+                <img src="img/Capture d’écran alerte.png" alt="Mes Alertes" width="70%"></a>
+            </div>
+            <div class="col m-4"><a href="{{ path('mesIdentifiantsDeConnexionE') }}">
+                <h3>Modifier Mes Identifiants</h3>
+                <img src="img/Capture d’écran Modifier Mes Piece Jointes.png" alt="Modifier mes identifiants" width="70%"></a>
+            </div>
+            <div class="col m-4 ms-auto"><a href="{{ path('supprimer-compteE') }}">
+                <h3>Supprimer Mon Compte</h3>
+                <img src="img/Capture d’écran desactivez mon compte.png" alt="Supprimer Mon Compte" width="70%"></a>
+            </div>
+        </section>
     </main>
-
 {% endblock %}

@@ -95,6 +95,7 @@ class MesIdentifiantsDeConnexionFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Candidat::class, // Le formulaire est basé sur Candidat
+            'csrf_protection' => true, // Activer la protection CSRF
         ]);
     }
 }

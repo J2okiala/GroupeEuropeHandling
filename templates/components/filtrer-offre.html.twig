@@ -10,7 +10,6 @@
         align-items: center; /* Centre verticalement */
         justify-content: center; /* Centre horizontalement */
     }
-
     /* Style pour le formulaire */
     .form-container {
         background-color: linear-gradient(88.96deg, #051039 33.47%, #003165 99.14%); /* Fond semi-transparent */
@@ -21,16 +20,14 @@
         max-width: 600px; /* Largeur maximale pour le formulaire */
         opacity: 1;
     }
-
     /* Espacement des champs */
     .form-container .form-control,
     .form-container .btn {
         margin-bottom: 15px; /* Espacement entre les champs */
     }
 </style>
-    
-    
-<div class="container-form-page mt-5">
+<!-- formulaire pour filtrer une offre -->
+<section class="container-form-page mt-5">
     <!-- Boîte contenant le formulaire -->
     <div class="form-container">
         <h3 class="text-center mb-2">Rechercher une offre d'emploi</h3>
@@ -55,5 +52,4 @@
             </div>
         {{ form_end(formRecherche) }}
     </div>
-
-</div>
+</section>

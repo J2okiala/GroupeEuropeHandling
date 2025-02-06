@@ -33,32 +33,38 @@ security:
       # Configuration de la déconnexion
       logout:
         path: deconnexion
+        target: / # Redirige vers la page d'accueil
 
   # Hiérarchie des rôles
   role_hierarchy:
-    ROLE_ADMIN: [ROLE_ADMIN]
+      ROLE_ADMIN: ROLE_ADMIN
+      ROLE_CANDIDAT: ROLE_USER
+      ROLE_EMPLOYEUR: ROLE_USER
 
   # Règles d'accès
   access_control:
     - { path: "^/admin", roles: [ROLE_ADMIN] }
-    - { path: "^/profilCandidat", roles: [ROLE_CANDIDAT] } 
+    - { path: "^/mesIdentifiantsDeConnexionE", roles: IS_AUTHENTICATED_FULLY }
+    - { path: "^/maFicheE", roles: [ROLE_EMPLOYEUR] }
+    - { path: "^/supprimer-compteE", roles: [ROLE_EMPLOYEUR] }
+    - { path: "^/confirmer_suppression-compteE", roles: [ROLE_EMPLOYEUR] }
+    - { path: "^/profilCandidat", roles: IS_AUTHENTICATED_FULLY } 
     - { path: "^/maFiche", roles: [ROLE_CANDIDAT] }
     - { path: "^/modifierMesInformations", roles: [ROLE_CANDIDAT] }
     - { path: "^/mesCandidatures", roles: [ROLE_CANDIDAT] }
     - { path: "^/mesIdentifiantsDeConnexion", roles: [ROLE_CANDIDAT] }
-    - { path: "^/'postuler", roles: [ROLE_CANDIDAT] }
+    - { path: "^/postuler", roles: [ROLE_CANDIDAT] }
     - { path: "^/supprimer-compte", roles: [ROLE_CANDIDAT] }
     - { path: "^/confirmer_compte", roles: [ROLE_CANDIDAT] }
     - { path: "^/profilEmployeur", roles: [ROLE_EMPLOYEUR] }
-    - { path: "^/filtrer-candidatures", roles: [ROLE_EMPLOYEUR] }
-    - { path: "^/maFicheE", roles: [ROLE_EMPLOYEUR] }
+    - { path: "^/poster-offre-emploi", roles: [ROLE_EMPLOYEUR] }
+    - { path: "^/modifierMesInformationsE", roles: [ROLE_EMPLOYEUR] }
     - { path: "^/mesOffresE", roles: [ROLE_EMPLOYEUR] }
-    - { path: "^/supprimer_offre", roles: [ROLE_EMPLOYEUR] }
-    - { path: "^/mesIdentifiantsDeConnexionE", roles: [ROLE_EMPLOYEUR] }
-    - { path: "^/supprimer_compteE", roles: [ROLE_EMPLOYEUR] }
-    - { path: "^/confirmer_suppression-compteE", roles: [ROLE_EMPLOYEUR] }
-    - { path: "^/filtrer_candidatures", roles: [ROLE_EMPLOYEUR] }
     - { path: "^/telecharger_cv", roles: [ROLE_EMPLOYEUR] }
+    - { path: "^/telecharger_lettre_motivation", roles: [ROLE_EMPLOYEUR] }
+    - { path: "^/supprimer_offre", roles: [ROLE_EMPLOYEUR] }
+    - { path: "^/filtrer_candidatures", roles: [ROLE_EMPLOYEUR] }
+
 
 when@test:
   security:
@@ -68,5 +74,3 @@ when@test:
         cost: 4
         time_cost: 3
         memory_cost: 10
-
-

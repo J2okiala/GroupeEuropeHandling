@@ -1,15 +1,17 @@
 twig:
+    default_path: '%kernel.project_dir%/templates'
+
+    # Reconnaître les fichiers Twig
     file_name_pattern: '*.twig'
+
+    # Définir des variables globales accessibles dans les templates
     globals:
-        app_request: '@request_stack'
+        app_request: '@request_stack'  # Utile pour les informations de requête
+        asset_version: '1.0'           # Version pour le cache-busting des assets
 
-    form_themes: ['bootstrap_5_layout.html.twig']
-    
-    #Configurer le fallback des erreurs générales
-    exception_controller: null
+    # Thème des formulaires (Bootstrap 5)
+    form_themes: 
+        - 'bootstrap_5_layout.html.twig'
 
-
-    # Cette option n'est pas spécifique à l'environnement, donc elle peut rester ici
+    # Lever une erreur si une variable non définie est appelée
     strict_variables: true
-
-

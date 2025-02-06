@@ -1,7 +1,9 @@
 # Default configuration for session in the general environment
 framework:
     secret: '%env(APP_SECRET)%'
-    
+
+    error_controller: 'App\Controller\CustomErrorController::show'
+
     # Enable session handling globally
     session:
         handler_id: null  # Utilisation de la gestion native des sessions par défaut

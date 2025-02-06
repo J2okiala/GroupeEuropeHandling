@@ -1,7 +1,7 @@
 {% extends 'pages/base.html.twig' %}
 
 {% block title %}
-    candidatures-spontanee - employeur
+    CandidaturesSpontanee - employeur
 {% endblock %}
 
 {% block stylesheets %}
@@ -20,14 +20,13 @@
     {% endfor %}
 
     <main class="container">
-        <h2 class"text-center text-white">Filtrer les candidatures spontanées</h2>
+        <h2 class="text-center text-white">Filtrer les candidatures spontanées</h2>
         <div class="row g-4">
-            <!-- Cartes -->
             <div class="col">
                 <div class="card h-100">
-                    <div class="card-body"
+                    <div class="card-body">
                         {# Afficher le formulaire de filtrage #}
-                        {{ form_start(form, {'method': 'GET'}) }}
+                        {{ form_start(form, {'method': 'GET', 'action': path('filtrer_candidatures')}) }}
                             <div class="form-group">
                                 {{ form_row(form.poste) }}
                             </div>
@@ -37,27 +36,33 @@
                         {{ form_end(form) }}
                         {# Vérifier s'il y a des candidatures filtrées ou non #}
                         {% if candidatures is not empty %}
-                            <h3>Candidatures pour le poste sélectionné :</h3>
-                            <ul>
+                            <h3 class="my-4">Candidatures pour le poste sélectionné :</h3>
+                            <div class="row">
                                 {% for candidature in candidatures %}
-                                    <li>
-                                        <strong>Poste :</strong> {{ candidature.poste }}<br>
-                                        <strong>Date de candidature :</strong> {{ candidature.date|date('Y-m-d') }}<br>
-                                        <a href="{{ asset('uploads/cvs/' ~ candidature.cv) }}" download>Télécharger le CV</a><br>
-                                        <a href="{{ asset('uploads/cvs/' ~ candidature.lm) }}" download>Télécharger la Lettre de Motivation</a>
-                                    </li>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card shadow-sm h-100">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Poste : {{ candidature.poste }}</h5>
+                                                <p class="card-text">
+                                                    <strong>Date de candidature :</strong> {{ candidature.date|date('Y-m-d') }}
+                                                </p>
+                                                <a href="{{ asset('uploads/cvs/' ~ candidature.cv) }}" class="btn btn-primary btn-sm mb-2" download>
+                                                    Télécharger le CV
+                                                </a>
+                                                <a href="{{ asset('uploads/cvs/' ~ candidature.lm) }}" class="btn btn-secondary btn-sm" download>
+                                                    Télécharger la Lettre de Motivation
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 {% endfor %}
-                            </ul>
+                            </div>
                         {% else %}
-                            <p>Pas de candidatures pour ce poste</p>
+                            <p class="text-muted">Pas de candidatures disponibles pour le poste sélectionné.</p>
                         {% endif %}
                     </div>
                 </div>
             </div>
         </div>
     </main>
-
-
-
-
 {% endblock %}

@@ -1,8 +1,8 @@
 parameters:
     env(MONGODB_URL): '' # URL de connexion à MongoDB
     env(MONGODB_DB): ''  # Nom de la base MongoDB
-    uploads_directory: '%kernel.project_dir%/public/uploads' # Répertoire des uploads
-
+    uploads_directory: '%kernel.project_dir%/public/uploads/cvs' # Répertoire des uploads Pour MongoDB
+    cv_directory: '%kernel.project_dir%/public/uploads'  # Point vers uploads pour base relationnelle
 services:
     # Configuration par défaut pour les services
     _defaults:

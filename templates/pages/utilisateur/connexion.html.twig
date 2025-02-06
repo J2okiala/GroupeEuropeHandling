@@ -1,16 +1,14 @@
 {% extends 'pages/base.html.twig' %}
 
 {% block title %}
-    Page de connexion
+    Page Connexion
 {% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="styles/offres.css">
 {% endblock %}
 
-
 {% block body %}
-
     {# Affiche les messages flash s'ils existent #}
     {% for label, messages in app.flashes %}
         {% for message in messages %}
@@ -20,33 +18,27 @@
             </div>
         {% endfor %}
     {% endfor %}
-
-    <div class="container p-4 bg-light rounded shadow-sm  mt-5">
+    
+    <main class="container p-4 bg-light rounded shadow-sm  mt-5">
         <h2 class="text-dark font-weight-semibold mb-4 text-center">Connexion</h2>
-
         {# Commence le formulaire de connexion #}
-        {{ form_start(connexionForm) }}
-        
+        {{ form_start(connexionForm) }}        
         <div class="text-dark form-group mb-3">
             {{ form_label(connexionForm.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
             {{ form_widget(connexionForm.email, {'full_name':'email', 'value': last_email}) }}
             {{ form_errors(connexionForm.email) }}
         </div>
-
         <div class="text-dark form-group mb-3">
             {{ form_label(connexionForm.password, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
             {{ form_widget(connexionForm.password, {'full_name':'password'}) }}
             {{ form_errors(connexionForm.password) }}
         </div>
-
         {{ form_end(connexionForm) }}
         <p class="text-dark">Pas encore inscrit ? <a href="{{ path('inscription') }}">Créer un compte</a></p>
         <p class="text-dark">Mot de passe oublié ? <a href="{{ path('app_forgot_password_request') }}">Generer mot de passe</a></p>
-    </div>
-
+    </main>
     {# Affiche un message d'erreur s'il y a un problème de connexion #}
     {% if error %}
         <div class="alert alert-danger mt-3">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
-
 {% endblock %}

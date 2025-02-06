@@ -1,11 +1,11 @@
 {% extends 'pages/base.html.twig' %}
 
 {% block title %}
-    modification-informations - candidat
+    ModificationMesInformations - candidat
 {% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="styles/offres.css">
+    <link rel="stylesheet" href="{{ asset('styles/offres.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -22,7 +22,7 @@
     <main class="container mt-5">
         <h2 class="text-center mb-4 text-white">Modifier mes informations</h2>
         <div class="row justify-content-center">
-            <!-- Cartes -->
+            <!-- Carte pour modifier mes informations -->
             <div class="col">
                 <div class="card h-100">
                     <div class="card-body">
@@ -33,7 +33,6 @@
                                     {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
                                     {{ form_errors(form.nom) }}
                                 </div>
-
                                 <div class="text-dark form-group mb-3">
                                     {{ form_label(form.prenom, 'Prénom', {'label_attr': {'class': 'form-label'}}) }}
                                     {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
@@ -44,43 +43,36 @@
                                     {{ form_widget(form.nationalite, {'attr': {'class': 'form-control'}}) }}
                                     {{ form_errors(form.nationalite) }}
                                 </div>
-
                                 <div class="form-group mb-3">
                                     {{ form_label(form.dateNaissance, 'Date de naissance', {'label_attr': {'class': 'form-label'}}) }}
                                     {{ form_widget(form.dateNaissance, {'attr': {'class': 'form-control'}}) }}
                                     {{ form_errors(form.dateNaissance) }}
                                 </div>
-
                                 <div class="form-group mb-3">
                                     {{ form_label(form.telephone, 'Téléphone', {'label_attr': {'class': 'form-label'}}) }}
                                     {{ form_widget(form.telephone, {'attr': {'class': 'form-control'}}) }}
                                     {{ form_errors(form.telephone) }}
                                 </div>
-
                                 <div class="form-group mb-3">
                                     {{ form_label(form.poste, 'Poste recherché', {'label_attr': {'class': 'form-label'}}) }}
                                     {{ form_widget(form.poste, {'attr': {'class': 'form-control'}}) }}
                                     {{ form_errors(form.poste) }}
                                 </div>
-
                                 <div class="form-group mb-3">
                                     {{ form_label(form.dateDisponibilite, 'Date de disponibilité', {'label_attr': {'class': 'form-label'}}) }}
                                     {{ form_widget(form.dateDisponibilite, {'attr': {'class': 'form-control'}}) }}
                                     {{ form_errors(form.dateDisponibilite) }}
                                 </div>
-
                                 <div class="form-group mb-3">
                                     {{ form_label(form.cv, 'CV', {'label_attr': {'class': 'form-label'}}) }}
                                     {{ form_widget(form.cv, {'attr': {'class': 'form-control'}}) }}
                                     {{ form_errors(form.cv) }}
                                 </div>
-
                                 <div class="form-group mb-3">
                                     {{ form_label(form.lettreMotivation, 'Lettre de motivation', {'label_attr': {'class': 'form-label'}}) }}
                                     {{ form_widget(form.lettreMotivation, {'attr': {'class': 'form-control'}}) }}
                                     {{ form_errors(form.lettreMotivation) }}
                                 </div>
-
                                 <div class="text-center mt-4">
                                     <button type="submit" class="btn btn-primary">Mettre à jour</button>
                                 </div>
@@ -91,8 +83,4 @@
             </div>
         </div>
     </main>
-
-
-
-
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'pages/base.html.twig' %}
 
 {% block title %}
-    Nos Offres d'emploi
+    Nos Offres 
 {% endblock %}
 
 {% block stylesheets %}
@@ -9,7 +9,6 @@
 {% endblock %}
 
 {% block body %}
-
     {# Affiche les messages flash s'ils existent #}
     {% for label, messages in app.flashes %}
         {% for message in messages %}
@@ -19,53 +18,48 @@
             </div>
         {% endfor %}
     {% endfor %}
-
     <main class="container">
-    
-    <h2 class="text-white"> {{ nombreOffres }} offres disponible</h2>
-    <p>Page {{ offres.currentPageNumber }} sur {{ offres.pageCount }}</p>
-            <!-- Grille Bootstrap -->
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4">
-                {% for offre in offres %}
-                    <div class="col">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h4 class="card-title">Offre d'emploi : {{ offre.poste }} (H/F)</h4>
-                                <p class="card-text">
-                                    <strong>Localisation :</strong> {{ offre.localisation }}<br>
-                                    <strong>Date de publication :</strong> {{ offre.datePublication|date('d/m/Y') }}
-                                </p>
-                                <div class="type">
-                                    <div class="contrat">
-                                        <p><strong>Type de contrat :</strong> {{ offre.typeContrat }}</p>
-                                    </div>
-                                    <div class="modalites">
-                                        <p><strong>Modalités :</strong> {{ offre.modaliteTravail }}</p>
-                                    </div>
+        <h2 class="text-white"> {{ nombreOffres }} offres disponible</h2>
+        <p>Page {{ offres.currentPageNumber }} sur {{ offres.pageCount }}</p>
+        <!-- Grille Bootstrap -->
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4">
+            {% for offre in offres %}
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h4 class="card-title">Offre d'emploi : {{ offre.poste }} (H/F)</h4>
+                            <p class="card-text">
+                                <strong>Localisation :</strong> {{ offre.localisation }}<br>
+                                <strong>Date de publication :</strong> {{ offre.datePublication|date('d/m/Y') }}
+                            </p>
+                            <div class="type">
+                                <div class="contrat">
+                                    <p><strong>Type de contrat :</strong> {{ offre.typeContrat }}</p>
                                 </div>
-                                <p class="mt-3">
-                                    <strong>Description du poste :</strong><br>
-                                    {{ offre.descriptionPoste }}
-                                </p>
+                                <div class="modalites">
+                                    <p><strong>Modalités :</strong> {{ offre.modaliteTravail }}</p>
+                                </div>
                             </div>
+                            <p class="mt-3">
+                                <strong>Description du poste :</strong><br>
+                                {{ offre.descriptionPoste }}
+                            </p>
                         </div>
                     </div>
-                {% else %}
-                    <p>Aucune offre trouvée.</p>
-                {% endfor %}
-            </div>
+                </div>
+            {% else %}
+                <p>Aucune offre trouvée.</p>
+            {% endfor %}
+        </div>
+        <!-- Pagination -->
+        <div class="d-flex">
+            {% if offres.currentPageNumber > 1 %}
+                <a class="text-white text-decoration-none btn btn-primary m-2" href="{{ path('nosOffres', {'page': offres.currentPageNumber - 1}) }}">Page précédente</a>
+            {% endif %}
 
-            <!-- Pagination -->
-            <div class="d-flex">
-                {% if offres.currentPageNumber > 1 %}
-                    <a class="text-white text-decoration-none btn btn-primary m-2" href="{{ path('nosOffres', {'page': offres.currentPageNumber - 1}) }}">Page précédente</a>
-                {% endif %}
-
-                {% if offres.currentPageNumber < offres.pageCount %}
-                    <a class="text-white text-decoration-none btn btn-primary ms-auto m-2" href="{{ path('nosOffres', {'page': offres.currentPageNumber + 1}) }}">Page suivante</a>
-                {% endif %}
-            </div>
-        </main>
-
-
+            {% if offres.currentPageNumber < offres.pageCount %}
+                <a class="text-white text-decoration-none btn btn-primary ms-auto m-2" href="{{ path('nosOffres', {'page': offres.currentPageNumber + 1}) }}">Page suivante</a>
+            {% endif %}
+        </div>
+    </main>
 {% endblock %}

@@ -95,6 +95,7 @@ class MesIdentifiantsDeConnexionEFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Employeur::class, // Le formulaire est basé sur Employeur
+            'csrf_protection' => true, // Activer la protection CSRF
         ]);
     }
 }

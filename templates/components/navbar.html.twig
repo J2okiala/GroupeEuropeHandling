@@ -1,7 +1,7 @@
 <header>
     <div>
         {% if offreNavbar|default(false) %}
-            <!-- Navbar spécifique offre-->
+            <!-- Navbar spécifique a la page NosOffres -->
             <nav class="secondary-navbar navbar" id="top">
                 <ul>
                     <li class="logo-group">
@@ -34,7 +34,7 @@
             <style>
             .imagebackground {
                 height: 110vh; /* Hauteur complète de la fenêtre */
-                background-image: url('/img/IMG_5589.jpg'); /* Image de fond */
+                background-image: url('/img/IMG_5589.jpg'); /* Image de fond pour le formulaire*/
                 background-size: cover; /* L'image couvre tout l'espace */
                 background-position: center; /* Centre l'image */
                 background-repeat: no-repeat; /* Pas de répétition */
@@ -45,9 +45,8 @@
             </style>
             <div class="imagebackground">
             </div>
-
         {% elseif employeurNavbar|default(false) %}
-            <!-- Navbar spécifique employeur -->
+            <!-- Navbar spécifique a la page Employeur -->
             <nav class="secondary-navbar navbar" id="top">
                 <ul>
                     <li class="logo-group">
@@ -61,7 +60,7 @@
                                 <p>ESPACE COMPTE | </p>
                             </li>
                             <li>
-                                <a href="{{ path('deconnexion') }}" class="candidature-link">Déconnexion</a>
+                                <a href="{{ path('deconnexion') }}" class="candidature-link" onclick='alert("vous êtes deconnecté")'>Déconnexion</a>
                             </li>
                         {% endif %}
                     </div>
@@ -88,10 +87,8 @@
             </style>
             <div class="imagebackground">
             </div>
-
-
         {% elseif candidatNavbar|default(false) %}
-            <!-- Navbar spécifique candidat -->
+            <!-- Navbar spécifique a la page Candidat -->
             <nav class="secondary-navbar navbar" id="top">
                 <ul>
                     <li class="logo-group">
@@ -105,7 +102,7 @@
                                 <p>ESPACE COMPTE | </p>
                             </li>
                             <li>
-                                <a href="{{ path('deconnexion') }}" class="candidature-link">Déconnexion</a>
+                                <a href="{{ path('deconnexion') }}" class="candidature-link" onclick='alert("vous êtes deconnecté")'>Déconnexion</a>
                             </li>
                         {% else %}
                             <li><a href="{{ path('inscription') }}">Inscription</a></li>
@@ -115,7 +112,6 @@
                     </div>
                 </ul>
             </nav>
-
         {% if withFiltrer|default(true) and formRecherche is not null %}
                 {% include "components/filtrer-offre.html.twig" with {'formRecherche': formRecherche} %}
             {% else %}
@@ -135,9 +131,8 @@
                 <div class="imagebackground">
                 </div>
             {% endif %}
-
         {% else %}
-            <!-- Navbar par défaut -->
+            <!-- Navbar par Défaut -->
             <nav class="navbar" id="top">
                 <div class="logo-group">
                     <a href="{{ path('home') }}">
@@ -158,11 +153,11 @@
                     <li><a href="{{ path('nosChiffres') }}">Nos chiffres</a></li>
                 </ul>
             </nav>
-            <div class="video-container">
+            <section class="video-container">
                 <video autoplay muted loop id="bg-video">
-                    <source src="video/6472912-hd_1280_720_24fps.mp4" type="video/mp4">
+                    <source src="video/6472912-hd_1280_720_24fps.mp4" type="video/mp4" alt="video d'un avion">
                 </video>
-            </div>
+            </section>
         {% endif %}
     </div>
 </header>

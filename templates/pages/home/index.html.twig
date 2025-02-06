@@ -9,7 +9,6 @@
 {% endblock %}
 
 {% block body %}
-
     {# Affiche les messages flash s'ils existent #}
     {% for label, messages in app.flashes %}
         {% for message in messages %}
@@ -19,9 +18,9 @@
             </div>
         {% endfor %}
     {% endfor %}
-
     <main>
-        <h2 class="text-white">NOS SERVICES</h2>
+        <h1 class="m-5 Bckg-titre"><b> <i> Groupe Europe Handling </i> </b></h1>
+        <h2 class="text-white"><i> NOS SERVICES </i></h2>
         <div class="container-fluid">
             <!-- Section 1 : Nos Services -->
             <section class="row row-cols-1 row-cols-md-2 row-cols-lg-2 ">
@@ -65,117 +64,107 @@
                 </div>
             </section>
         </div>
-
         <div>
             <h3 class="m-2 w-25 p-1 Bckg-button"><a href={{path('nosServices')}}>Tous Nos Services<a/></h3>
         </div>
-
         <!-- Section : nosOffres -->
-        <h2 class="m-5 text-white">NOS OFFRES</h2>
-
+        <h2 class="text-white"><i> NOS OFFRES </i></h2>
         <section class="container-fluid">
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-4 card violet">
                     <div>
-                    <h4 class="h-black">Offre d'emploi : Agent de Piste (H/F) </h4>
-                    <p>
-                        Roissy
-                    </p>
-                    <p>
-                        Mise en ligne le : 15/07/2024
-                    </p>
-                    <p>
-                        Description du poste:
-                        Vous êtes passionné(e) par l'univers aéroportuaire et souhaitez contribuer à la bonne gestion des opérations au sol ? 
-                        Rejoignez notre équipe en tant qu'Agent de Piste (H/F).
-                        En tant qu'Agent de Piste, vous jouerez un rôle essentiel dans le bon déroulement des activités autour des avions, 
-                        garantissant sécurité, efficacité et ponctualité.
-                    </p>
+                        <h4 class="h-black">Offre d'emploi : Agent de Piste (H/F) </h4>
+                        <p>
+                            Roissy
+                        </p>
+                        <p>
+                            Mise en ligne le : 15/07/2024
+                        </p>
+                        <p>
+                            Description du poste:
+                            Vous êtes passionné(e) par l'univers aéroportuaire et souhaitez contribuer à la bonne gestion des opérations au sol ? 
+                            Rejoignez notre équipe en tant qu'Agent de Piste (H/F).
+                            En tant qu'Agent de Piste, vous jouerez un rôle essentiel dans le bon déroulement des activités autour des avions, 
+                            garantissant sécurité, efficacité et ponctualité.
+                        </p>
                     </div>
                 </div>
-
                 <div class="col-12 col-md-6 col-lg-4 card grayish-blue">   
                     <div>
-                    <h4 class="h-black">Offre d'emploi : Agent de Trafic (H/F)</h4>
-                    <p>
-                        Orly
-                    </p>
-                    <p>
-                        Mise en ligne le : 13/08/2024
-                    </p>
-                    <p>
-                        Description du poste:
-                        Vous êtes organisé(e), réactif(ve) et passionné(e) par le domaine de l'aviation ? 
-                        Rejoignez notre équipe dynamique en tant qu'Agent de Trafic (H/F) et participez activement à la coordination des opérations aériennes au sol.
-                        En tant qu'Agent de Trafic, vous jouerez un rôle crucial dans la gestion et l'organisation des vols. 
-                
-                    </p>
+                        <h4 class="h-black">Offre d'emploi : Agent de Trafic (H/F)</h4>
+                        <p>
+                            Orly
+                        </p>
+                        <p>
+                            Mise en ligne le : 13/08/2024
+                        </p>
+                        <p>
+                            Description du poste:
+                            Vous êtes organisé(e), réactif(ve) et passionné(e) par le domaine de l'aviation ? 
+                            Rejoignez notre équipe dynamique en tant qu'Agent de Trafic (H/F) et participez activement à la coordination des opérations aériennes au sol.
+                            En tant qu'Agent de Trafic, vous jouerez un rôle crucial dans la gestion et l'organisation des vols. 
+                        </p>
                     </div>
                 </div>
-
                 <div class="col-12 col-md-6 col-lg-4 card white ">
                     <div>
-                    <h4 class="h-black">Offre d'emploi : Bagagiste (H/F)</h4>
-                    <p>
-                        Orly
-                    </p>
-                    <p>
-                        Mise en ligne le : 23/09/2024
-                    </p>
-                    <p>
-                        Description du poste:
-                        Vous aimez travailler dans un environnement dynamique et contribuer à l'expérience des passagers dans l'univers aéroportuaire ? 
-                        Rejoignez notre équipe en tant que Bagagiste (H/F) 
-                        et participez activement aux opérations au sol en assurant la gestion des bagages avec efficacité et précision.
-                    </p>
+                        <h4 class="h-black">Offre d'emploi : Bagagiste (H/F)</h4>
+                        <p>
+                            Orly
+                        </p>
+                        <p>
+                            Mise en ligne le : 23/09/2024
+                        </p>
+                        <p>
+                            Description du poste:
+                            Vous aimez travailler dans un environnement dynamique et contribuer à l'expérience des passagers dans l'univers aéroportuaire ? 
+                            Rejoignez notre équipe en tant que Bagagiste (H/F) 
+                            et participez activement aux opérations au sol en assurant la gestion des bagages avec efficacité et précision.
+                        </p>
                     </div>
                 </div>
-
                 <div class="col-12 col-md-6 col-lg-6 card white">
                     <div>
-                    <h4 class="h-black">Offre d'emploi : Agent Cargo (H/F)</h4>
-                    <p>
-                        Roissy
-                    </p>
-                    <p>
-                        Mise en ligne le : 05/10/2024
-                    </p>
-                    <p>
-                        Description du poste:
-                        Vous êtes attiré(e) par le secteur aéroportuaire et souhaitez participer aux opérations de logistique et de fret aérien ? 
-                        Rejoignez notre équipe en tant qu'Agent Cargo (H/F) et contribuez à la gestion efficace et sécurisée des marchandises qui transitent par nos plateformes aéroportuaires.
-                        En tant qu’Agent Cargo, vous serez un maillon essentiel de la chaîne logistique, assurant le traitement, 
-                        le contrôle et l’expédition des marchandises tout en respectant les normes de sécurité et de qualité.
-                    </p>
+                        <h4 class="h-black">Offre d'emploi : Agent Cargo (H/F)</h4>
+                        <p>
+                            Roissy
+                        </p>
+                        <p>
+                            Mise en ligne le : 05/10/2024
+                        </p>
+                        <p>
+                            Description du poste:
+                            Vous êtes attiré(e) par le secteur aéroportuaire et souhaitez participer aux opérations de logistique et de fret aérien ? 
+                            Rejoignez notre équipe en tant qu'Agent Cargo (H/F) et contribuez à la gestion efficace et sécurisée des marchandises qui transitent par nos plateformes aéroportuaires.
+                            En tant qu’Agent Cargo, vous serez un maillon essentiel de la chaîne logistique, assurant le traitement, 
+                            le contrôle et l’expédition des marchandises tout en respectant les normes de sécurité et de qualité.
+                        </p>
                     </div>
                 </div>
-
                 <div class="col-12 col-md-12 col-lg-6 card blackish-blue">
                     <div>
-                    <h4 class="h-black">Offre d'emploi : Manutentionnaire (H/F)</h4>
-                    <p>
-                        Roissy
-                    </p>
-                    <p>
-                        Mise en ligne le : 15/11/2024
-                    </p>
-                    <p>
-                        Description du poste:
-                        Vous souhaitez contribuer au bon fonctionnement des opérations aéroportuaires et faire partie d’un environnement dynamique et stimulant ? 
-                        Rejoignez-nous en tant que Manutentionnaire Aéroportuaire (H/F). 
-                        Ce poste clé vous permettra de travailler dans les coulisses de l’aéroport pour garantir l’efficacité et la fluidité des opérations de manutention.
-                    </p>
+                        <h4 class="h-black">Offre d'emploi : Manutentionnaire (H/F)</h4>
+                        <p>
+                            Roissy
+                        </p>
+                        <p>
+                            Mise en ligne le : 15/11/2024
+                        </p>
+                        <p>
+                            Description du poste:
+                            Vous souhaitez contribuer au bon fonctionnement des opérations aéroportuaires et faire partie d’un environnement dynamique et stimulant ? 
+                            Rejoignez-nous en tant que Manutentionnaire Aéroportuaire (H/F). 
+                            Ce poste clé vous permettra de travailler dans les coulisses de l’aéroport pour garantir l’efficacité et la fluidité des opérations de manutention.
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
-
         <div>
             <h3 class="m-2 w-25 p-1 Bckg-button"><a href={{path('nosOffres')}}>Toutes Nos Offres<a/></h3>
         </div>
-
         <!-- Section : Chiffres Clés -->
-        <h2 class="m-5 text-white">CHIFFRES CLÉS</h2>
+        <h2 class="text-white"><i> CHIFFRES CLÉS </i></h2>
         <section class="container-fluid">
             <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4"> 
                 <div class="m-2 col Bckg-Carte red">
@@ -201,7 +190,6 @@
                 </div>
             </div>
         </section>
-
         <div class="container-fluid">
             <h3 class="m-2 w-25 p-1 Bckg-button"><a href={{path('nosChiffres')}}>Tous Nos Chiffres<a/></h3>
         </div>

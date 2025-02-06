@@ -1,7 +1,7 @@
 {% extends 'pages/base.html.twig' %}
 
 {% block title %}
-    mesOffres - employeur
+    MesOffres - employeur
 {% endblock %}
 
 {% block stylesheets %}
@@ -20,7 +20,8 @@
     {% endfor %}
 
     <main class="container">
-    <h2 class="text-white">Mes Offres</h2>
+        <h2 class="text-white">Mes Offres</h2>
+        <!-- Carte des offres publié -->
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4">
             {% for item in candidatures %}
                 <div class="col">
@@ -32,7 +33,6 @@
                                 <strong>Localisation : </strong> {{ item.offre.localisation }}<br>
                                 <strong>Date de publication : </strong> {{ item.offre.datePublication|date('d/m/Y') }}<br>
                             </p>
-
                             <strong>Candidats ayant postulé : </strong>
                             {% if item.candidats is not empty %}
                                 <ul>
@@ -40,18 +40,19 @@
                                         <li>
                                             <strong>{{ candidat.nom }} {{ candidat.prenom }}</strong><br>
                                             CV : 
-                                            <a href="{{ path('telecharger_cv', { 'candidatId': candidat.id }) }}" target="_blank">Télécharger</a>
+                                            <a href="{{ path('telecharger_cv', { 'candidatId': candidat.id }) }}" target="_blank">Télécharger</a><br>
+                                            Lettre de motivation : 
+                                            <a href="{{ path('telecharger_lettre_motivation', { 'candidatId': candidat.id }) }}" target="_blank">Télécharger</a>
                                         </li>
                                     {% endfor %}
                                 </ul>
                             {% else %}
                                 <p>Aucun candidat n'a postulé pour cette offre.</p>
                             {% endif %}
-
-                            <!-- Formulaire pour supprimer l'offre -->
-                            <form method="post" action="{{ path('supprimer_offre', { id: item.offre.id }) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette offre ?');">
+                            <!-- Action pour supprimer l'offre -->
+                            <form method="post" action="{{ path('supprimer_offre', { id: item.offre.id }) }}">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ item.offre.id) }}">
-                                <button class="btn btn-danger btn-sm">Supprimer</button>
+                                <button class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette offre ? Cette action est irréversible.');">Supprimer</button>
                             </form>
                             <hr>
                         </div>
@@ -60,5 +61,4 @@
             {% endfor %}
         </div>
     </main>
-
 {% endblock %}
