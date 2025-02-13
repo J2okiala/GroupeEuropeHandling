@@ -9,6 +9,7 @@ use App\Form\ModifierInformationCandidatTypeForm;
 use App\Repository\CandidatRepository;
 use App\Repository\OffreEmploiRepository;
 use App\Repository\UtilisateurRepository;
+use App\Service\CandidatService;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -168,67 +169,33 @@ class ProfilCandidatController extends AbstractController
     public function modifierMesInformations(
         Request $request,
         Candidat $candidat,
-        CandidatRepository $candidatRepository,
-        EntityManagerInterface $entityManager,
-        string $uploadDirectory = null // Assurez-vous de configurer ce paramètre
+        CandidatService $candidatService // Injection du service
     ): Response {
         // Récupérer l'utilisateur connecté
         $utilisateur = $this->getUser();
-    
-        // Récupérer le candidat lié à cet utilisateur
-        $candidat = $candidatRepository->findOneBy(['utilisateur' => $utilisateur]);
 
-        // Vérification : si aucun candidat n'est trouvé
-        if (!$candidat) {
-            $this->addFlash('error', 'Aucun candidat associé à cet utilisateur.');
+        // Vérification: si aucun candidat n'est trouvé
+        if ($candidat->getUtilisateur() !== $utilisateur) {
+            $this->addFlash('error', 'Accès refusé.');
             return $this->redirectToRoute('profilCandidat');
         }
-
-        // Vérification si le répertoire existe
-        if (!$uploadDirectory) {
-            $uploadDirectory = $this->getParameter('kernel.project_dir') . '/public/uploads'; // Défini par défaut
-        }
-        
-        // Créer le formulaire
+    
+        // Création du formulaire
         $form = $this->createForm(ModifierInformationCandidatTypeForm::class, $candidat);
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
-            // Traitement des fichiers (CV et lettre de motivation)
-            $cvFile = $form->get('cv')->getData();
-            $lettreMotivationFile = $form->get('lettreMotivation')->getData();
-    
-            if ($cvFile) {
-                // Gérer l'upload du fichier CV
-                $cvFilename = uniqid().'.'.$cvFile->guessExtension(); // Nom unique du fichier
-                try {
-                    $cvFile->move($uploadDirectory, $cvFilename); // Déplacer le fichier dans le répertoire de stockage
-                    $candidat->setCv($cvFilename); // Mettre à jour le champ 'cv' avec le nom du fichier
-                } catch (FileException $e) {
-                    $this->addFlash('error', 'Erreur lors de l\'upload du CV.');
-                }
+            try {
+                $candidatService->updateCandidat(
+                    $candidat,
+                    $form->get('cv')->getData(),
+                    $form->get('lettreMotivation')->getData()
+                );
+                $this->addFlash('success', 'Profil mis à jour avec succès.');
+            } catch (\Exception $e) {
+                $this->addFlash('error', $e->getMessage());
             }
     
-            if ($lettreMotivationFile) {
-                // Gérer l'upload de la lettre de motivation
-                $lettreMotivationFilename = uniqid().'.'.$lettreMotivationFile->guessExtension(); // Nom unique du fichier
-                try {
-                    $lettreMotivationFile->move($uploadDirectory, $lettreMotivationFilename); // Déplacer le fichier
-                    $candidat->setLettreMotivation($lettreMotivationFilename); // Mettre à jour le champ 'lettreMotivation' avec le nom du fichier
-                } catch (FileException $e) {
-                    $this->addFlash('error', 'Erreur lors de l\'upload de la lettre de motivation.');
-                }
-            }
-    
-            // Synchroniser les changements sur l'utilisateur
-            $utilisateur = $candidat->getUtilisateur(); // Récupérer l'utilisateur lié
-            $utilisateur->setNom($candidat->getNom());
-            $utilisateur->setPrenom($candidat->getPrenom());
-    
-            // Sauvegarder les modifications
-            $entityManager->flush(); // Persister les changements
-    
-            $this->addFlash('success', 'Informations mises à jour avec succès !');
             return $this->redirectToRoute('profilCandidat');
         }
     
@@ -239,6 +206,7 @@ class ProfilCandidatController extends AbstractController
             'formRecherche' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
         ]);
     }
+    
 
     #[Route('/mesCandidatures', name: 'mesCandidatures')]
     #[IsGranted('ROLE_CANDIDAT')]

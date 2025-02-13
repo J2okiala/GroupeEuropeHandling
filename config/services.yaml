@@ -1,8 +1,10 @@
 parameters:
     env(MONGODB_URL): '' # URL de connexion à MongoDB
     env(MONGODB_DB): ''  # Nom de la base MongoDB
-    uploads_directory: '%kernel.project_dir%/public/uploads/cvs' # Répertoire des uploads Pour MongoDB
+    uploads_directory: '%kernel.project_dir%/public/uploads/cvs' # Répertoire des uploads pour MongoDB
     cv_directory: '%kernel.project_dir%/public/uploads'  # Point vers uploads pour base relationnelle
+    upload_directory: '%kernel.project_dir%/public/uploads' # Paramètre pour CandidatService
+
 services:
     # Configuration par défaut pour les services
     _defaults:
@@ -10,6 +12,7 @@ services:
         autoconfigure: true # Enregistrement automatique comme commandes, listeners, etc.
         bind:
             $uploadsDirectory: '%uploads_directory%' # Injection par défaut pour le paramètre $uploadsDirectory
+            $uploadDirectory: '%upload_directory%' # Injection du paramètre $uploadDirectory pour CandidatService
 
     # Déclaration explicite du service CandidatureSpontaneeRepository
     App\Repository\CandidatureSpontaneeRepository:
@@ -17,6 +20,11 @@ services:
             $dm: '@doctrine_mongodb.odm.document_manager'  # Injecte le DocumentManager
             $uow: '@=service("doctrine_mongodb.odm.document_manager").getUnitOfWork()' # Injecte le UnitOfWork
             $class: '@=service("doctrine_mongodb.odm.document_manager").getClassMetadata("App\Document\CandidatureSpontanee")' # Injecte les métadonnées de la classe
+
+    # Enregistrement du service CandidatService avec injection de l'uploadDirectory
+    App\Service\CandidatService:
+        arguments:
+            $uploadDirectory: '%upload_directory%'
 
     # Enregistrement automatique des services dans le dossier src/
     App\:

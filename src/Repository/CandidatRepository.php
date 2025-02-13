@@ -21,6 +21,12 @@ class CandidatRepository extends ServiceEntityRepository
         parent::__construct($registry, Candidat::class);
     }
 
+    /**
+     * @param Candidat $entity
+     * @param bool $flush
+     * 
+     * @return void
+     */
     public function save(Candidat $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -30,6 +36,12 @@ class CandidatRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @param Candidat $entity
+     * @param bool $flush
+     * 
+     * @return void
+     */
     public function remove(Candidat $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
@@ -40,6 +52,11 @@ class CandidatRepository extends ServiceEntityRepository
     }
 
     // Exemple de méthode personnalisée : trouver les candidats disponibles après une date
+    /**
+     * @param \DateTimeInterface $date
+     * 
+     * @return array
+     */
     public function findAvailableAfter(\DateTimeInterface $date): array
     {
         return $this->createQueryBuilder('c')
@@ -49,6 +66,11 @@ class CandidatRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @param int $userId
+     * 
+     * @return array
+     */
     public function findOffresPostuleesByUser(int $userId): array
     {
         return $this->createQueryBuilder('c')
@@ -59,6 +81,6 @@ class CandidatRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult(); // Retourne une liste des IDs d'offres
     }
-    
+
 
 }
