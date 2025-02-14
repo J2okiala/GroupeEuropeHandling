@@ -17,6 +17,12 @@ class CandidatureSpontaneeRepository extends DocumentRepository
         );
     }
 
+    /**
+     * filtre les candidatures spontanee par le poste
+     * @param string $poste
+     * 
+     * @return [type]
+     */
     public function findByPoste(string $poste)
     {
         return $this->createQueryBuilder()

@@ -14,7 +14,7 @@ class AdminRepository extends ServiceEntityRepository
     }
 
     /**
-     * Ajouter un nouvel employeur dans la base de données.
+     * Ajouter un nouvel admin dans la base de données.
      *
      * @param Admin $admin
      */

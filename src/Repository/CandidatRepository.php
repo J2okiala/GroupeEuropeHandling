@@ -6,14 +6,7 @@ use App\Entity\Candidat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<Candidat>
- *
- * @method Candidat|null find($id, $lockMode = null, $lockVersion = null)
- * @method Candidat|null findOneBy(array $criteria, array $orderBy = null)
- * @method Candidat[]    findAll()
- * @method Candidat[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
+
 class CandidatRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -22,6 +15,7 @@ class CandidatRepository extends ServiceEntityRepository
     }
 
     /**
+     * Ajouter un nouvel candidat dans la base de données.
      * @param Candidat $entity
      * @param bool $flush
      * 
@@ -37,6 +31,7 @@ class CandidatRepository extends ServiceEntityRepository
     }
 
     /**
+     * Supprimer un candidat de la base de données.
      * @param Candidat $entity
      * @param bool $flush
      * 
@@ -51,8 +46,8 @@ class CandidatRepository extends ServiceEntityRepository
         }
     }
 
-    // Exemple de méthode personnalisée : trouver les candidats disponibles après une date
     /**
+     * Exemple de méthode personnalisée : trouver les candidats disponibles après une date
      * @param \DateTimeInterface $date
      * 
      * @return array
@@ -67,6 +62,7 @@ class CandidatRepository extends ServiceEntityRepository
     }
 
     /**
+     * Trouve l'offre par l'utilisateur qui a postuler
      * @param int $userId
      * 
      * @return array
