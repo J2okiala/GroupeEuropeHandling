@@ -70,12 +70,12 @@ class CandidatRepository extends ServiceEntityRepository
     public function findOffresPostuleesByUser(int $userId): array
     {
         return $this->createQueryBuilder('c')
-            ->select('o.id') // Sélectionne l'ID des offres
-            ->join('c.offresEmploi', 'o') // Effectue la jointure avec les offres d'emploi
-            ->where('c.utilisateur = :userId') // Filtre par utilisateur
+            ->innerJoin('c.offresEmploi', 'o')
+            ->where('c.utilisateur = :userId')
             ->setParameter('userId', $userId)
+            ->select('o.id, o.poste, o.typeContrat, o.localisation, o.datePublication')
             ->getQuery()
-            ->getResult(); // Retourne une liste des IDs d'offres
+            ->getResult();
     }
 
 

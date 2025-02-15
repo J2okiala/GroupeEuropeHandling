@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Functionnal;
+namespace App\tests\Functionnal;
 
 use App\Repository\UtilisateurRepository;
 use App\Repository\OffreEmploiRepository;

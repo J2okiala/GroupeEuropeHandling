@@ -206,7 +206,7 @@ class ProfilCandidatController extends AbstractController
             'formRecherche' => null, // Passer null si tu ne veux pas que formRecherche soit utilisé
         ]);
     }
-    
+
 
     #[Route('/mesCandidatures', name: 'mesCandidatures')]
     #[IsGranted('ROLE_CANDIDAT')]
@@ -214,18 +214,15 @@ class ProfilCandidatController extends AbstractController
     {
         // Récupérer l'utilisateur connecté
         $utilisateur = $this->getUser();
-
-        // Récupérer le candidat associé à l'utilisateur
-        $candidat = $candidatRepository->findOneBy(['utilisateur' => $utilisateur]);
-
-        if (!$candidat) {
-            $this->addFlash('error', 'Candidat introuvable.');
+    
+        // Récupérer les offres postulées via le repository
+        $offresPostulees = $candidatRepository->findOffresPostuleesByUser($utilisateur->getId());
+    
+        if (empty($offresPostulees)) {
+            $this->addFlash('error', 'Aucune candidature trouvée.');
             return $this->redirectToRoute('connexion');
         }
-
-        // Récupérer toutes les offres auxquelles le candidat a postulé
-        $offresPostulees = $candidat->getOffresEmploi();
-
+    
         return $this->render('pages/utilisateur/candidat/mes-candidatures.html.twig', [
             'candidatNavbar' => true,
             'withFiltrer' => false, // Pas de filtrage sur cette page
@@ -233,6 +230,7 @@ class ProfilCandidatController extends AbstractController
             'offresPostulees' => $offresPostulees,
         ]);
     }
+
 
     #[Route('/mesIdentifiantsDeConnexion', name: 'mesIdentifiantsDeConnexion', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_CANDIDAT')]
