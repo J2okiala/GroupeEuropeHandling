@@ -45,6 +45,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'utilisateur', targetEntity: Employeur::class, cascade: ['persist', 'remove'])]
     private ?Employeur $employeur = null;
 
+    #[ORM\OneToOne(mappedBy: 'utilisateur', targetEntity: Admin::class, cascade: ['persist', 'remove'])]
+    private ?Admin $admin = null;
+
     //Getters et Setters
     public function getId(): ?int
     {
@@ -177,6 +180,17 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
         $this->employeur = $employeur;
 
+        return $this;
+    }
+
+    public function getAdmin(): ?Admin
+    {
+        return $this->admin;
+    }
+
+    public function setAdmin(?Admin $admin): self
+    {
+        $this->admin = $admin;
         return $this;
     }
 
