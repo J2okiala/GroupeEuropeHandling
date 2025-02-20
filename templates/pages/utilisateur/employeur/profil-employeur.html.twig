@@ -6,6 +6,36 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="styles/offres.css">
+    <style>
+        /* Style pour l'image en fond */
+        .container-form-page {
+            height: 110vh; /* Hauteur complète de la fenêtre */
+            background-image: url('/img/Trafic.webp'); /* Image de fond */
+            background-size: cover; /* L'image couvre tout l'espace */
+            background-position: center; /* Centre l'image */
+            background-repeat: no-repeat; /* Pas de répétition */
+            display: flex; /* Utilisation de flexbox */
+            align-items: center; /* Centre verticalement */
+            justify-content: center; /* Centre horizontalement */
+        }
+
+        /* Style pour le formulaire */
+        .form-container {
+            background: linear-gradient(88.96deg, #051039 33.47%, #003165 99.14%); /* Fond semi-transparent */
+            padding: 30px; /* Espacement intérieur */
+            border-radius: 8px; /* Coins arrondis */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 1); /* Ombre légère */
+            width: 100%; /* Largeur relative */
+            max-width: 600px; /* Largeur maximale pour le formulaire */
+            opacity: 1;
+        }
+
+        /* Espacement des champs */
+        .form-container .form-control,
+        .form-container .btn {
+            margin-bottom: 15px; /* Espacement entre les champs */
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
@@ -24,28 +54,28 @@
         <!-- Cartes -->
         <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3 d-flex">
             <div class="col m-4"><a href="{{ path('maFicheE') }}">
-                <h3>Ma Fiche Employeur</h3>
-                <img src="img/ma-fiche.png" alt="MaFiche" width="70"></a>
+                <h4>Ma Fiche Employeur</h4>
+                <img src="img/ma-fiche.png" alt="MaFiche" class="img-fluid"></a>
             </div>
             <div class="col m-4 ms-auto"><a href="{{ path('modifierMesInformationsE', {'id': app.user.employeur.id}) }}">
-                <h3>Modifier Mes Informations</h3>
-                <img src="img/modifier-mes-infos.png" alt="ModifierMesInformations" width="70"></a>
+                <h4>Modifier Mes Informations</h4>
+                <img src="img/modifier-mes-infos.png" alt="ModifierMesInformations" class="img-fluid"></a>
             </div>
             <div class="col m-4"><a href="{{ path('mesOffresE') }}">
-                <h3>Visualiser Mes Offres</h3>
-                <img src="img/Mes-Candidatures.png" alt="MesOffres" width="70"></a>
+                <h4>Visualiser Mes Offres</h4>
+                <img src="img/Mes-Candidatures.png" alt="MesOffres" class="img-fluid"></a>
             </div>
             <div class="col m-4 ms-auto"><a href="{{ path('filtrer_candidatures') }}">
-                <h3>Candidatures Spontanés</h3>
-                <img src="img/alerte.png" alt="MesAlertes" width="70"></a>
+                <h4>Candidatures Spontanés</h4>
+                <img src="img/alerte.png" alt="MesAlertes" class="img-fluid"></a>
             </div>
             <div class="col m-4"><a href="{{ path('mesIdentifiantsDeConnexionE') }}">
-                <h3>Modifier Mes Identifiants</h3>
-                <img src="img/Modifier-Mes-Piece-Jointes.png" alt="ModifierMesIdentifiants" width="70"></a>
+                <h4>Modifier Mes Identifiants</h4>
+                <img src="img/Modifier-Mes-Piece-Jointes.png" alt="ModifierMesIdentifiants" class="img-fluid"></a>
             </div>
             <div class="col m-4 ms-auto"><a href="{{ path('supprimer-compteE') }}">
-                <h3>Supprimer Mon Compte</h3>
-                <img src="img/desactivez-mon-compte.png" alt="SupprimerMonCompte" width="70"></a>
+                <h4>Supprimer Mon Compte</h4>
+                <img src="img/desactivez-mon-compte.png" alt="SupprimerMonCompte" class="img-fluid"></a>
             </div>
         </section>
     </main>

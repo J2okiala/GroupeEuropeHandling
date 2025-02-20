@@ -16,7 +16,7 @@
                         {% else %}
                             <a class="btn btn-link" href="{{ path('inscription') }}">Inscription</a>
                             <a class="btn btn-link" href="{{ path('connexion') }}">Connexion</a>
-                            <a class="btn btn-link candidature-link" href="{{ path('candidatureSpontanee') }}" class="candidature-link">Candidature Spontanée</a>
+                            <a class="btn btn-link candidature-link" href="{{ path('candidatureSpontanee') }}">Candidature Spontanée</a>
                         {% endif %}
                     </li>
                 </ul>
@@ -27,19 +27,7 @@
                         {% endif %}
                     {% endif %} 
             <!-- image container  -->
-            <style>
-            .imagebackground {
-                height: 110vh; /* Hauteur complète de la fenêtre */
-                background-image: url('/img/IMG_5589.jpg'); /* Image de fond pour le formulaire*/
-                background-size: cover; /* L'image couvre tout l'espace */
-                background-position: center; /* Centre l'image */
-                background-repeat: no-repeat; /* Pas de répétition */
-                display: flex; /* Utilisation de flexbox */
-                align-items: center; /* Centre verticalement */
-                justify-content: center; /* Centre horizontalement */
-            }
-            </style>
-            <div class="imagebackground">
+            <div class="imagebackgroundOffres">
             </div>
         {% elseif employeurNavbar|default(false) %}
             <!-- Navbar spécifique a la page Employeur -->
@@ -63,21 +51,8 @@
                             {% include "components/poster-offre.html.twig" with {'formPoster': formPoster} %}
                         {% endif %}
                     {% endif %}
-            <style>
-            /* image container */
-            /* css interne */
-            .imagebackground {
-                height: 110vh; /* Hauteur complète de la fenêtre */
-                background-image: url('/img/imgresolus.jpg'); /* Image de fond */
-                background-size: cover; /* L'image couvre tout l'espace */
-                background-position: center; /* Centre l'image */
-                background-repeat: no-repeat; /* Pas de répétition */
-                display: flex; /* Utilisation de flexbox */
-                align-items: center; /* Centre verticalement */
-                justify-content: center; /* Centre horizontalement */
-            }
-            </style>
-            <div class="imagebackground">
+            {# image container #}
+            <div class="imagebackgroundEmployeur">
             </div>
         {% elseif candidatNavbar|default(false) %}
             <!-- Navbar spécifique a la page Candidat -->
@@ -100,19 +75,7 @@
                 {% include "components/filtrer-offre.html.twig" with {'formRecherche': formRecherche} %}
             {% else %}
                 <!-- image container -->
-                <style>
-                .imagebackground {
-                    height: 110vh; /* Hauteur complète de la fenêtre */
-                    background-image: url('/img/IMG_5589.jpg'); /* Image de fond */
-                    background-size: cover; /* L'image couvre tout l'espace */
-                    background-position: center; /* Centre l'image */
-                    background-repeat: no-repeat; /* Pas de répétition */
-                    display: flex; /* Utilisation de flexbox */
-                    align-items: center; /* Centre verticalement */
-                    justify-content: center; /* Centre horizontalement */
-                }
-                </style>
-                <div class="imagebackground">
+                <div class="imagebackgroundCandidat">
                 </div>
             {% endif %}
         {% else %}

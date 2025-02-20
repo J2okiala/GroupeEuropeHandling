@@ -6,6 +6,18 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="styles/offres.css">
+    <style>
+        .imagebackgroundEmployeur {
+            height: 110vh; /* Hauteur complète de la fenêtre */
+            background-image: url('/img/IMG_5589.jpg'); /* Image de fond */
+            background-size: cover; /* L'image couvre tout l'espace */
+            background-position: center; /* Centre l'image */
+            background-repeat: no-repeat; /* Pas de répétition */
+            display: flex; /* Utilisation de flexbox */
+            align-items: center; /* Centre verticalement */
+            justify-content: center; /* Centre horizontalement */
+        }
+    </style>
 {% endblock %}
 
 {% block body %}

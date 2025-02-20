@@ -6,6 +6,18 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="styles/offres.css">
+    <style>
+        .imagebackgroundOffres {
+            height: 110vh; /* Hauteur complète de la fenêtre */
+            background-image: url('/img/IMG_5589.jpg'); /* Image de fond pour le formulaire*/
+            background-size: cover; /* L'image couvre tout l'espace */
+            background-position: center; /* Centre l'image */
+            background-repeat: no-repeat; /* Pas de répétition */
+            display: flex; /* Utilisation de flexbox */
+            align-items: center; /* Centre verticalement */
+            justify-content: center; /* Centre horizontalement */
+        }       
+    </style>
 {% endblock %}
 
 {% block body %}
@@ -23,7 +35,7 @@
         <div class="card shadow">
             <div class="card-body">
                 <h2 class="text-dark font-weight-semibold mb-4 text-center">Candidature Spontanée</h2>
-                {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}           
+                {{ form_start(form) }}          
                     <div class="mb-5">
                         {{ form_label(form.cv, 'Votre CV (PDF)', {'label_attr': {'class': 'form-label'}}) }}
                         {{ form_widget(form.cv, {'attr': {'class': 'form-control'}}) }}
