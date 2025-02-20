@@ -9,20 +9,16 @@
                             <img class="shadow-blue pe-none" src="/img/LogoEuropeHandling.png" alt="Logo Europe Handling">
                         </a>
                     </li>
-                    <div class="right-links">
+                    <li class="right-links">
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <li>
-                                <p>ESPACE COMPTE | </p>
-                            </li>
-                            <li>
-                                <a href="{{ path('deconnexion') }}" class="candidature-link">Déconnexion</a>
-                            </li>
+                            <p>ESPACE COMPTE | </p>
+                            <a href="{{ path('deconnexion') }}" class="candidature-link">Déconnexion</a>
                         {% else %}
-                            <li><a href="{{ path('inscription') }}">Inscription</a></li>
-                            <li><a href="{{ path('connexion') }}">Connexion</a></li>
-                            <li><a href="{{ path('candidatureSpontanee') }}" class="candidature-link">Candidature Spontanée</a></li>
+                            <a class="btn btn-link" href="{{ path('inscription') }}">Inscription</a>
+                            <a class="btn btn-link" href="{{ path('connexion') }}">Connexion</a>
+                            <a class="btn btn-link candidature-link" href="{{ path('candidatureSpontanee') }}" class="candidature-link">Candidature Spontanée</a>
                         {% endif %}
-                    </div>
+                    </li>
                 </ul>
             </nav>
         {% if withFiltrer|default(true) %}
@@ -54,16 +50,12 @@
                             <img class="shadow-blue pe-none" src="/img/LogoEuropeHandling.png" alt="Logo Europe Handling">
                         </a>
                     </li>
-                    <div class="right-links">
+                    <li class="right-links">
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <li>
-                                <p>ESPACE COMPTE | </p>
-                            </li>
-                            <li>
-                                <a href="{{ path('deconnexion') }}" class="candidature-link" onclick='alert("vous êtes deconnecté")'>Déconnexion</a>
-                            </li>
+                            <p>ESPACE COMPTE | </p>
+                            <a href="{{ path('deconnexion') }}" class="candidature-link ms-3" onclick='alert("vous êtes deconnecté")'>Déconnexion</a>
                         {% endif %}
-                    </div>
+                    </li>
                 </ul>
             </nav>
             {% if withFiltrer|default(true) %}
@@ -96,20 +88,12 @@
                             <img class="shadow-blue pe-none" src="/img/LogoEuropeHandling.png" alt="Logo Europe Handling">
                         </a>
                     </li>
-                    <div class="right-links">
+                    <li class="right-links">
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <li>
-                                <p>ESPACE COMPTE | </p>
-                            </li>
-                            <li>
-                                <a href="{{ path('deconnexion') }}" class="candidature-link" onclick='alert("vous êtes deconnecté")'>Déconnexion</a>
-                            </li>
-                        {% else %}
-                            <li><a href="{{ path('inscription') }}">Inscription</a></li>
-                            <li><a href="{{ path('connexion') }}">Connexion</a></li>
-                            <li><a href="{{ path('candidatureSpontanee') }}" class="candidature-link">Candidature Spontanée</a></li>
+                            <p>ESPACE COMPTE | </p>
+                            <a href="{{ path('deconnexion') }}" class="candidature-link ms-3" onclick='alert("vous êtes deconnecté")'>Déconnexion</a>                            
                         {% endif %}
-                    </div>
+                    </li>
                 </ul>
             </nav>
         {% if withFiltrer|default(true) and formRecherche is not null %}

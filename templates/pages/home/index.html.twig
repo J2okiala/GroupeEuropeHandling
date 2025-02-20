@@ -25,7 +25,7 @@
             <!-- Section 1 : Nos Services -->
             <section class="row row-cols-1 row-cols-md-2 row-cols-lg-2 ">
                 <div class="col Bckg-Carte">
-                    <img src="img/photo4aero.jpg" alt="Service Piste" width="100%">
+                    <img src="img/photo4aero.jpg" alt="Service Piste" width="100">
                     <div class="carte-texte">
                         <h4>Piste</h4>
                         <p>
@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="col Bckg-Carte">
-                    <img src="img/Photo-GEH-Passager.webp" alt="Services Passagers" width="100%">
+                    <img src="img/Photo-GEH-Passager.webp" alt="Services Passagers" width="100">
                     <div class="carte-texte">
                         <h4>Services aux passagers</h4>
                         <p>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="col Bckg-Carte">
-                    <img src="img/Photo-GEH-Cargo.webp" alt="Service Cargo" width="100%">
+                    <img src="img/Photo-GEH-Cargo.webp" alt="Service Cargo" width="100">
                     <div class="carte-texte">
                         <h4>Cargo, Fret et Poste</h4>
                         <p>
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="col Bckg-Carte">
-                    <img src="img/Photo-GEH-Maintenance.webp" alt="Service Maintenance" width="100%">
+                    <img src="img/Photo-GEH-Maintenance.webp" alt="Service Maintenance" width="100">
                     <div class="carte-texte">
                         <h4>Maintenance</h4>
                         <p>
@@ -64,8 +64,8 @@
                 </div>
             </section>
         </div>
-        <div>
-            <h3 class="m-2 w-25 p-1 Bckg-button"><a href={{path('nosServices')}}>Tous Nos Services<a/></h3>
+        <div class="m-2 w-25 p-1 Bckg-button">
+            <h3><a href="{{ path('nosServices') }}">Tous Nos Services</a></h3>
         </div>
         <!-- Section : nosOffres -->
         <h2 class="text-white"><i> NOS OFFRES </i></h2>
@@ -160,8 +160,8 @@
                 </div>
             </div>
         </section>
-        <div>
-            <h3 class="m-2 w-25 p-1 Bckg-button"><a href={{path('nosOffres')}}>Toutes Nos Offres<a/></h3>
+        <div class="m-2 w-25 p-1 Bckg-button">
+            <h3><a href="{{ path('nosOffres') }}">Toutes Nos Offres</a></h3>
         </div>
         <!-- Section : Chiffres Clés -->
         <h2 class="text-white"><i> CHIFFRES CLÉS </i></h2>
@@ -190,8 +190,8 @@
                 </div>
             </div>
         </section>
-        <div class="container-fluid">
-            <h3 class="m-2 w-25 p-1 Bckg-button"><a href={{path('nosChiffres')}}>Tous Nos Chiffres<a/></h3>
+        <div class="container-fluid m-2 w-25 p-1 Bckg-button">
+            <h3><a href={{path('nosChiffres')}}>Tous Nos Chiffres</a></h3>
         </div>
     </main>
 {% endblock %}
