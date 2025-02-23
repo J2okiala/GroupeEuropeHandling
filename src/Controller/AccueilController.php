@@ -51,7 +51,6 @@ class AccueilController extends AbstractController
             'nombreOffres' => $nombreOffres,
             'currentPage' => $page,
             'totalPages' => ceil($offres->getTotalItemCount() / $limit), // Nombre total de pages
-            'pageClass' => 'nos-offres',
         ]);
     }
 

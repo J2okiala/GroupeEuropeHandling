@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Document\CandidatureSpontanee;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Repository\DocumentRepository;
 use Doctrine\Persistence\Mapping\ClassMetadata;
@@ -16,6 +17,19 @@ class CandidatureSpontaneeRepository extends DocumentRepository
             $dm->getClassMetadata('App\Document\CandidatureSpontanee')
         );
     }
+
+    /**
+     * Ajoutez une candidatureSpontanee
+     * @param CandidatureSpontanee $candidature
+     * 
+     * @return void
+     */
+    public function save(CandidatureSpontanee $candidature): void
+    {
+        $this->dm->persist($candidature);
+        $this->dm->flush();
+    }
+
 
     /**
      * filtre les candidatures spontanee par le poste
