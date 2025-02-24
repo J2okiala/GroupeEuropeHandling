@@ -27,30 +27,28 @@ body {
     padding: 0;
     display: flex;
     width: 100%;
-
 }
 
 .secondary-navbar ul li {
     display: inline;
-    margin-right: 15px;
+}
+
+/* Applique l'espacement entre tous les liens dans la .right-links */
+.secondary-navbar ul .right-links a {
+    margin-right: 20px; /* Espacement entre les liens */
+}
+
+/* Supprimer l'espacement sur le dernier lien (Candidature Spontanée) */
+.secondary-navbar ul .right-links a:last-child {
+    margin-right: 0;
 }
 
 .secondary-navbar ul li a {
-text-decoration: none;
-color: white;
+    text-decoration: none;
+    color: white;
 }
 
-.secondary-navbar ul li a:hover {
-text-decoration: underline;
-}
-
-.secondary-navbar ul .right-links {
-    margin-left: auto; /* Pousse les liens vers la droite */
-    display: flex; /* Active le comportement en ligne pour les éléments enfants */
-    align-items: center;
-}
-
-/* Style spécifique pour le lien "candidature spontané et deconnexion" */
+/* Style spécifique pour le lien "candidature spontanée" et "déconnexion" */
 .secondary-navbar ul li a.candidature-link {
     background-color: red;
     color: white; /* Pour s'assurer que le texte est lisible */

@@ -54,7 +54,7 @@ class UtilisateurTest extends TestCase
         $this->assertContains("ROLE_CANDIDAT", $utilisateur->getRoles());
 
         // Génération d'un rôle aléatoire parmi les rôles possibles
-        $roles = ["ROLE_ADMIN", "ROLE_USER", "ROLE_MANAGER"];
+        $roles = ["ROLE_ADMIN", "ROLE_USER", "ROLE_EMPLOYEUR"];
         $randomRole = $this->faker->randomElement($roles);
 
         // Ajouter un rôle et vérifier

@@ -6,6 +6,33 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="styles/offres.css">
+    <style>
+        /* Style pour l'image en fond */
+        .container-form-page {
+            height: 110vh; /* Hauteur complète de la fenêtre */
+            background-image: url('/img/Trafic.webp'); /* Image de fond */
+            background-size: cover; /* L'image couvre tout l'espace */
+            background-position: center; /* Centre l'image */
+            background-repeat: no-repeat; /* Pas de répétition */
+            display: flex; /* Utilisation de flexbox */
+            align-items: center; /* Centre verticalement */
+            justify-content: center; /* Centre horizontalement */
+        }
+        /* Style pour le formulaire */
+        .form-container {
+            padding: 30px; /* Espacement intérieur */
+            border-radius: 8px; /* Coins arrondis */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 1); /* Ombre légère */
+            width: 100%; /* Largeur relative */
+            max-width: 600px; /* Largeur maximale pour le formulaire */
+            opacity: 1;
+        }
+        /* Espacement des champs */
+        .form-container .form-control,
+        .form-container .btn {
+            margin-bottom: 15px; /* Espacement entre les champs */
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
@@ -84,32 +111,32 @@
         <section class="row row-cols-1 row-cols-md-2 row-cols-lg-3 d-flex mt-5">
             <div class="col m-4">
                 <a href="{{ path('maFiche') }}">
-                    <h3>Ma Fiche Candidat</h3>
-                    <img src="img/Capture d’écran ma fiche.png" alt="Ma fiche" width="70%">
+                    <h4>Ma Fiche Candidat</h4>
+                    <img src="img/ma-fiche.png" alt="MaFiche" class="img-fluid">
                 </a>
             </div>
             <div class="col m-4 ms-auto">
                 <a href="{{ path('modifierMesInformations', {'id': app.user.candidat.id}) }}">
-                    <h3>Modifier Mes Informations</h3>
-                    <img src="img/Capture d’écran modifier mes infos.png" alt="Modifier Mes Informations" width="70%">
+                    <h4>Modifier Mes Informations</h4>
+                    <img src="img/modifier-mes-infos.png" alt="ModifierMesInformations" class="img-fluid">
                 </a>
             </div>
             <div class="col m-4">
                 <a href="{{ path('mesCandidatures') }}">
-                    <h3>Visualiser Mes candidatures</h3>
-                    <img src="img/Capture d’écran Mes Candidatures.png" alt="Mes Candidatures" width="70%">
+                    <h4>Visualiser Mes candidatures</h4>
+                    <img src="img/Mes-Candidatures.png" alt="MesCandidatures" class="img-fluid">
                 </a>
             </div>
             <div class="col m-4 ms-auto">
                 <a href="{{ path('mesIdentifiantsDeConnexion') }}">
-                    <h3>Modifier Mes Identifiants</h3>
-                    <img src="img/Capture d’écran modifier mes infos.png" alt="Modifier Mes Identifiants" width="70%">
+                    <h4>Modifier Mes Identifiants</h4>
+                    <img src="img/modifier-mes-infos.png" alt="ModifierMesIdentifiants" class="img-fluid">
                 </a>
             </div>
             <div class="col m-4">
                 <a href="{{ path('supprimer_compte') }}">
-                    <h3>Supprimer Mon Compte</h3>
-                    <img src="img/Capture d’écran desactivez mon compte.png" alt="Désactiver Mon Compte" width="70%">
+                    <h4>Supprimer Mon Compte</h4>
+                    <img src="img/desactivez-mon-compte.png" alt="DésactiverMonCompte" class="img-fluid">
                 </a>
             </div>
         </section>
