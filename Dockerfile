@@ -12,7 +12,7 @@ curl
 RUN docker-php-ext-install pdo pdo_mysql zip
 
 # Installer MongoDB extension
-RUN pecl install mongodb \
+RUN pecl install mongodb-1.20.0 \
 && docker-php-ext-enable mongodb
 
 # Activer mod_rewrite
