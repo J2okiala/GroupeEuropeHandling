@@ -1,4 +1,4 @@
-FROM php:8.3-apache
+FROM php:8.3-apache-bookworm
 
 # Installer dépendances système
 RUN apt-get update && apt-get install -y \
@@ -19,7 +19,10 @@ RUN pecl install mongodb-1.20.0 \
 RUN a2enmod rewrite
 
 # Fix erreur MPM Apache
-RUN a2dismod mpm_event && a2enmod mpm_prefork
+# Fix MPM Apache proprement
+RUN a2dismod mpm_event || true
+RUN a2dismod mpm_worker || true
+RUN a2enmod mpm_prefork
 
 # Copier le projet
 COPY . /var/www/html
