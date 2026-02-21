@@ -26,7 +26,7 @@ WORKDIR /var/www/html
 # Installer Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-RUN composer install --optimize-autoloader --no-interaction
+RUN composer install --optimize-autoloader --no-interaction --no-scripts
 
 # Config Apache vers public/
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
