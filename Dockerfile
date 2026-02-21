@@ -1,41 +1,34 @@
-FROM php:8.3-apache-bookworm
+FROM php:8.3-fpm
 
 # Installer dépendances système
 RUN apt-get update && apt-get install -y \
-git \
-unzip \
-libzip-dev \
-zip \
-curl
+    git \
+    unzip \
+    libzip-dev \
+    zip \
+    curl \
+    nginx
 
 # Installer extensions PHP
 RUN docker-php-ext-install pdo pdo_mysql zip
 
-# Installer MongoDB extension
+# Installer MongoDB extension version compatible
 RUN pecl install mongodb-1.20.0 \
-&& docker-php-ext-enable mongodb
+    && docker-php-ext-enable mongodb
 
-# Activer mod_rewrite
-RUN a2enmod rewrite
-
-# Fix erreur MPM Apache
-# Fix MPM Apache proprement
-RUN a2dismod mpm_event || true
-RUN a2dismod mpm_worker || true
-RUN a2enmod mpm_prefork
-
-# Copier le projet
-COPY . /var/www/html
-
-WORKDIR /var/www/html
-
-# Installer Composer
+# Copier composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-RUN composer install --optimize-autoloader --no-interaction --no-scripts
+# Copier projet
+WORKDIR /var/www/html
+COPY . .
 
-# Config Apache vers public/
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+# Installer dépendances sans scripts
+RUN composer install --no-interaction --optimize-autoloader --no-scripts
 
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
-&& sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+# Config Nginx
+COPY nginx.conf /etc/nginx/sites-available/default
+
+EXPOSE 80
+
+CMD service nginx start && php-fpm
