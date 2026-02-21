@@ -18,6 +18,9 @@ RUN pecl install mongodb-1.20.0 \
 # Activer mod_rewrite
 RUN a2enmod rewrite
 
+# Fix erreur MPM Apache
+RUN a2dismod mpm_event && a2enmod mpm_prefork
+
 # Copier le projet
 COPY . /var/www/html
 
