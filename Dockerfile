@@ -16,7 +16,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN composer install --no-interaction --optimize-autoloader --no-dev
+RUN composer install --no-interaction --optimize-autoloader --no-dev --no-scripts
 
 ENV APP_ENV=prod
 ENV APP_DEBUG=0
