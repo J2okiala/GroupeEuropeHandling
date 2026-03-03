@@ -1,34 +1,26 @@
-FROM php:8.3-fpm
+FROM php:8.2-cli
 
-# Installer dépendances système
+# Installer extensions nécessaires
 RUN apt-get update && apt-get install -y \
-    git \
-    unzip \
-    libzip-dev \
-    zip \
-    curl \
-    nginx
+    git unzip libzip-dev libpng-dev libonig-dev \
+    && docker-php-ext-install pdo pdo_mysql zip
 
-# Installer extensions PHP
-RUN docker-php-ext-install pdo pdo_mysql zip
-
-# Installer MongoDB extension version compatible
-RUN pecl install mongodb-1.20.0 \
+# Installer MongoDB extension compatible
+RUN pecl install mongodb-1.20.1 \
     && docker-php-ext-enable mongodb
 
-# Copier composer
+# Installer Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copier projet
-WORKDIR /var/www/html
+WORKDIR /app
+
 COPY . .
 
-# Installer dépendances sans scripts
-RUN composer install --no-interaction --optimize-autoloader --no-scripts
+RUN composer install --no-interaction --optimize-autoloader --no-dev
 
-# Config Nginx
-COPY nginx.conf /etc/nginx/sites-available/default
+ENV APP_ENV=prod
+ENV APP_DEBUG=0
 
-EXPOSE 80
+EXPOSE 8080
 
-CMD service nginx start && php-fpm
+CMD php -S 0.0.0.0:${PORT:-8080} -t public
