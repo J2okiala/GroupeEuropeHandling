@@ -1,29 +1,29 @@
 FROM php:8.2-cli
 
+WORKDIR /app
+
+# 🔥 Définir l'environnement AVANT toute chose
+ENV APP_ENV=prod
+ENV APP_DEBUG=0
+
 # Installer extensions nécessaires
 RUN apt-get update && apt-get install -y \
     git unzip libzip-dev libpng-dev libonig-dev \
     && docker-php-ext-install pdo pdo_mysql zip
 
-# Installer MongoDB extension compatible
+# Installer MongoDB
 RUN pecl install mongodb-1.20.1 \
     && docker-php-ext-enable mongodb
 
 # Installer Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-WORKDIR /app
-
+# Copier projet
 COPY . .
 
+# Installer dépendances en mode production
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 
-ENV APP_ENV=prod
-ENV APP_DEBUG=0
-
 EXPOSE 8080
-
-ENV APP_ENV=prod
-ENV APP_DEBUG=0
 
 CMD ["php", "-S", "0.0.0.0:8080", "-t", "public"]
