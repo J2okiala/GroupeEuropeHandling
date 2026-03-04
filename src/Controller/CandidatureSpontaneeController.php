@@ -78,9 +78,6 @@ class CandidatureSpontaneeController extends AbstractController
             'formRecherche' => null,
         ]);
     }
-<<<<<<< HEAD
     
 }
-=======
-}
->>>>>>> developpeur2
+
