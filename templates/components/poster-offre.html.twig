@@ -1,0 +1,27 @@
+<!-- formulaire pour postez une offre -->
+<section class="container-form-page">
+    <!-- Boîte contenant le formulaire -->
+    <div class="form-container">
+        <!-- Titre centré -->
+        <h3 class="text-center mb-2">Publier une Offre d'Emploi</h3> 
+        {{ form_start(formPoster, {'action': path('poster-offre-emploi'), 'method': 'POST', 'attr': {'onsubmit': "return confirm('Êtes-vous sûr de vouloir poster cette offre ?');"} }) }}
+            <div class="row g-4 mb-2">
+                <div class="col-md-5">
+                    {{ form_row(formPoster.poste, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-md-5">
+                    {{ form_row(formPoster.typeContrat, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-md-8">
+                    {{ form_row(formPoster.descriptionPoste, {'attr': {'class': 'form-control', 'rows': 3}}) }}
+                </div>
+                <div class="col-md-5">
+                    {{ form_row(formPoster.modaliteTravail, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-md-5">
+                    {{ form_row(formPoster.localisation, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+        {{ form_end(formPoster) }}
+    </div>
+</section>

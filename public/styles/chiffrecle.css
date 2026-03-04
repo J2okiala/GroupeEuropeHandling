@@ -1,0 +1,144 @@
+
+/* styles.css */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden; 
+    background: rgb(2,4,25);
+    background: linear-gradient(260deg, rgba(2,4,25,1) 19%, rgba(159,9,9,1) 88%);
+    color: white; 
+    box-sizing: border-box;
+}
+
+/* color */
+.shadow-blue {
+    -webkit-box-shadow: inset -1px 3px 8px 5px #1f87ff, 2px 5px 16px 0px #0b325e,
+    0px 0px 15px 5px #06439c;
+    box-shadow: inset -1px 3px 8px 5px #1f87ff, 2px 5px 16px 0px #0b325e,
+    0px 0px 15px 5px #06439c;
+}
+
+.h-black {
+    color: black;
+}
+
+
+/* MAIN */
+
+
+
+.Bckg-Carte {
+    background: linear-gradient(260deg, rgba(2,4,25,1) 19%, rgba(159,9,9,1) 88%);
+    width: 100%;
+    border: 2px solid navy;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-right: 20px;
+}
+
+.Bckg-Carte:hover {
+    background: rgb(2, 54, 89);
+    border: 3px solid navy;
+    color: white;
+}
+
+
+
+.Bckg-button {
+    font-size: 1.5rem;
+    color: navy;
+    border: 4px solid navy;
+    border-radius: 0.5rem;
+}
+
+h2 {
+    font-size: 3rem;
+}
+
+h5 {
+    font-size: 1.5rem;
+}
+
+#h6 {
+    text-align: left;
+    padding-top: 100px;
+    font-size: 1rem;
+    color: white;
+}
+
+
+
+.carte-texte {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    padding: 10px 30px 100px 10px;
+    font-size: large;
+}
+
+.bold {
+    font-size: 50px;
+}
+
+.carte-texte h4:hover {
+    font-size: 100px;
+}
+.carte-texte p {
+    font-size: 40px;
+}
+
+.Bckg-Carte1 {
+    background: rgb(198, 220, 245);
+    min-width: 100%;
+    border: 6px solid navy;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+
+.Bckg-Carte2 {
+    background: rgb(209, 226, 247);
+    width: 100%;
+    border: 6px solid navy;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+
+
+.Bckg-Carte3 {
+    background: rgb(198, 220, 245);
+    width: 100%;
+    border: 6px solid navy;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+
+
+#img2 {
+    min-width: 300px;
+    min-height: 800px;
+}
+
+#img3 {
+    min-width: 300px;
+    min-height: 800px;
+}
+
+#img4 {
+    min-width: 300px;
+    min-height: 800px;
+}
+
+.Bckg-div {
+    background-color: whitesmoke;
+    padding-left: 100%;
+    padding-right: 100%;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+

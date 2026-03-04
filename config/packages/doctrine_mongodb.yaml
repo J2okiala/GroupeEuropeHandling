@@ -1,0 +1,32 @@
+doctrine_mongodb:
+    connections:
+        default:
+            server: '%env(MONGODB_URL)%'
+            options: {}
+
+    document_managers:
+        default:
+            connection: default
+            database: '%env(MONGODB_DB)%'
+            mappings:
+                App\Document:
+                    type: attribute
+                    dir: '%kernel.project_dir%/src/Document'
+                    prefix: 'App\Document'
+                    is_bundle: false
+
+when@prod:
+    doctrine_mongodb:
+        auto_generate_proxy_classes: false
+        auto_generate_hydrator_classes: false
+        document_managers:
+            default:
+                metadata_cache_driver:
+                    type: service
+                    id: doctrine_mongodb.system_cache_pool
+
+    framework:
+        cache:
+            pools:
+                doctrine_mongodb.system_cache_pool:
+                    adapter: cache.system
