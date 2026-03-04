@@ -16,11 +16,14 @@ WORKDIR /app
 
 COPY . .
 
-RUN composer install --no-interaction --optimize-autoloader --no-dev --no-scripts
+RUN composer install --no-interaction --optimize-autoloader --no-dev
 
 ENV APP_ENV=prod
 ENV APP_DEBUG=0
 
 EXPOSE 8080
 
-CMD ["sh", "-c", "php -S 0.0.0.0:$PORT -t public"]
+ENV APP_ENV=prod
+ENV APP_DEBUG=0
+
+CMD ["php", "-S", "0.0.0.0:8080", "-t", "public"]
