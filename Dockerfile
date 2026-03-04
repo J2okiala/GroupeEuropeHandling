@@ -21,8 +21,8 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Copier projet
 COPY . .
 
-# Installer dépendances en mode production
-RUN composer install --no-interaction --optimize-autoloader --no-dev
+# Installer dépendances en mode production IMPORTANT : désactiver scripts Symfony
+RUN composer install --no-interaction --optimize-autoloader --no-dev --no-scripts
 
 EXPOSE 8080
 
